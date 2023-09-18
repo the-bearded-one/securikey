@@ -1,0 +1,24 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": ".NET Core Launch (Windows Forms)",
+        "type": "coreclr",
+        "request": "launch",
+        "preLaunchTask": "build",
+        "program": "${workspaceFolder}/app/SecuriKey/bin/Debug/netcoreapp3.1/MyNewWinFormsApp.dll",
+        "args": [],
+        "stopAtEntry": false,
+        "serverReadyAction": {
+            "action": "openExternally",
+            "pattern": "^\\s*Now listening on:\\s+(https?://\\S+)"
+        },
+        "env": {
+          "ASPNETCORE_ENVIRONMENT": "Development"
+        },
+        "envFile": "${workspaceFolder}/.env",
+        "internalConsoleOptions": "openOnSessionStart"
+      }
+    ]
+  }
+  
