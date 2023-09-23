@@ -21,7 +21,7 @@ namespace BusinessLogic
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"UID: {UID}");
+            sb.AppendLine($"GUID: {GUID}");
             sb.AppendLine($"Asset: {Asset}");
             sb.AppendLine($"Description: {Description}");
             sb.AppendLine($"Severity: {Severity}");
