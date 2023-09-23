@@ -6,16 +6,17 @@ namespace BusinessLogic
     {
         public Issue()
         {
-            UID = Guid.NewGuid().ToString();
+            // assign a guid on instantiation so we can uniquely identify the issue
+            GUID = System.Guid.NewGuid().ToString();
         }
 
-        public string UID { get; set; }
-        public string Asset { get; set; }
-        public string Description { get; set; }
+        public string GUID { get; private set; } = string.Empty;
+        public string Asset { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
         public Severity Severity { get; set; }
         public ExploitMaturity ExploitMaturity { get; set; }
-        public string FixedIn { get; set; }
-        public string RemediationRecommendation { get; set; }
+        public string FixedIn { get; set; } = string.Empty;
+        public string RemediationRecommendation { get; set; } = string.Empty;
 
         public override string ToString()
         {
