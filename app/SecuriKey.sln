@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecuriKey", "SecuriKey\Secu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLogic", "BusinessLogic\BusinessLogic.csproj", "{71E72452-A9B8-4B6A-867A-21E922F18549}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests\UnitTests.csproj", "{54677575-B516-4D5E-8970-3B798ED035D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{71E72452-A9B8-4B6A-867A-21E922F18549}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71E72452-A9B8-4B6A-867A-21E922F18549}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71E72452-A9B8-4B6A-867A-21E922F18549}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54677575-B516-4D5E-8970-3B798ED035D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54677575-B516-4D5E-8970-3B798ED035D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54677575-B516-4D5E-8970-3B798ED035D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54677575-B516-4D5E-8970-3B798ED035D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
