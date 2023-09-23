@@ -6,6 +6,7 @@ namespace SecurityProductInfo
 {
     public static class SecurityScanner
     {
+        // WMI stuff is queryable by non-admin accounts
         public static List<string> QuerySecurityProduct(string className)
         {
             List<string> detectedProducts = new List<string>();
