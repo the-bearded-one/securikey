@@ -51,7 +51,7 @@ public class MainForm : Form
         private void BackgroundWorker_PerformScans(object sender, DoWorkEventArgs e)
         {
             // cve check
-            CveScanner cveScanner = new CveScanner();
+            CveChecker cveScanner = new CveChecker();
             {
                 cveScanner.Scan();
             }

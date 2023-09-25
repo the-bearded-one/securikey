@@ -14,7 +14,7 @@ namespace UnitTests
         [TestMethod]
         public void RunCveScanner()
         {
-            var cveScanner = new CveScanner();
+            var cveScanner = new CveChecker();
             cveScanner.Scan();
             var issues = cveScanner.GetVulnerabilities();
             foreach ( var issue in issues )
