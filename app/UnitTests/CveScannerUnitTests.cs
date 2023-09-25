@@ -16,7 +16,7 @@ namespace UnitTests
         {
             var cveScanner = new CveScanner();
             cveScanner.Scan();
-            var issues = cveScanner.GetIssues();
+            var issues = cveScanner.GetVulnerabilities();
             foreach ( var issue in issues )
             {
                 Console.WriteLine(issue.ToString());

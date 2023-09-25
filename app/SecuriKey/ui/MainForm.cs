@@ -10,6 +10,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Security;
 
+using BusinessLogic;
+using BusinessLogic.Scanning;
+
 public class MainForm : Form
     {
         private Button startButton;
@@ -47,8 +50,14 @@ public class MainForm : Form
 
         private void BackgroundWorker_PerformScans(object sender, DoWorkEventArgs e)
         {
-            // test internet connectivity
-            bool isConnected = InternetConnectionChecker.IsConnectedToInternet();
+            // cve check
+            CveScanner cveScanner = new CveScanner();
+            {
+                cveScanner.Scan();
+            }
+
+        // test internet connectivity
+        bool isConnected = InternetConnectionChecker.IsConnectedToInternet();
             Console.WriteLine(isConnected ? "Connected to the Internet" : "Not connected to the Internet");
 
             // check for installed security products
@@ -58,6 +67,8 @@ public class MainForm : Form
             Dictionary<string, object> versionInfo = WindowsVersionChecker.GetVersionInfo();
             string versionInfoString = string.Join(", ", versionInfo.Select(kvp => $"{kvp.Key}: {kvp.Value}"));
             Console.WriteLine(versionInfoString);
+
+
 
 /*
             // test the ports            
