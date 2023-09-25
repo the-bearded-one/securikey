@@ -16,8 +16,6 @@ namespace BusinessLogic.Scanning
         private List<ApplicationInfo> _appsInfo = null;
         private List<Vulnerability> _Vulnerabilities = new List<Vulnerability>();
 
-        public bool IsScanning { get; private set; } = false;
-
         public List<Vulnerability> GetVulnerabilities()
         {
             return _Vulnerabilities;
@@ -25,6 +23,7 @@ namespace BusinessLogic.Scanning
 
         public void Scan()
         {
+            EventAggregator.Instance.FireEvent(BlEvents.CveCheckStarted);
             // clear list of previous vulnerabilities in case there was a previous scan
             this._Vulnerabilities.Clear();
 
@@ -51,6 +50,8 @@ namespace BusinessLogic.Scanning
 
                 _Vulnerabilities.AddRange(vulnerabilities);
             }
+
+            EventAggregator.Instance.FireEvent(BlEvents.CveCheckCompleted);
         }
     }
 }

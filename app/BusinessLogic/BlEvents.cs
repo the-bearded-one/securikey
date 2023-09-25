@@ -8,7 +8,17 @@ namespace BusinessLogic
 {
     public enum BlEvents
     {
+        SystemScanStarted,
+        SystemScanStopped,
+        SystemScanAbortedError,
+        SystemScanCompleted,
         CveCheckStarted,
-        CveCheckFinished
+        CveCheckCompleted,
+        CheckingInternetStatus,
+        CheckingInternetStatusCompleted,
+        CheckingSecurityProducts,
+        CheckingSecurityProductsCompleted,
+        CheckingWindowsVersion,
+        CheckingWindowsVersionCompleted,
     }
 }

@@ -2,15 +2,15 @@ using System;
 using System.Management;
 using System.Collections.Generic;
 
-namespace SecurityProductInfo
+namespace BusinessLogic.Scanning
 {
-    public static class SecurityScanner
+    public static class SecurityProductInfo
     {
         // WMI stuff is queryable by non-admin accounts
         public static List<string> QuerySecurityProduct(string className)
         {
             List<string> detectedProducts = new List<string>();
-            
+
             string wmiNamespace = @"\\.\root\SecurityCenter2";
             string query = $"SELECT * FROM {className}";
 
