@@ -76,6 +76,7 @@ namespace BusinessLogic
             EventAggregator.Instance.FireEvent(BlEvents.CheckingWindowsVersion);
             Dictionary<string, object> versionInfo = WindowsVersionChecker.GetVersionInfo();
             WindowsVersion = string.Join(", ", versionInfo.Select(kvp => $"{kvp.Key}: {kvp.Value}"));
+
             EventAggregator.Instance.FireEvent(BlEvents.CheckingWindowsVersionCompleted);
         }
 
