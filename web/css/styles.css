@@ -11732,4 +11732,8 @@ html {
     width: 1.5vw;
     left: -2vw;
   }
+  .icon-lg {
+    font-size: 3rem; /* Adjust the size as needed */
+}
+
 }
