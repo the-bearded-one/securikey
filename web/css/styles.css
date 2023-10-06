@@ -11748,4 +11748,9 @@ html {
     height: 10px;
   }
 
+  .larger-quote-icon {
+    font-size: 2rem; /* You can adjust the size as needed */
+  }
+  
+
 }
