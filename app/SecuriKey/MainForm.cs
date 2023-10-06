@@ -69,7 +69,7 @@ namespace SecuriKey
                     _statusTextbox.Text += $"\r\n{BL.Instance.SecurityProductChecker.FirewallProducts.Count} firewall products found";
                     break;
                 case BlEvents.CheckingWindowsVersionCompleted:
-                    _statusTextbox.Text += $"\r\nYou are running Window Version {BL.Instance.WindowsVersion}";
+                    _statusTextbox.Text += $"\r\nYou are running Window Version\r\n{BL.Instance.WindowsVersion}";
                     break;
             }
         }
