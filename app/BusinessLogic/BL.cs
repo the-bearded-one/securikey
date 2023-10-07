@@ -15,7 +15,7 @@ namespace BusinessLogic
     public class BL
     {
         static private BL _instance = null;
-
+        private bool isInternetConnectionAuthorized = false;
         private BackgroundWorker backgroundWorker = new BackgroundWorker();
 
         #region Constructor
@@ -42,7 +42,15 @@ namespace BusinessLogic
 
         #region Properties
 
-        public bool IsInternetConnectionAuthorized { get; set; } = false;
+        public bool IsInternetConnectionAuthorized 
+        {
+            get => isInternetConnectionAuthorized;
+            set
+            {
+                isInternetConnectionAuthorized = value;
+                WindowsVersionChecker.IsInternetAccessAuthorized = value;
+            }
+        }
         public EventAggregator EventAggregator { get => EventAggregator.Instance; }
         public CveChecker CveChecker { get; private set; } = new CveChecker();
         public InternetConnectionChecker InternetConnectionChecker { get; private set; } = new InternetConnectionChecker();
@@ -84,7 +92,7 @@ namespace BusinessLogic
             SecurityProductChecker.Scan();
 
             // testing windows version
-            WindowsVersionChecker.Scan(IsInternetConnectionAuthorized);
+            WindowsVersionChecker.Scan();
         }
 
         #endregion

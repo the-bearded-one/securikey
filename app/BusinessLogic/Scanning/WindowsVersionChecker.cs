@@ -5,11 +5,12 @@ using WUApiLib;
 
 public class WindowsVersionChecker
 {
+    public bool IsInternetAccessAuthorized { get; set; } = false;
     public bool IsUpdateAvailable { get; set; } = false;
     public Dictionary<string, string> VersionInfo = new Dictionary<string, string>();
     public List<string> AvailableUpdates = new List<string>();
 
-    public void Scan(bool isInternetAccessAuthorized)
+    public void Scan()
     {
         EventAggregator.Instance.FireEvent(BlEvents.CheckingWindowsVersion);
 
@@ -49,7 +50,7 @@ public class WindowsVersionChecker
         VersionInfo.Add("System Type", GetSystemInfoValue(output, "System Type"));
 
         // if internet access is authorized, check if a windows update is available
-        CheckForWindowsUpdate();
+        if (IsInternetAccessAuthorized) CheckForWindowsUpdate();
 
         EventAggregator.Instance.FireEvent(BlEvents.CheckingWindowsVersionCompleted);
     }
