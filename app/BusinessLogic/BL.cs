@@ -18,6 +18,8 @@ namespace BusinessLogic
 
         private BackgroundWorker backgroundWorker = new BackgroundWorker();
 
+        #region Constructor
+
         /// <summary>
         /// The one and only BL. Force singleton pattern by hiding default constructor
         /// </summary>
@@ -27,12 +29,6 @@ namespace BusinessLogic
             backgroundWorker.RunWorkerCompleted += OnBackgroundWorkerRunWorkerCompleted;
         }
 
-        public EventAggregator EventAggregator { get => EventAggregator.Instance; }
-        public CveChecker CveChecker { get; private set; } = new CveChecker();
-        public InternetConnectionChecker InternetConnectionChecker { get; private set; } = new InternetConnectionChecker();
-        public SecurityProductChecker SecurityProductChecker { get; private set; } = new SecurityProductChecker();
-        public string WindowsVersion { get; private set; } = string.Empty;
-
         static public BL Instance
         {
             get
@@ -41,6 +37,21 @@ namespace BusinessLogic
                 return _instance;
             }
         }
+
+        #endregion
+
+        #region Properties
+
+        public bool IsInternetConnectionAuthorized { get; set; } = false;
+        public EventAggregator EventAggregator { get => EventAggregator.Instance; }
+        public CveChecker CveChecker { get; private set; } = new CveChecker();
+        public InternetConnectionChecker InternetConnectionChecker { get; private set; } = new InternetConnectionChecker();
+        public SecurityProductChecker SecurityProductChecker { get; private set; } = new SecurityProductChecker();
+        public WindowsVersionChecker WindowsVersionChecker { get; private set; } = new WindowsVersionChecker();
+
+        #endregion
+
+        #region Event Handlers
 
         private void OnBackgroundWorkerRunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)
         {
@@ -67,18 +78,18 @@ namespace BusinessLogic
             CveChecker.Scan();
 
             // test internet connectivity
-            bool isConnected = InternetConnectionChecker.Scan();
+            InternetConnectionChecker.Scan();
 
             // check for installed security products
             SecurityProductChecker.Scan();
 
             // testing windows version
-            EventAggregator.Instance.FireEvent(BlEvents.CheckingWindowsVersion);
-            Dictionary<string, string> versionInfo = WindowsVersionChecker.GetVersionInfo();
-            WindowsVersion = string.Join("\r\n", versionInfo.Select(kvp => $"{kvp.Key}: {kvp.Value}"));
-
-            EventAggregator.Instance.FireEvent(BlEvents.CheckingWindowsVersionCompleted);
+            WindowsVersionChecker.Scan(IsInternetConnectionAuthorized);
         }
+
+        #endregion
+
+        # region Public Methods
 
         public void StartSystemScan()
         {
@@ -95,5 +106,7 @@ namespace BusinessLogic
                 backgroundWorker.CancelAsync(); // Stop the long-running process
             }
         }
+
+        #endregion
     }
 }
