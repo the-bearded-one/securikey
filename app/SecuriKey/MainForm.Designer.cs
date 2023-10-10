@@ -31,11 +31,12 @@
             _startButton = new Button();
             _stopButton = new Button();
             _statusTextbox = new TextBox();
+            authorizeInternetConnectionCheckbox = new CheckBox();
             SuspendLayout();
             // 
             // _startButton
             // 
-            _startButton.Location = new Point(50, 53);
+            _startButton.Location = new Point(50, 27);
             _startButton.Name = "_startButton";
             _startButton.Size = new Size(117, 53);
             _startButton.TabIndex = 0;
@@ -45,7 +46,7 @@
             // 
             // _stopButton
             // 
-            _stopButton.Location = new Point(221, 53);
+            _stopButton.Location = new Point(221, 27);
             _stopButton.Name = "_stopButton";
             _stopButton.Size = new Size(117, 53);
             _stopButton.TabIndex = 1;
@@ -64,11 +65,23 @@
             _statusTextbox.Size = new Size(812, 423);
             _statusTextbox.TabIndex = 2;
             // 
+            // authorizeInternetConnectionCheckbox
+            // 
+            authorizeInternetConnectionCheckbox.AutoSize = true;
+            authorizeInternetConnectionCheckbox.Location = new Point(50, 105);
+            authorizeInternetConnectionCheckbox.Name = "authorizeInternetConnectionCheckbox";
+            authorizeInternetConnectionCheckbox.Size = new Size(186, 19);
+            authorizeInternetConnectionCheckbox.TabIndex = 3;
+            authorizeInternetConnectionCheckbox.Text = "Authorize Internet Connection";
+            authorizeInternetConnectionCheckbox.UseVisualStyleBackColor = true;
+            authorizeInternetConnectionCheckbox.CheckedChanged += OnAuthorizeInternetConnectionCheckboxCheckedChanged;
+            // 
             // mainForm
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.White;
             ClientSize = new Size(897, 584);
+            Controls.Add(authorizeInternetConnectionCheckbox);
             Controls.Add(_statusTextbox);
             Controls.Add(_stopButton);
             Controls.Add(_startButton);
@@ -85,5 +98,6 @@
         private Button _startButton;
         private Button _stopButton;
         private TextBox _statusTextbox;
+        private CheckBox authorizeInternetConnectionCheckbox;
     }
 }

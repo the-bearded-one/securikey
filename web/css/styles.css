@@ -607,8 +607,9 @@ progress {
   background-color: #fff;
   border: 1px solid var(--bs-border-color);
   border-radius: 0.375rem;
-  max-width: 100%;
-  height: auto;
+
+  width: 200px; /* Adjust the width as needed */
+  height: 200px; /* Adjust the height as needed */
 }
 
 .figure {
@@ -11735,6 +11736,22 @@ html {
   }
   .icon-lg {
     font-size: 3rem; /* Adjust the size as needed */
-}
+  }
+  .gradient-custom {
+    background: radial-gradient(50% 123.47% at 50% 50%, #00b3ff 0%, #720059 100%),
+      linear-gradient(360deg, #0029ff 0%, #7700ff 100%),
+      radial-gradient(100% 164.72% at 100% 100%, #6100ff 0%, #b300ff 100%);
+    background-blend-mode: screen, color-dodge, overlay, difference, normal;
+  }
+  .carousel-indicators {
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+  }
+
+  .larger-quote-icon {
+    font-size: 2rem; /* You can adjust the size as needed */
+  }
+  
 
 }

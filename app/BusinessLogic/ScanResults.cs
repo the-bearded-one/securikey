@@ -1,9 +1,9 @@
+using BusinessLogic;
+
 public class ScanResults
 {
-    public bool InternetConnected { get; set; }
-    public List<int>? OpenPorts { get; set; }
-    public int WindowsVersionMajor { get; set; }
-    public int WindowsVersionMinor { get; set; }
-    public int WindowsVersionBuild { get; set; }
-    public int WindowsVersionRevision { get; set; }
+    public string ShortDescription { get; set; }
+    public string DetailedDescription { get; set; }
+    public string Remediation {  get; set; }
+    public Severity Severity { get; set; }
 }
