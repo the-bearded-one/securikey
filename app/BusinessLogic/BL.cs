@@ -93,6 +93,9 @@ namespace BusinessLogic
 
             // testing windows version
             WindowsVersionChecker.Scan();
+
+            // check app versions
+            AppVersionChecker.Scan();
         }
 
         #endregion

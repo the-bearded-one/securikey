@@ -20,5 +20,7 @@ namespace BusinessLogic
         CheckingSecurityProductsCompleted,
         CheckingWindowsVersion,
         CheckingWindowsVersionCompleted,
+        CheckingApplicationVersions,
+        CheckingApplicationVersionsCompleted
     }
 }
