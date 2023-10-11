@@ -11752,6 +11752,10 @@ html {
   .larger-quote-icon {
     font-size: 2rem; /* You can adjust the size as needed */
   }
-  
+
+  .profile-img-2 {
+    width: 75px;  /* Adjust the width as needed */
+    height: 75px; /* Adjust the height as needed */
+  }
 
 }
