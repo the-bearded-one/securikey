@@ -36,5 +36,14 @@ namespace UnitTests
             Console.WriteLine(cveRoot.ToString());
             Assert.IsNotNull(cveRoot);
         }
+
+        [TestMethod]
+        public void CveManagerOnline()
+        {
+            CveManagerOnline cve = new CveManagerOnline();
+            cve.Search("Microsoft", "1.0.0.0");
+            Assert.IsNotNull(cve.CveData);
+
+        }
     }
 }
