@@ -63,14 +63,21 @@ namespace BusinessLogic
 
             foreach(var vul  in vulnerabilitiesUnfiltered)
             {
-                bool isPotentiallyVulnerable = IsVersionVulnerable(vul);
+                bool isPotentiallyVulnerable = IsVersionVulnerable(vul, version);
+
+                if (isPotentiallyVulnerable)
+                {
+                    // save off the vulnerabilities
+                    vulnerabilities.Add(vul);
+                }
             }
 
             return vulnerabilities;
         }
 
-        private bool IsVersionVulnerable(Vulnerability vul)
+        private bool IsVersionVulnerable(Vulnerability vul, string version)
         {
+            bool isVulnerable = false;
             foreach (var config in vul.cve.configurations)
             {
                 foreach(var node in config.nodes)
@@ -78,49 +85,31 @@ namespace BusinessLogic
                     foreach(var cpe in node.cpeMatch)
                     {
                         var versionStart = cpe.versionStartIncluding;
-                        var versionEnd = cpe.versionEndIncluding;
+                        var versionEnd = cpe.versionEndExcluding;
+
+                        // check if version is within range
+                        if (versionStart != null && versionEnd != null)
+                        {
+                            // if active version is between the known start and end vulnerable version, then we know we're vulnerable
+                            if (version.CompareTo(versionStart) >= 0 && version.CompareTo(versionEnd) <= 0) isVulnerable = true;
+                        }
+                        else if (versionStart != null)
+                        {
+                            // if active version is greater than the versin we know is vulnerable, and it doesn't have an end version,
+                            // then it is possible that the vulnerability was never fixed. So mark it as vulnerable
+                            if (version.CompareTo(versionStart) >= 0) isVulnerable = true;
+                        }
+                        else if (versionEnd != null)
+                        {
+                            // if there is no start version, and but the active version of software is less than the fixed version, then
+                            // its possible we have an vulernable version
+                            if (version.CompareTo(versionEnd) <= 0) isVulnerable = true;
+                        }
                     }
                 }
             }
-            //def is_given_version_within_ranges(node, given_version):
-            //if isinstance(node, dict):
-            //    if "versionStartIncluding" in node or "versionEndExcluding" in node:
-            //        start = node["versionStartIncluding"] if "versionStartIncluding" in node else None
-            //        end = node["versionEndExcluding"] if "versionEndExcluding" in node else None
-            //        if is_version_within_range(given_version, start, end):
-            //            return True
-            //    for key, value in node.items():
-            //        if is_given_version_within_ranges(value, given_version):
-            //            return True
-            //elif isinstance(node, list):
-            //    for item in node:
-            //        if is_given_version_within_ranges(item, given_version):
-            //            return True
-            //return False
-            return false;
-        }
 
-        private bool IsVersionWithinRange(string version, string versionStart, string versionEnd)
-        {
-
-
-            //def is_version_within_range(version, start, end):
-            //# normalize each version to make it comparable
-            //version_n = normalize_version(version)
-
-            //if start and end:
-            //    start_n = normalize_version(start)
-            //    end_n = normalize_version(end)
-            //    return start_n <= version_n < end_n
-            //elif start:
-            //    start_n = normalize_version(start)
-            //    return start_n <= version_n
-            //elif end:
-            //    end_n = normalize_version(end)
-            //    return version_n < end_n
-            //else:
-            //    return False
-            return false;
+            return isVulnerable;
         }
 
         private string NormalizeVersion(string version, int minDig = 4)
