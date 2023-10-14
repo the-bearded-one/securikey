@@ -1,17 +1,18 @@
 using System;
 using System.Management;
 using System.Collections.Generic;
-using System.Security.Principal;
 using Microsoft.Win32;
 
 namespace BusinessLogic.Scanning
 {
     public class WindowsScriptingHostChecker
     {
+
         public bool IsWshEnabled { get; private set; } = false;
 
         public void Scan()
         {
+
             EventAggregator.Instance.FireEvent(BlEvents.CheckingWindowsScriptingHost);
 
             // Define the registry key path and value name
@@ -39,13 +40,12 @@ namespace BusinessLogic.Scanning
             }
             else
             {
-                // if registry key is not found, its enabled by default
                 IsWshEnabled = true;
             }
 
-
             EventAggregator.Instance.FireEvent(BlEvents.CheckingWindowsScriptingHostCompleted);
         }
+
 
     }
 }

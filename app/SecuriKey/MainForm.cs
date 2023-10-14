@@ -100,6 +100,16 @@ namespace SecuriKey
                         _statusTextbox.Text += $"\r\n    Windows Scripting Host (WSH) is enabled!";
                     }
                     break;
+                case BlEvents.CheckingRdpEnabledCompleted:
+                    if (BL.Instance.RdpChecker.IsRdpEnabled)
+                    {
+                        _statusTextbox.Text += $"\r\n    Remote Desktop Protocol (RDP) is enabled!";
+                    }
+                    if (BL.Instance.RdpChecker.IsRdpWeak)
+                    {
+                        _statusTextbox.Text += $"\r\n    Remote Desktop Protocol is using weak encryption!";
+                    }
+                    break;
                 case BlEvents.CheckingWindowsVersionCompleted:
                     string windowsVersionInfoFormatted = string.Join("\r\n", BL.Instance.WindowsVersionChecker.VersionInfo.Select(kvp => $"    {kvp.Key}: {kvp.Value}"));
                     _statusTextbox.Text += $"\r\n{windowsVersionInfoFormatted}";

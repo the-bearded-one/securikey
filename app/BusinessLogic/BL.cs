@@ -60,6 +60,7 @@ namespace BusinessLogic
         public AppScanner AppScanner { get; private set; } = new AppScanner();
         public UserType UserType { get; private set; } = new UserType();
         public WindowsScriptingHostChecker WindowsScriptingHostChecker { get; private set; } = new WindowsScriptingHostChecker();
+        public RdpChecker RdpChecker { get; private set; } = new RdpChecker();
 
         #endregion
 
@@ -106,6 +107,10 @@ namespace BusinessLogic
 
             // windows scripting host enabled?
             WindowsScriptingHostChecker.Scan();
+
+            // Does user have remote desktop protocol enabled and if it is, is it using weak security
+            RdpChecker.Scan();
+
         }
 
         #endregion
