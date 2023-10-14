@@ -29,6 +29,8 @@ namespace BusinessLogic
         CheckingRdpEnabled,
         CheckingRdpEnabledCompleted,
         CheckingSecureBootEnabled,
-        CheckingSecureBootEnabledCompleted
+        CheckingSecureBootEnabledCompleted,
+        CheckingFirewall,
+        CheckingFirewallCompleted
     }
 }

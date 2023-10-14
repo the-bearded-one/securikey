@@ -62,6 +62,7 @@ namespace BusinessLogic
         public WindowsScriptingHostChecker WindowsScriptingHostChecker { get; private set; } = new WindowsScriptingHostChecker();
         public RdpChecker RdpChecker { get; private set; } = new RdpChecker();
         public SecureBootChecker SecureBootChecker{ get; private set; } = new SecureBootChecker();
+        public FirewallChecker FirewallChecker { get; private set; } = new FirewallChecker();
 
         #endregion
 
@@ -114,6 +115,8 @@ namespace BusinessLogic
 
             // Does user have secure boot enabled
             SecureBootChecker.Scan();
+
+            FirewallChecker.Scan();
 
         }
 

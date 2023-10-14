@@ -115,7 +115,13 @@ namespace SecuriKey
                     {
                         _statusTextbox.Text += $"\r\n    SecureBoot is not enabled!";
                     }
-                    break;                    
+                    break;
+                case BlEvents.CheckingFirewallCompleted:
+                    if (!BL.Instance.FirewallChecker.IsFirewallEnabled)
+                    {
+                        _statusTextbox.Text += $"\r\n    Firewall is not enabled!";
+                    }
+                    break;
                 case BlEvents.CheckingWindowsVersionCompleted:
                     string windowsVersionInfoFormatted = string.Join("\r\n", BL.Instance.WindowsVersionChecker.VersionInfo.Select(kvp => $"    {kvp.Key}: {kvp.Value}"));
                     _statusTextbox.Text += $"\r\n{windowsVersionInfoFormatted}";
