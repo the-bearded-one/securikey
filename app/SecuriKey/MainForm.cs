@@ -110,6 +110,12 @@ namespace SecuriKey
                         _statusTextbox.Text += $"\r\n    Remote Desktop Protocol is using weak encryption!";
                     }
                     break;
+                case BlEvents.CheckingSecureBootEnabledCompleted:
+                    if (!BL.Instance.SecureBootChecker.IsSecureBootEnabled)
+                    {
+                        _statusTextbox.Text += $"\r\n    SecureBoot is not enabled!";
+                    }
+                    break;                    
                 case BlEvents.CheckingWindowsVersionCompleted:
                     string windowsVersionInfoFormatted = string.Join("\r\n", BL.Instance.WindowsVersionChecker.VersionInfo.Select(kvp => $"    {kvp.Key}: {kvp.Value}"));
                     _statusTextbox.Text += $"\r\n{windowsVersionInfoFormatted}";

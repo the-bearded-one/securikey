@@ -27,6 +27,8 @@ namespace BusinessLogic
         CheckingWindowsScriptingHost,
         CheckingWindowsScriptingHostCompleted,
         CheckingRdpEnabled,
-        CheckingRdpEnabledCompleted
+        CheckingRdpEnabledCompleted,
+        CheckingSecureBootEnabled,
+        CheckingSecureBootEnabledCompleted
     }
 }

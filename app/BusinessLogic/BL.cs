@@ -61,6 +61,7 @@ namespace BusinessLogic
         public UserType UserType { get; private set; } = new UserType();
         public WindowsScriptingHostChecker WindowsScriptingHostChecker { get; private set; } = new WindowsScriptingHostChecker();
         public RdpChecker RdpChecker { get; private set; } = new RdpChecker();
+        public SecureBootChecker SecureBootChecker{ get; private set; } = new SecureBootChecker();
 
         #endregion
 
@@ -110,6 +111,9 @@ namespace BusinessLogic
 
             // Does user have remote desktop protocol enabled and if it is, is it using weak security
             RdpChecker.Scan();
+
+            // Does user have secure boot enabled
+            SecureBootChecker.Scan();
 
         }
 
