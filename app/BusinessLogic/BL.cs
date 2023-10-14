@@ -1,4 +1,5 @@
-﻿using BusinessLogic.Scanning;
+﻿using AppVersionChecker;
+using BusinessLogic.Scanning;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -56,6 +57,9 @@ namespace BusinessLogic
         public InternetConnectionChecker InternetConnectionChecker { get; private set; } = new InternetConnectionChecker();
         public SecurityProductChecker SecurityProductChecker { get; private set; } = new SecurityProductChecker();
         public WindowsVersionChecker WindowsVersionChecker { get; private set; } = new WindowsVersionChecker();
+        public AppScanner AppScanner { get; private set; } = new AppScanner();
+        public UserType UserType { get; private set; } = new UserType();
+        public WindowsScriptingHostChecker WindowsScriptingHostChecker { get; private set; } = new WindowsScriptingHostChecker();
 
         #endregion
 
@@ -95,7 +99,13 @@ namespace BusinessLogic
             WindowsVersionChecker.Scan();
 
             // check app versions
-            AppVersionChecker.Scan();
+            AppScanner.Scan();
+
+            // check user elevation status
+            UserType.Scan();
+
+            // windows scripting host enabled?
+            WindowsScriptingHostChecker.Scan();
         }
 
         #endregion

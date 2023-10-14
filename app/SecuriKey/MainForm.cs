@@ -82,6 +82,24 @@ namespace SecuriKey
                     _statusTextbox.Text += $"\r\n    {BL.Instance.SecurityProductChecker.AntispywareProducts.Count} antispyware products found";
                     _statusTextbox.Text += $"\r\n    {BL.Instance.SecurityProductChecker.FirewallProducts.Count} firewall products found";
                     break;
+                case BlEvents.CheckingApplicationVersionsCompleted:
+                    if (BL.Instance.AppScanner.IsChromeVulnerable)
+                    {
+                        _statusTextbox.Text += $"\r\n    Vulnerable version of Chrome found!";
+                    }
+                    break;
+                case BlEvents.CheckingElevatedUserCompleted:
+                    if (BL.Instance.UserType.IsElevatedUser)
+                    {
+                        _statusTextbox.Text += $"\r\n    Running as an elevated user!";
+                    }
+                    break;
+                case BlEvents.CheckingWindowsScriptingHostCompleted:
+                    if (BL.Instance.WindowsScriptingHostChecker.IsWshEnabled)
+                    {
+                        _statusTextbox.Text += $"\r\n    Windows Scripting Host (WSH) is enabled!";
+                    }
+                    break;
                 case BlEvents.CheckingWindowsVersionCompleted:
                     string windowsVersionInfoFormatted = string.Join("\r\n", BL.Instance.WindowsVersionChecker.VersionInfo.Select(kvp => $"    {kvp.Key}: {kvp.Value}"));
                     _statusTextbox.Text += $"\r\n{windowsVersionInfoFormatted}";

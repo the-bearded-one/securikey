@@ -21,6 +21,10 @@ namespace BusinessLogic
         CheckingWindowsVersion,
         CheckingWindowsVersionCompleted,
         CheckingApplicationVersions,
-        CheckingApplicationVersionsCompleted
+        CheckingApplicationVersionsCompleted,
+        CheckingElevatedUser,
+        CheckingElevatedUserCompleted,
+        CheckingWindowsScriptingHost,
+        CheckingWindowsScriptingHostCompleted
     }
 }
