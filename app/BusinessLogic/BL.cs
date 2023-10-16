@@ -1,4 +1,5 @@
 ﻿using BusinessLogic.Scanning;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,6 +20,7 @@ namespace BusinessLogic
         private BackgroundWorker backgroundWorker = new BackgroundWorker();
         private List<IChecker> checkers = new List<IChecker>();
         private ReportGenerator reportGenerator = new ReportGenerator();
+        private int scanChecksCompleted = 0; // tracks number of completed checks in current scan
 
         #region Constructor
 
@@ -78,6 +80,7 @@ namespace BusinessLogic
         public RdpChecker RdpChecker { get; private set; } = new RdpChecker();
         public SecureBootChecker SecureBootChecker{ get; private set; } = new SecureBootChecker();
         public FirewallChecker FirewallChecker { get; private set; } = new FirewallChecker();
+        public int ScanPercentCompleted { get => (int)((double)scanChecksCompleted / (double)checkers.Count * 100D); }
 
         #endregion
 
@@ -102,12 +105,15 @@ namespace BusinessLogic
 
         private void OnBackgroundWorkerDoWork(object? sender, DoWorkEventArgs e)
         {
+            scanChecksCompleted = 0;
+
             EventAggregator.Instance.FireEvent(BlEvents.SystemScanStarted);
 
             // run all checks in parallel
             Parallel.ForEach(checkers, checker =>
             {
                 checker.Scan();
+                scanChecksCompleted++;
             });
         }
 
