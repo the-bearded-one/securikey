@@ -58,18 +58,20 @@ namespace BusinessLogic.Scanning
 
             # region Chrome Checker
             string appVersion = AppVersionChecker.CheckVersion(appName);
-
-            BusinessLogic.Scanning.POCOs.ApplicationInfo appInfo = apps.FirstOrDefault(app => app.Application == appName);
-
-            if (appInfo != null)
+            if (appVersion != string.Empty)
             {
-                // Iterate through all the vulnerabilities for Chrome
-                foreach (BusinessLogic.Scanning.POCOs.Vulnerability vulnerability in appInfo.Vulnerabilities)
+                BusinessLogic.Scanning.POCOs.ApplicationInfo appInfo = apps.FirstOrDefault(app => app.Application == appName);
+
+                if (appInfo != null)
                 {
-                    if (IsChromeVersionLower(appVersion, vulnerability.Version))
+                    // Iterate through all the vulnerabilities for Chrome
+                    foreach (BusinessLogic.Scanning.POCOs.Vulnerability vulnerability in appInfo.Vulnerabilities)
                     {
-                        VulnerabiltiesSeen.Add(vulnerability);
-                        
+                        if (IsChromeVersionLower(appVersion, vulnerability.Version))
+                        {
+                            VulnerabiltiesSeen.Add(vulnerability);
+
+                        }
                     }
                 }
             }
@@ -78,18 +80,20 @@ namespace BusinessLogic.Scanning
             # region Spotify Checker, not working yet
             appName = "Spotify";
             appVersion = AppVersionChecker.CheckVersion(appName);
-            
 
-            appInfo = apps.FirstOrDefault(app => app.Application == appName);
-
-            if (appVersion != String.Empty && appInfo != null)
+            if (appVersion != string.Empty)
             {
-                // Iterate through all the vulnerabilities for Chrome
-                foreach (BusinessLogic.Scanning.POCOs.Vulnerability vulnerability in appInfo.Vulnerabilities)
+                var appInfo = apps.FirstOrDefault(app => app.Application == appName);
+
+                if (appVersion != String.Empty && appInfo != null)
                 {
-                    if (IsChromeVersionLower(appVersion, vulnerability.Version))
+                    // Iterate through all the vulnerabilities for Chrome
+                    foreach (BusinessLogic.Scanning.POCOs.Vulnerability vulnerability in appInfo.Vulnerabilities)
                     {
-                        VulnerabiltiesSeen.Add(vulnerability);                        
+                        if (IsChromeVersionLower(appVersion, vulnerability.Version))
+                        {
+                            VulnerabiltiesSeen.Add(vulnerability);
+                        }
                     }
                 }
             }
@@ -98,22 +102,24 @@ namespace BusinessLogic.Scanning
             #region Firefox Checker
             appName = "Mozilla Firefox";
             appVersion = AppVersionChecker.GetFirefoxVersion();
-            
 
-            appInfo = apps.FirstOrDefault(app => app.Application == appName);
-
-            if (appVersion != String.Empty && appInfo != null)
+            if (appVersion != string.Empty)
             {
-                // Iterate through all the vulnerabilities for Chrome
-                foreach (BusinessLogic.Scanning.POCOs.Vulnerability vulnerability in appInfo.Vulnerabilities)
+                var appInfo = apps.FirstOrDefault(app => app.Application == appName);
+
+                if (appVersion != String.Empty && appInfo != null)
                 {
-                    if (IsChromeVersionLower(appVersion, vulnerability.Version))
+                    // Iterate through all the vulnerabilities for Chrome
+                    foreach (BusinessLogic.Scanning.POCOs.Vulnerability vulnerability in appInfo.Vulnerabilities)
                     {
-                        VulnerabiltiesSeen.Add(vulnerability);
+                        if (IsChromeVersionLower(appVersion, vulnerability.Version))
+                        {
+                            VulnerabiltiesSeen.Add(vulnerability);
+                        }
                     }
                 }
             }
-            # endregion
+            #endregion
 
             EventAggregator.Instance.FireEvent(BlEvents.CheckingApplicationVersionsCompleted);
 
