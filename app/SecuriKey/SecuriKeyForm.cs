@@ -36,7 +36,6 @@ namespace SecuriKey
             }
             else
             {
-                this.SuspendLayout();
                 // remove the old screen if any
                 if (CurrentScreen != null)
                 {
@@ -55,10 +54,9 @@ namespace SecuriKey
                 CurrentScreen = screen;
                 Controls.Add(CurrentScreen);
                 CurrentScreen.Dock = DockStyle.Fill;
-                this.ResumeLayout(false);
 
                 // fake smart navigation since this may be temporary
-                if (CurrentScreen.GetType() ==  typeof(ReportScreen))
+                if (CurrentScreen.GetType() == typeof(ReportScreen))
                 {
                     // we want to know when new scan is requested
                     (CurrentScreen as ReportScreen).NewScanButtonClick += OnSecuriKeyFormNewScanButtonClick;
@@ -82,9 +80,18 @@ namespace SecuriKey
                     LoadScreen(new ScanningScreen());
                     break;
                 case BlEvents.SystemScanCompleted:
-                    var reportScreen = new ReportScreen();
-                    reportScreen.ReportText = status;
-                    LoadScreen(reportScreen);
+                    // kludge: delay loading the report screen just a bit so user can see completed progress bar
+                    System.Timers.Timer tm = new System.Timers.Timer();
+                    tm.Interval = 4000;
+                    tm.Elapsed += new System.Timers.ElapsedEventHandler((s, ev) =>
+                    {
+                        tm.Stop();
+                        tm.Elapsed += null;
+                        var reportScreen = new ReportScreen();
+                        reportScreen.ReportText = status;
+                        LoadScreen(reportScreen);
+                    });
+                    tm.Start();
                     break;
                 case BlEvents.CveCheckCompleted:
                     status += $"\r\n    Found {BL.Instance.CveChecker.GetVulnerabilities().Count} possible CVE vulnerabilities";

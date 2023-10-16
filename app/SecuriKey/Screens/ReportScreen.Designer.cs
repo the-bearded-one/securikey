@@ -39,13 +39,14 @@
             statusTextbox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             statusTextbox.BackColor = Color.Black;
             statusTextbox.BorderStyle = BorderStyle.FixedSingle;
-            statusTextbox.Enabled = false;
             statusTextbox.ForeColor = Color.White;
-            statusTextbox.Location = new Point(13, 57);
+            statusTextbox.Location = new Point(15, 76);
+            statusTextbox.Margin = new Padding(3, 4, 3, 4);
             statusTextbox.Multiline = true;
             statusTextbox.Name = "statusTextbox";
+            statusTextbox.ReadOnly = true;
             statusTextbox.ScrollBars = ScrollBars.Vertical;
-            statusTextbox.Size = new Size(740, 400);
+            statusTextbox.Size = new Size(845, 533);
             statusTextbox.TabIndex = 0;
             // 
             // newScanButton
@@ -56,10 +57,11 @@
             newScanButton.BorderThickness = 5F;
             newScanButton.ButtonText = "New Scan";
             newScanButton.ForeColor = Color.White;
-            newScanButton.Location = new Point(431, 486);
+            newScanButton.Location = new Point(493, 648);
+            newScanButton.Margin = new Padding(3, 5, 3, 5);
             newScanButton.Name = "newScanButton";
             newScanButton.PressedColor = Color.FromArgb(0, 96, 166);
-            newScanButton.Size = new Size(322, 92);
+            newScanButton.Size = new Size(368, 123);
             newScanButton.TabIndex = 1;
             // 
             // reportButton
@@ -71,10 +73,11 @@
             reportButton.BorderThickness = 5F;
             reportButton.ButtonText = "Generate Report";
             reportButton.ForeColor = Color.White;
-            reportButton.Location = new Point(13, 486);
+            reportButton.Location = new Point(15, 648);
+            reportButton.Margin = new Padding(3, 5, 3, 5);
             reportButton.Name = "reportButton";
             reportButton.PressedColor = Color.FromArgb(0, 96, 166);
-            reportButton.Size = new Size(322, 92);
+            reportButton.Size = new Size(368, 123);
             reportButton.TabIndex = 2;
             // 
             // scanResultsText
@@ -82,7 +85,7 @@
             scanResultsText.AutoSize = true;
             scanResultsText.Font = new Font("Arial", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
             scanResultsText.ForeColor = Color.White;
-            scanResultsText.Location = new Point(280, 9);
+            scanResultsText.Location = new Point(320, 12);
             scanResultsText.Name = "scanResultsText";
             scanResultsText.Size = new Size(176, 32);
             scanResultsText.TabIndex = 3;
@@ -90,15 +93,15 @@
             // 
             // ReportScreen
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.Black;
             Controls.Add(scanResultsText);
             Controls.Add(reportButton);
             Controls.Add(newScanButton);
             Controls.Add(statusTextbox);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "ReportScreen";
-            Size = new Size(768, 648);
+            Size = new Size(878, 864);
             ResumeLayout(false);
             PerformLayout();
         }

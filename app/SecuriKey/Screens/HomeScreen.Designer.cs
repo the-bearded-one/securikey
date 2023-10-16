@@ -57,6 +57,7 @@
             offlineScanButton.ButtonText = "Scan Offline";
             offlineScanButton.ForeColor = Color.White;
             offlineScanButton.Location = new Point(226, 307);
+            offlineScanButton.Margin = new Padding(3, 4, 3, 4);
             offlineScanButton.Name = "offlineScanButton";
             offlineScanButton.PressedColor = Color.FromArgb(0, 96, 166);
             offlineScanButton.Size = new Size(300, 85);
@@ -72,6 +73,7 @@
             onlineScanButton.ButtonText = "Scan Online";
             onlineScanButton.ForeColor = Color.White;
             onlineScanButton.Location = new Point(226, 410);
+            onlineScanButton.Margin = new Padding(3, 4, 3, 4);
             onlineScanButton.Name = "onlineScanButton";
             onlineScanButton.PressedColor = Color.FromArgb(0, 96, 166);
             onlineScanButton.Size = new Size(300, 85);
@@ -87,6 +89,7 @@
             aboutButton.ButtonText = "About";
             aboutButton.ForeColor = Color.White;
             aboutButton.Location = new Point(226, 510);
+            aboutButton.Margin = new Padding(3, 4, 3, 4);
             aboutButton.Name = "aboutButton";
             aboutButton.PressedColor = Color.FromArgb(0, 96, 166);
             aboutButton.Size = new Size(300, 85);

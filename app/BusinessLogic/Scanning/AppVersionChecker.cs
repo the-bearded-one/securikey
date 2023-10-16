@@ -45,26 +45,33 @@ namespace BusinessLogic.Scanning
             EventAggregator.Instance.FireEvent(BlEvents.CheckingApplicationVersions);
 
             string chromeVersion = ChromeChecker.GetChromeVersion();
-            Console.WriteLine("Checking for Chrome", chromeVersion);
-
-            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "applications.json");
-
-            // Read the file content
-            string json = File.ReadAllText(path);
-
-            // Deserialize the JSON content to a list of ApplicationInfo objects
-            List<BusinessLogic.Scanning.POCOs.ApplicationInfo> apps = JsonConvert.DeserializeObject<List<BusinessLogic.Scanning.POCOs.ApplicationInfo>>(json);
-
-            BusinessLogic.Scanning.POCOs.ApplicationInfo chromeInfo = apps.FirstOrDefault(app => app.Application == "Chrome");
-
-            if (chromeInfo != null)
+            if (chromeVersion == string.Empty)
             {
-                // Iterate through all the vulnerabilities for Chrome
-                foreach (BusinessLogic.Scanning.POCOs.Vulnerability vulnerability in chromeInfo.Vulnerabilities)
+                Console.WriteLine("Chrome not detected on system");
+            }
+            else
+            {
+                Console.WriteLine("Checking for Chrome", chromeVersion);
+
+                string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "applications.json");
+
+                // Read the file content
+                string json = File.ReadAllText(path);
+
+                // Deserialize the JSON content to a list of ApplicationInfo objects
+                List<BusinessLogic.Scanning.POCOs.ApplicationInfo> apps = JsonConvert.DeserializeObject<List<BusinessLogic.Scanning.POCOs.ApplicationInfo>>(json);
+
+                BusinessLogic.Scanning.POCOs.ApplicationInfo chromeInfo = apps.FirstOrDefault(app => app.Application == "Chrome");
+
+                if (chromeInfo != null)
                 {
-                    if (IsChromeVersionLower(chromeVersion, vulnerability.Version))
+                    // Iterate through all the vulnerabilities for Chrome
+                    foreach (BusinessLogic.Scanning.POCOs.Vulnerability vulnerability in chromeInfo.Vulnerabilities)
                     {
-                        IsChromeVulnerable = true;
+                        if (IsChromeVersionLower(chromeVersion, vulnerability.Version))
+                        {
+                            IsChromeVulnerable = true;
+                        }
                     }
                 }
             }

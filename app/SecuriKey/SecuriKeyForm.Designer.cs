@@ -32,9 +32,12 @@
             // 
             // SecuriKeyForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(752, 609);
+            AutoScaleMode = AutoScaleMode.None;
+            BackColor = Color.Black;
+            ClientSize = new Size(859, 812);
+            ForeColor = Color.White;
+            FormBorderStyle = FormBorderStyle.SizableToolWindow;
+            Margin = new Padding(3, 4, 3, 4);
             Name = "SecuriKeyForm";
             ResumeLayout(false);
         }

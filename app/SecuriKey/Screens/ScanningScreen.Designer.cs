@@ -37,9 +37,10 @@
             // 
             progressBar.Anchor = AnchorStyles.Top;
             progressBar.ForeColor = Color.FromArgb(0, 66, 114);
-            progressBar.Location = new Point(101, 222);
+            progressBar.Location = new Point(115, 296);
+            progressBar.Margin = new Padding(3, 4, 3, 4);
             progressBar.Name = "progressBar";
-            progressBar.Size = new Size(541, 27);
+            progressBar.Size = new Size(618, 36);
             progressBar.Style = ProgressBarStyle.Continuous;
             progressBar.TabIndex = 0;
             // 
@@ -50,7 +51,7 @@
             progressLabel.BackColor = Color.Black;
             progressLabel.Font = new Font("Arial", 18F, FontStyle.Regular, GraphicsUnit.Point);
             progressLabel.ForeColor = Color.White;
-            progressLabel.Location = new Point(101, 183);
+            progressLabel.Location = new Point(115, 244);
             progressLabel.Name = "progressLabel";
             progressLabel.Size = new Size(131, 27);
             progressLabel.TabIndex = 1;
@@ -62,23 +63,23 @@
             encouragementLabel.BackColor = Color.Black;
             encouragementLabel.Font = new Font("Arial", 18F, FontStyle.Regular, GraphicsUnit.Point);
             encouragementLabel.ForeColor = Color.White;
-            encouragementLabel.Location = new Point(0, 316);
+            encouragementLabel.Location = new Point(0, 421);
             encouragementLabel.Name = "encouragementLabel";
-            encouragementLabel.Size = new Size(765, 27);
+            encouragementLabel.Size = new Size(874, 36);
             encouragementLabel.TabIndex = 2;
             encouragementLabel.Text = "nice!";
             encouragementLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // ScanningScreen
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.Black;
             Controls.Add(encouragementLabel);
             Controls.Add(progressLabel);
             Controls.Add(progressBar);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "ScanningScreen";
-            Size = new Size(768, 648);
+            Size = new Size(878, 864);
             ResumeLayout(false);
             PerformLayout();
         }
