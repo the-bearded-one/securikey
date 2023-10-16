@@ -1,6 +1,7 @@
 ﻿using BusinessLogic.Scanning;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics;
 
 namespace BusinessLogic
 {
@@ -14,6 +15,7 @@ namespace BusinessLogic
         private BackgroundWorker backgroundWorker = new BackgroundWorker();
         private List<IChecker> checkers = new List<IChecker>();
         private ReportGenerator reportGenerator = new ReportGenerator();
+        private int scanChecksCompleted = 0; // tracks number of completed checks in current scan
 
         private PostureGrader postureGrader = new PostureGrader();
         #region Constructor
@@ -78,6 +80,7 @@ namespace BusinessLogic
         public FirewallChecker FirewallChecker { get; private set; } = new FirewallChecker();
         public WindowsUpdateChecker WindowsUpdateChecker { get; private set; } = new WindowsUpdateChecker();
         public BitLockerChecker BitLockerChecker { get; private set; } = new BitLockerChecker();
+		public int ScanPercentCompleted { get => (int)((double)scanChecksCompleted / (double)checkers.Count * 100D); }
 
         #endregion
 
@@ -102,12 +105,15 @@ namespace BusinessLogic
 
         private void OnBackgroundWorkerDoWork(object? sender, DoWorkEventArgs e)
         {
+            scanChecksCompleted = 0;
+
             EventAggregator.Instance.FireEvent(BlEvents.SystemScanStarted);
 
             // run all checks in parallel
             Parallel.ForEach(checkers, checker =>
             {
                 checker.Scan();
+                scanChecksCompleted++;
             });
 
             // still in work
