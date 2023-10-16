@@ -5,7 +5,7 @@ using Microsoft.Win32;
 
 namespace BusinessLogic.Scanning
 {
-    public class RdpChecker
+    public class RdpChecker : IChecker
     {
 
         public bool IsRdpEnabled { get; private set; } = false;

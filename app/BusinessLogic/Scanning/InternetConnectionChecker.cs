@@ -1,16 +1,17 @@
+using BusinessLogic.Scanning;
 using System;
 using System.Runtime.InteropServices;
 
 namespace BusinessLogic
 {
-    public class InternetConnectionChecker
+    public class InternetConnectionChecker : IChecker
     {
         [DllImport("wininet.dll")]
         private static extern bool InternetGetConnectedState(out int description, int reservedValue);
 
         public bool IsConnected { get; private set; } = false;
 
-        public bool Scan()
+        public void Scan()
         {
             EventAggregator.Instance.FireEvent(BlEvents.CheckingInternetStatus);
 
@@ -18,7 +19,6 @@ namespace BusinessLogic
             IsConnected = InternetGetConnectedState(out description, 0);
 
             EventAggregator.Instance.FireEvent(BlEvents.CheckingInternetStatusCompleted);
-            return IsConnected;
         }
     }
 }

@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace BusinessLogic.Scanning
 {
-    public class CveChecker
+    public class CveChecker : IChecker
     {
         private SbomGenerator _sbomGenerator = new SbomGenerator();
         private List<ApplicationInfo> _appsInfo = null;

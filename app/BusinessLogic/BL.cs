@@ -1,5 +1,4 @@
-﻿using AppVersionChecker;
-using BusinessLogic.Scanning;
+﻿using BusinessLogic.Scanning;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,6 +17,7 @@ namespace BusinessLogic
         static private BL _instance = null;
         private bool isInternetConnectionAuthorized = false;
         private BackgroundWorker backgroundWorker = new BackgroundWorker();
+        private List<IChecker> checkers = new List<IChecker>();
 
         #region Constructor
 
@@ -26,6 +26,20 @@ namespace BusinessLogic
         /// </summary>
         private BL()
         {
+            // Create a list of scanners
+            checkers.Add(this.CveChecker);
+            checkers.Add(this.InternetConnectionChecker);
+            checkers.Add(this.SecurityProductChecker);
+            checkers.Add(this.WindowsVersionChecker);
+            checkers.Add(this.AppScanner);
+            checkers.Add(this.UserType);
+            checkers.Add(this.WindowsScriptingHostChecker);
+            checkers.Add(this.RdpChecker);
+            checkers.Add(this.SecureBootChecker);
+            checkers.Add(this.FirewallChecker);
+
+
+            // subscribe to events
             backgroundWorker.DoWork += OnBackgroundWorkerDoWork;
             backgroundWorker.RunWorkerCompleted += OnBackgroundWorkerRunWorkerCompleted;
         }
@@ -89,35 +103,11 @@ namespace BusinessLogic
         {
             EventAggregator.Instance.FireEvent(BlEvents.SystemScanStarted);
 
-            // cve check
-            CveChecker.Scan();
-
-            // test internet connectivity
-            InternetConnectionChecker.Scan();
-
-            // check for installed security products
-            SecurityProductChecker.Scan();
-
-            // testing windows version
-            WindowsVersionChecker.Scan();
-
-            // check app versions
-            AppScanner.Scan();
-
-            // check user elevation status
-            UserType.Scan();
-
-            // windows scripting host enabled?
-            WindowsScriptingHostChecker.Scan();
-
-            // Does user have remote desktop protocol enabled and if it is, is it using weak security
-            RdpChecker.Scan();
-
-            // Does user have secure boot enabled
-            SecureBootChecker.Scan();
-
-            FirewallChecker.Scan();
-
+            // run all checks in parallel
+            Parallel.ForEach(checkers, checker =>
+            {
+                checker.Scan();
+            });
         }
 
         #endregion

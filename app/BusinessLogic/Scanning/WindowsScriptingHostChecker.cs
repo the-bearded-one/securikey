@@ -5,7 +5,7 @@ using Microsoft.Win32;
 
 namespace BusinessLogic.Scanning
 {
-    public class WindowsScriptingHostChecker
+    public class WindowsScriptingHostChecker : IChecker
     {
 
         public bool IsWshEnabled { get; private set; } = false;

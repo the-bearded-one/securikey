@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Scanning
 {
-    public class SecureBootChecker
+    public class SecureBootChecker : IChecker
     {
         [DllImport("kernel32.dll", SetLastError = true)]
         static extern uint GetFirmwareEnvironmentVariable(string lpName, ref Guid lpGuid, IntPtr pBuffer, uint nSize);

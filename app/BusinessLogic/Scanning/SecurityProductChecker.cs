@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Scanning
 {
-    public class SecurityProductChecker
+    public class SecurityProductChecker : IChecker
     {
         public List<string> AntivirusProducts {  get; private set; } = new List<string>();
         public List<string> AntispywareProducts { get; private set; } = new List<string>();

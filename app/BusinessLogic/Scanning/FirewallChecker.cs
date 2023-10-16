@@ -8,7 +8,7 @@ using NetFwTypeLib;
 
 namespace BusinessLogic.Scanning
 {
-    public class FirewallChecker
+    public class FirewallChecker : IChecker
     {
         public bool IsFirewallEnabled { get; private set; } = false;
 

@@ -1,9 +1,10 @@
 using BusinessLogic;
+using BusinessLogic.Scanning;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using WUApiLib;
 
-public class WindowsVersionChecker
+public class WindowsVersionChecker : IChecker
 {
     public bool IsInternetAccessAuthorized { get; set; } = false;
     public bool IsUpdateAvailable { get; set; } = false;

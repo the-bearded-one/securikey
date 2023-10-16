@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Scanning.POCOs
 {
-
     public class Vulnerability
     {
         public string? Version { get; set; }

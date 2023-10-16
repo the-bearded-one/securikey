@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Scanning
 {
-    public class UserType
+    public class UserType : IChecker
     {
         public bool IsElevatedUser{ get; private set; }
 

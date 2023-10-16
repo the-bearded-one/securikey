@@ -7,9 +7,9 @@ using BusinessLogic.Scanning.POCOs;
 using Newtonsoft.Json;
 using System.Linq;
 
-namespace AppVersionChecker
+namespace BusinessLogic.Scanning
 {
-    public class AppScanner
+    public class AppScanner : IChecker
     {
 
         public bool IsChromeVulnerable { get; private set; } = false;
@@ -53,9 +53,9 @@ namespace AppVersionChecker
             string json = File.ReadAllText(path);
 
             // Deserialize the JSON content to a list of ApplicationInfo objects
-            List<ApplicationInfo> apps = JsonConvert.DeserializeObject<List<ApplicationInfo>>(json);
+            List<BusinessLogic.Scanning.POCOs.ApplicationInfo> apps = JsonConvert.DeserializeObject<List<BusinessLogic.Scanning.POCOs.ApplicationInfo>>(json);
 
-            ApplicationInfo chromeInfo = apps.FirstOrDefault(app => app.Application == "Chrome");
+            BusinessLogic.Scanning.POCOs.ApplicationInfo chromeInfo = apps.FirstOrDefault(app => app.Application == "Chrome");
 
             if (chromeInfo != null)
             {
