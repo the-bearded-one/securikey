@@ -1,6 +1,4 @@
-using System;
 using System.Management;
-using System.Collections.Generic;
 
 namespace BusinessLogic.Scanning
 {

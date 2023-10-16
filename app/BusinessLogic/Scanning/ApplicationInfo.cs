@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Security.Principal;
-
-namespace BusinessLogic.Scanning
+﻿namespace BusinessLogic.Scanning
 {
     public class ApplicationInfo
     {
@@ -15,7 +8,7 @@ namespace BusinessLogic.Scanning
         public override string ToString()
         {
             string theString = $"DisplayName: {DisplayName}    DisplayVersion: {DisplayVersion}    Publisher: {Publisher}";
-            return theString ;
+            return theString;
         }
     }
 }

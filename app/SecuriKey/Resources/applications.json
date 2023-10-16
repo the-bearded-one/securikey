@@ -1,27 +1,112 @@
 [
-    {
-        "application": "Chrome",
-        "vulnerabilities": [
-            {
-                "version": "116.0.5845.179",
-                "severity": "high"
-            },
-            {
-                "version": "115.0.5790.131",
-                "severity": "low"
-            },
-            {
-                "version": "108.0.5359.71",
-                "severity": "medium"
-            },
-            {
-                "version": "92.0.4515.159",
-                "severity": "high"
-            },
-            {
-                "version": "90.0.4430.85",
-                "severity": "high"
-            }
-        ]
-    }
+  {
+    "application": "Microsoft Edge",
+    "vulnerabilities": [
+      {
+        "cve": "CVE-2023-28301",
+        "version": "117.0.2045.31",
+        "severity": "high",
+        "knownExploited": "true"
+      },
+      {
+        "cve": "CVE-2022-44708",
+        "version": "108.0.1462.41",
+        "severity": "high",
+        "knownExploited": "false"
+      }
+    ]
+  },
+  {
+    "application": "Mozilla Firefox",
+    "vulnerabilities": [
+      {
+        "cve": "CVE-2023-37212",
+        "version": "114.0.0.0",
+        "severity": "high",
+        "knownExploited": "false"
+      },
+      {
+        "cve": "CVE-2023-37211",
+        "version": "114.0.0.0",
+        "severity": "medium",
+        "knownExploited": "false"
+      },
+      {
+        "cve": "CVE-2023-37207",
+        "version": "114.0.0.0",
+        "severity": "medium",
+        "knownExploited": "false"
+      },
+      {
+        "cve": "CVE-2022-46885",
+        "version": "106.0.0.0",
+        "severity": "medium",
+        "knownExploited": "false"
+      }
+    ]
+  },
+  {
+    "application": "Spotify",
+    "vulnerabilities": [
+      {
+        "cve": "CVE-2018-1167",
+        "version": "1.0.69.336",
+        "severity": "high",
+        "knownExploited": "false"
+      }
+    ]
+  },
+  {
+    "application": "Google Chrome",
+    "vulnerabilities": [
+      {
+        "cve": "CVE-2023-5487",
+        "version": "118.0.5993.70",
+        "severity": "medium",
+        "knownExploited": "false"
+      },
+      {
+        "cve": "CVE-2023-5486",
+        "version": "118.0.5993.70",
+        "severity": "low",
+        "knownExploited": "false"
+      },
+      {
+        "cve": "CVE-2023-5485",
+        "version": "118.0.5993.70",
+        "severity": "low",
+        "knownExploited": "false"
+      },
+      {
+        "cve": "CVE-2023-5484",
+        "version": "118.0.5993.70",
+        "severity": "medium",
+        "knownExploited": "false"
+      },
+      {
+        "cve": "CVE-2023-5483",
+        "version": "118.0.5993.70",
+        "severity": "medium",
+        "knownExploited": "false"
+      },
+      {
+        "cve": "CVE-2023-5481",
+        "version": "118.0.5993.70",
+        "severity": "medium",
+        "knownExploited": "false"
+      },
+      {
+        "cve": "CVE-2023-5479",
+        "version": "118.0.5993.70",
+        "severity": "medium",
+        "knownExploited": "false"
+      },
+      {
+        "cve": "CVE-2023-5478",
+        "version": "118.0.5993.70",
+        "severity": "low",
+        "knownExploited": "false"
+      }
+    ]
+  }
 ]

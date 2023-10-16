@@ -1,19 +1,5 @@
 ﻿using BusinessLogic;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Mail;
-using System.Reflection.Emit;
-using System.Security.Policy;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace SecuriKey
 {
@@ -60,7 +46,7 @@ namespace SecuriKey
                     // do a basic security check... make sure the path they chose is NOT on a network drive
                     var dirPath = Path.GetDirectoryName(sfd.FileName);
                     var isPathOnNetwork = IsFilePathOnNetwork(dirPath);
-                    
+
                     // first, check to make sure user is saving to local path
                     if (isPathOnNetwork)
                     {
@@ -138,10 +124,6 @@ namespace SecuriKey
                     statusTextbox.Text += $"\r\n    {BL.Instance.SecurityProductChecker.FirewallProducts.Count} firewall products found";
                     break;
                 case BlEvents.CheckingApplicationVersionsCompleted:
-                    if (BL.Instance.AppScanner.IsChromeVulnerable)
-                    {
-                        statusTextbox.Text += $"\r\n    Vulnerable version of Chrome found!";
-                    }
                     break;
                 case BlEvents.CheckingElevatedUserCompleted:
                     if (BL.Instance.UserType.IsElevatedUser)
@@ -165,6 +147,13 @@ namespace SecuriKey
                         statusTextbox.Text += $"\r\n    Remote Desktop Protocol is using weak encryption!";
                     }
                     break;
+                case BlEvents.CheckingRegularUpdatesCompleted:
+                    if (!BL.Instance.WindowsUpdateChecker.AreRegularUpdatesEnabled)
+                    {
+                        statusTextbox.Text += $"\r\n    Automatic Windows Updates are not enabled!";
+                    }
+                    break;
+
                 case BlEvents.CheckingSecureBootEnabledCompleted:
                     if (!BL.Instance.SecureBootChecker.IsSecureBootEnabled)
                     {
@@ -175,6 +164,15 @@ namespace SecuriKey
                     if (!BL.Instance.FirewallChecker.IsFirewallEnabled)
                     {
                         statusTextbox.Text += $"\r\n    Firewall is not enabled!";
+                    }
+                    break;
+                case BlEvents.CheckingBitLockerCompleted: // requires admin to test
+                    if (BL.Instance.BitLockerChecker.IsStatusProtected == false)
+                    {
+                        if (BL.Instance.BitLockerChecker.IsBitLockerSupported && !BL.Instance.BitLockerChecker.IsBitLockerEnabled)
+                        {
+                            statusTextbox.Text += $"\r\n    BitLocker is supported but not enabled!";
+                        }
                     }
                     break;
                 case BlEvents.CheckingWindowsVersionCompleted:

@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BusinessLogic.Scanning
+﻿namespace BusinessLogic.Scanning
 {
     public class SecurityProductChecker : IChecker
     {
-        public List<string> AntivirusProducts {  get; private set; } = new List<string>();
+        public List<string> AntivirusProducts { get; private set; } = new List<string>();
         public List<string> AntispywareProducts { get; private set; } = new List<string>();
         public List<string> FirewallProducts { get; private set; } = new List<string>();
 

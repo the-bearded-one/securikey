@@ -1,5 +1,4 @@
 using BusinessLogic.Scanning;
-using System;
 using System.Runtime.InteropServices;
 
 namespace BusinessLogic

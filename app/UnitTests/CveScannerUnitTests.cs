@@ -1,10 +1,7 @@
 using BusinessLogic;
 using BusinessLogic.Scanning;
-using System.Diagnostics;
-using System.Text.Json;
 
 using Newtonsoft.Json;
-using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities.Resources;
 
 namespace UnitTests
 {
@@ -17,7 +14,7 @@ namespace UnitTests
             var cveScanner = new CveChecker();
             cveScanner.Scan();
             var issues = cveScanner.GetVulnerabilities();
-            foreach ( var issue in issues )
+            foreach (var issue in issues)
             {
                 Console.WriteLine(issue.ToString());
                 Console.WriteLine("\r\n");
@@ -26,7 +23,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        [DeploymentItem( "../../../TestFiles/cves_severity_high.json")]
+        [DeploymentItem("../../../TestFiles/cves_severity_high.json")]
         public void LoadCveObject()
         {
             string cveFileName = "cves_severity_high.json";
@@ -43,7 +40,7 @@ namespace UnitTests
             CveManagerOnline cve = new CveManagerOnline();
             cve.Search("Windows", "1.0.0.0");
 
-            foreach (Vulnerability vul in cve.Vulnerabilities) 
+            foreach (Vulnerability vul in cve.Vulnerabilities)
             {
                 Console.WriteLine("=====================");
                 Console.WriteLine($"cpeMatch: {vul.cve.configurations?[0]?.nodes?[0]?.cpeMatch?[0]?.criteria ?? "N/A"}");

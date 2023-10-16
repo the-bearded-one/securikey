@@ -1,11 +1,6 @@
 ﻿using BusinessLogic.Scanning;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace BusinessLogic
 {
@@ -20,6 +15,7 @@ namespace BusinessLogic
         private List<IChecker> checkers = new List<IChecker>();
         private ReportGenerator reportGenerator = new ReportGenerator();
 
+        private PostureGrader postureGrader = new PostureGrader();
         #region Constructor
 
         /// <summary>
@@ -37,7 +33,9 @@ namespace BusinessLogic
             checkers.Add(this.WindowsScriptingHostChecker);
             checkers.Add(this.RdpChecker);
             checkers.Add(this.SecureBootChecker);
+            checkers.Add(this.WindowsUpdateChecker);
             checkers.Add(this.FirewallChecker);
+            checkers.Add(this.BitLockerChecker);
 
 
             // subscribe to events
@@ -58,7 +56,7 @@ namespace BusinessLogic
 
         #region Properties
 
-        public bool IsInternetConnectionAuthorized 
+        public bool IsInternetConnectionAuthorized
         {
             get => isInternetConnectionAuthorized;
             set
@@ -76,8 +74,10 @@ namespace BusinessLogic
         public UserType UserType { get; private set; } = new UserType();
         public WindowsScriptingHostChecker WindowsScriptingHostChecker { get; private set; } = new WindowsScriptingHostChecker();
         public RdpChecker RdpChecker { get; private set; } = new RdpChecker();
-        public SecureBootChecker SecureBootChecker{ get; private set; } = new SecureBootChecker();
+        public SecureBootChecker SecureBootChecker { get; private set; } = new SecureBootChecker();
         public FirewallChecker FirewallChecker { get; private set; } = new FirewallChecker();
+        public WindowsUpdateChecker WindowsUpdateChecker { get; private set; } = new WindowsUpdateChecker();
+        public BitLockerChecker BitLockerChecker { get; private set; } = new BitLockerChecker();
 
         #endregion
 
@@ -109,6 +109,9 @@ namespace BusinessLogic
             {
                 checker.Scan();
             });
+
+            // still in work
+            Debug.WriteLine("Posture grade: ", postureGrader.Grader());
         }
 
         #endregion

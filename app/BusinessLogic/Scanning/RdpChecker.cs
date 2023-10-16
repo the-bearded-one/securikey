@@ -1,7 +1,4 @@
-﻿using System;
-using System.Management;
-using System.Collections.Generic;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 
 namespace BusinessLogic.Scanning
 {
@@ -56,7 +53,7 @@ namespace BusinessLogic.Scanning
                     }
                     else
                     {
-                        IsRdpWeak = true;                        
+                        IsRdpWeak = true;
                     }
                 }
             }

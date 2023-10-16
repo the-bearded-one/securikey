@@ -1,9 +1,4 @@
 ﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessLogic.Scanning
 {
@@ -38,7 +33,7 @@ namespace BusinessLogic.Scanning
                                 {
                                     ApplicationInfo applicationInfo = new ApplicationInfo();
                                     applicationInfo.DisplayName = subKey?.GetValue("DisplayName") as string;
-                                    applicationInfo .DisplayVersion = subKey?.GetValue("DisplayVersion") as string;
+                                    applicationInfo.DisplayVersion = subKey?.GetValue("DisplayVersion") as string;
                                     applicationInfo.Publisher = subKey?.GetValue("Publisher") as string;
                                     _applicationsInfo.Add(applicationInfo);
                                 }
