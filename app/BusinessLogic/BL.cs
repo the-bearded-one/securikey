@@ -1,12 +1,7 @@
 ﻿using BusinessLogic.Scanning;
-using Newtonsoft.Json.Serialization;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Diagnostics;
+using System.Diagnostics;
 
 namespace BusinessLogic
 {
@@ -22,6 +17,7 @@ namespace BusinessLogic
         private ReportGenerator reportGenerator = new ReportGenerator();
         private int scanChecksCompleted = 0; // tracks number of completed checks in current scan
 
+        private PostureGrader postureGrader = new PostureGrader();
         #region Constructor
 
         /// <summary>
@@ -39,7 +35,9 @@ namespace BusinessLogic
             checkers.Add(this.WindowsScriptingHostChecker);
             checkers.Add(this.RdpChecker);
             checkers.Add(this.SecureBootChecker);
+            checkers.Add(this.WindowsUpdateChecker);
             checkers.Add(this.FirewallChecker);
+            checkers.Add(this.BitLockerChecker);
 
 
             // subscribe to events
@@ -60,7 +58,7 @@ namespace BusinessLogic
 
         #region Properties
 
-        public bool IsInternetConnectionAuthorized 
+        public bool IsInternetConnectionAuthorized
         {
             get => isInternetConnectionAuthorized;
             set
@@ -78,9 +76,11 @@ namespace BusinessLogic
         public UserType UserType { get; private set; } = new UserType();
         public WindowsScriptingHostChecker WindowsScriptingHostChecker { get; private set; } = new WindowsScriptingHostChecker();
         public RdpChecker RdpChecker { get; private set; } = new RdpChecker();
-        public SecureBootChecker SecureBootChecker{ get; private set; } = new SecureBootChecker();
+        public SecureBootChecker SecureBootChecker { get; private set; } = new SecureBootChecker();
         public FirewallChecker FirewallChecker { get; private set; } = new FirewallChecker();
-        public int ScanPercentCompleted { get => (int)((double)scanChecksCompleted / (double)checkers.Count * 100D); }
+        public WindowsUpdateChecker WindowsUpdateChecker { get; private set; } = new WindowsUpdateChecker();
+        public BitLockerChecker BitLockerChecker { get; private set; } = new BitLockerChecker();
+		public int ScanPercentCompleted { get => (int)((double)scanChecksCompleted / (double)checkers.Count * 100D); }
 
         #endregion
 
@@ -115,6 +115,9 @@ namespace BusinessLogic
                 checker.Scan();
                 scanChecksCompleted++;
             });
+
+            // still in work
+            Debug.WriteLine("Posture grade: ", postureGrader.Grader());
         }
 
         #endregion

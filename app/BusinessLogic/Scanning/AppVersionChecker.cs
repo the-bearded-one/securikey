@@ -6,13 +6,14 @@ using System.IO;
 using BusinessLogic.Scanning.POCOs;
 using Newtonsoft.Json;
 using System.Linq;
+using System.Diagnostics;
 
 namespace BusinessLogic.Scanning
 {
     public class AppScanner : IChecker
     {
-
-        public bool IsChromeVulnerable { get; private set; } = false;
+        
+        public List<BusinessLogic.Scanning.POCOs.Vulnerability> VulnerabiltiesSeen { get; private set; } = new List<BusinessLogic.Scanning.POCOs.Vulnerability>();
 
         public bool IsChromeVersionLower(string version1, string version2)
         {
@@ -44,46 +45,84 @@ namespace BusinessLogic.Scanning
         {
             EventAggregator.Instance.FireEvent(BlEvents.CheckingApplicationVersions);
 
-            string chromeVersion = ChromeChecker.GetChromeVersion();
-            if (chromeVersion == string.Empty)
+
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "applications.json");
+
+            // Read the file content
+            string json = File.ReadAllText(path);
+
+            // Deserialize the JSON content to a list of ApplicationInfo objects
+            List<BusinessLogic.Scanning.POCOs.ApplicationInfo> apps = JsonConvert.DeserializeObject<List<BusinessLogic.Scanning.POCOs.ApplicationInfo>>(json);
+
+            string appName = "Google Chrome";
+
+            # region Chrome Checker
+            string appVersion = AppVersionChecker.CheckVersion(appName);
+
+            BusinessLogic.Scanning.POCOs.ApplicationInfo appInfo = apps.FirstOrDefault(app => app.Application == appName);
+
+            if (appInfo != null)
             {
-                Console.WriteLine("Chrome not detected on system");
-            }
-            else
-            {
-                Console.WriteLine("Checking for Chrome", chromeVersion);
-
-                string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "applications.json");
-
-                // Read the file content
-                string json = File.ReadAllText(path);
-
-                // Deserialize the JSON content to a list of ApplicationInfo objects
-                List<BusinessLogic.Scanning.POCOs.ApplicationInfo> apps = JsonConvert.DeserializeObject<List<BusinessLogic.Scanning.POCOs.ApplicationInfo>>(json);
-
-                BusinessLogic.Scanning.POCOs.ApplicationInfo chromeInfo = apps.FirstOrDefault(app => app.Application == "Chrome");
-
-                if (chromeInfo != null)
+                // Iterate through all the vulnerabilities for Chrome
+                foreach (BusinessLogic.Scanning.POCOs.Vulnerability vulnerability in appInfo.Vulnerabilities)
                 {
-                    // Iterate through all the vulnerabilities for Chrome
-                    foreach (BusinessLogic.Scanning.POCOs.Vulnerability vulnerability in chromeInfo.Vulnerabilities)
+                    if (IsChromeVersionLower(appVersion, vulnerability.Version))
                     {
-                        if (IsChromeVersionLower(chromeVersion, vulnerability.Version))
-                        {
-                            IsChromeVulnerable = true;
-                        }
+                        VulnerabiltiesSeen.Add(vulnerability);
+                        
                     }
                 }
             }
+            # endregion
+
+            # region Spotify Checker, not working yet
+            appName = "Spotify";
+            appVersion = AppVersionChecker.CheckVersion(appName);
+            
+
+            appInfo = apps.FirstOrDefault(app => app.Application == appName);
+
+            if (appVersion != String.Empty && appInfo != null)
+            {
+                // Iterate through all the vulnerabilities for Chrome
+                foreach (BusinessLogic.Scanning.POCOs.Vulnerability vulnerability in appInfo.Vulnerabilities)
+                {
+                    if (IsChromeVersionLower(appVersion, vulnerability.Version))
+                    {
+                        VulnerabiltiesSeen.Add(vulnerability);                        
+                    }
+                }
+            }
+            #endregion
+
+            #region Firefox Checker
+            appName = "Mozilla Firefox";
+            appVersion = AppVersionChecker.GetFirefoxVersion();
+            
+
+            appInfo = apps.FirstOrDefault(app => app.Application == appName);
+
+            if (appVersion != String.Empty && appInfo != null)
+            {
+                // Iterate through all the vulnerabilities for Chrome
+                foreach (BusinessLogic.Scanning.POCOs.Vulnerability vulnerability in appInfo.Vulnerabilities)
+                {
+                    if (IsChromeVersionLower(appVersion, vulnerability.Version))
+                    {
+                        VulnerabiltiesSeen.Add(vulnerability);
+                    }
+                }
+            }
+            # endregion
 
             EventAggregator.Instance.FireEvent(BlEvents.CheckingApplicationVersionsCompleted);
 
         }
     }
 
-    public static class ChromeChecker
+    public static class AppVersionChecker
     {
-        public static string GetChromeVersion()
+        public static string CheckVersion(String appName)
         {
             // Registry path where Chrome details are stored
             string registryKey = @"SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
@@ -96,8 +135,9 @@ namespace BusinessLogic.Scanning
                 {
                     using (RegistryKey subkey = key.OpenSubKey(subkeyName))
                     {
+                        Debug.WriteLine((string)subkey.GetValue("DisplayName"));
                         // Check if the DisplayName is Google Chrome
-                        if ((string)subkey.GetValue("DisplayName") == "Google Chrome")
+                        if ((string)subkey.GetValue("DisplayName") == appName)
                         {
                             // Return the version
                             return (string)subkey.GetValue("DisplayVersion");
@@ -108,5 +148,32 @@ namespace BusinessLogic.Scanning
 
             return string.Empty;
         }
+
+
+        // Firefox doesn't store its version info in the same place as other apps
+        public static string GetFirefoxVersion()
+        {
+            // Registry path where Firefox details are typically stored
+            string registryKey = @"SOFTWARE\Mozilla\Mozilla Firefox";
+
+            // Open the key
+            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(registryKey))
+            {
+                if (key != null)
+                {
+                    // Get the current version from the key's default value
+                    string currentVersion = key.GetValue(null) as string;
+                    if (!string.IsNullOrEmpty(currentVersion))
+                    {
+                        return currentVersion;
+                    }
+                }
+            }
+
+            return string.Empty;
+        }
+
+
     }
+
 }

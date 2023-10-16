@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.InteropServices;
 
 namespace BusinessLogic.Scanning
 {
@@ -29,11 +24,11 @@ namespace BusinessLogic.Scanning
                 // The function will fail but last error will be ERROR_INVALID_FUNCTION (1) if Secure Boot is not enabled
                 if (errorCode == 1)
                 {
-                    IsSecureBootEnabled = false;                    
+                    IsSecureBootEnabled = false;
                 }
                 else
                 {
-                    IsSecureBootEnabled = true;                    
+                    IsSecureBootEnabled = true;
                 }
             }
             catch (Exception e)

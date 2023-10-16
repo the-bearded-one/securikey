@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Net.Http;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.Collections;
-using System.Xml.Linq;
+﻿using Newtonsoft.Json;
 
 namespace BusinessLogic
 {
     public class CveManagerOnline
-    {        
+    {
         //NIST API URL that only outputs CVEs that are in CISA's Known Exploited Vulnerabilities catalog
         string url = @"https://services.nvd.nist.gov/rest/json/cves/2.0";
         public List<Vulnerability> Vulnerabilities { get; set; } = new List<Vulnerability>();
@@ -61,7 +52,7 @@ namespace BusinessLogic
         {
             List<Vulnerability> vulnerabilities = new List<Vulnerability>();
 
-            foreach(var vul  in vulnerabilitiesUnfiltered)
+            foreach (var vul in vulnerabilitiesUnfiltered)
             {
                 bool isPotentiallyVulnerable = IsVersionVulnerable(vul, version);
 
@@ -80,9 +71,9 @@ namespace BusinessLogic
             bool isVulnerable = false;
             foreach (var config in vul.cve.configurations)
             {
-                foreach(var node in config.nodes)
+                foreach (var node in config.nodes)
                 {
-                    foreach(var cpe in node.cpeMatch)
+                    foreach (var cpe in node.cpeMatch)
                     {
                         var versionStart = cpe.versionStartIncluding;
                         var versionEnd = cpe.versionEndExcluding;
@@ -131,5 +122,5 @@ namespace BusinessLogic
 
             return normalizedVersion;
         }
-}
+    }
 }

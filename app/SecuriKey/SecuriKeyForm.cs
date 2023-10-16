@@ -105,9 +105,9 @@ namespace SecuriKey
                     status += $"\r\n    {BL.Instance.SecurityProductChecker.FirewallProducts.Count} firewall products found";
                     break;
                 case BlEvents.CheckingApplicationVersionsCompleted:
-                    if (BL.Instance.AppScanner.IsChromeVulnerable)
+                    foreach (var vulnerability in BL.Instance.AppScanner.VulnerabiltiesSeen)
                     {
-                        status += $"\r\n    Vulnerable version of Chrome found!";
+                        status += $"\r\n    Vulnerable versions found! CVE ID: {vulnerability.CVE}";
                     }
                     break;
                 case BlEvents.CheckingElevatedUserCompleted:

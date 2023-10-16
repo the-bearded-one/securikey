@@ -1,12 +1,11 @@
 ﻿using PdfSharp.Drawing;
 using PdfSharp.Pdf;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace BusinessLogic
 {
     public class ReportGenerator
     {
-        public ReportGenerator() 
+        public ReportGenerator()
         {
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
         }
@@ -15,7 +14,7 @@ namespace BusinessLogic
         {
             PdfDocument pdf = new PdfDocument();
             pdf.Info.Title = "SecuriKey Security Posture Report";
-            
+
             // create an empty page
             var page = pdf.AddPage();
 
