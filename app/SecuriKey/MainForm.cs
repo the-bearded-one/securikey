@@ -4,8 +4,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Reflection.Emit;
+using System.Security.Policy;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -42,9 +46,60 @@ namespace SecuriKey
             BL.Instance.StopSystemScan();
         }
 
+        private void OnGenerateReportButtonClick(object sender, EventArgs e)
+        {
+            // Ask user where to save file
+            using (var sfd = new SaveFileDialog())
+            {
+                sfd.Title = "Save Security Posture Report";
+                sfd.Filter = "pdf (*.pdf)|*.pdf";
+                sfd.ValidateNames = true;
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    // do a basic security check... make sure the path they chose is NOT on a network drive
+                    var dirPath = Path.GetDirectoryName(sfd.FileName);
+                    var isPathOnNetwork = IsFilePathOnNetwork(dirPath);
+                    
+                    // first, check to make sure user is saving to local path
+                    if (isPathOnNetwork)
+                    {
+                        MessageBox.Show("Unable to save to a network drive or removeable drive. Please save to a local drive");
+                    }
+                    // next, make sure the user entered a valid path
+                    else if (!Directory.Exists(dirPath))
+                    {
+                        MessageBox.Show("Please enter a valid file path");
+                    }
+                    // save it
+                    else
+                    {
+                        BL.Instance.GenerateReport(sfd.FileName, statusTextbox.Text);
+                    }
+                }
+            }
+        }
+
         private void OnAuthorizeInternetConnectionCheckboxCheckedChanged(object sender, EventArgs e)
         {
             BL.Instance.IsInternetConnectionAuthorized = authorizeInternetConnectionCheckbox.Checked;
+        }
+
+        private bool IsFilePathOnNetwork(string filePath)
+        {
+            bool isPathOnNetworkDrive = true; //default to safest answer
+            try
+            {
+                FileInfo f = new FileInfo(filePath);
+                string drive = Path.GetPathRoot(f.FullName);
+                DriveInfo driveInfo = new DriveInfo(drive);
+                isPathOnNetworkDrive = driveInfo.DriveType == DriveType.Network || driveInfo.DriveType == DriveType.Removable;
+            }
+            catch (Exception ex)
+            {
+                isPathOnNetworkDrive = true; // default to safest answer
+            }
+            return isPathOnNetworkDrive;
         }
 
         private void OnBlEvent(object? sender, BlEventArgs e)
@@ -55,82 +110,82 @@ namespace SecuriKey
                 return;
             }
 
-            _statusTextbox.Text += $"\r\n{e.BlEvent.ToString()}";
+            statusTextbox.Text += $"\r\n{e.BlEvent.ToString()}";
 
             switch (e.BlEvent)
             {
                 case BlEvents.SystemScanStarted:
-                    _startButton.Enabled = false;
+                    startButton.Enabled = false;
                     break;
                 case BlEvents.SystemScanStopped:
-                    _startButton.Enabled = true;
+                    startButton.Enabled = true;
                     break;
                 case BlEvents.SystemScanAbortedError:
-                    _startButton.Enabled = true;
+                    startButton.Enabled = true;
                     break;
                 case BlEvents.SystemScanCompleted:
-                    _startButton.Enabled = true;
+                    startButton.Enabled = true;
                     break;
                 case BlEvents.CveCheckCompleted:
-                    _statusTextbox.Text += $"\r\n    Found {BL.Instance.CveChecker.GetVulnerabilities().Count} possible CVE vulnerabilities";
+                    statusTextbox.Text += $"\r\n    Found {BL.Instance.CveChecker.GetVulnerabilities().Count} possible CVE vulnerabilities";
                     break;
                 case BlEvents.CheckingInternetStatusCompleted:
-                    _statusTextbox.Text += $"\r\n    System {(BL.Instance.InternetConnectionChecker.IsConnected ? "IS" : "is NOT")} connected to the internet";
+                    statusTextbox.Text += $"\r\n    System {(BL.Instance.InternetConnectionChecker.IsConnected ? "IS" : "is NOT")} connected to the internet";
                     break;
                 case BlEvents.CheckingSecurityProductsCompleted:
-                    _statusTextbox.Text += $"\r\n    {BL.Instance.SecurityProductChecker.AntivirusProducts.Count} antivirus products found";
-                    _statusTextbox.Text += $"\r\n    {BL.Instance.SecurityProductChecker.AntispywareProducts.Count} antispyware products found";
-                    _statusTextbox.Text += $"\r\n    {BL.Instance.SecurityProductChecker.FirewallProducts.Count} firewall products found";
+                    statusTextbox.Text += $"\r\n    {BL.Instance.SecurityProductChecker.AntivirusProducts.Count} antivirus products found";
+                    statusTextbox.Text += $"\r\n    {BL.Instance.SecurityProductChecker.AntispywareProducts.Count} antispyware products found";
+                    statusTextbox.Text += $"\r\n    {BL.Instance.SecurityProductChecker.FirewallProducts.Count} firewall products found";
                     break;
                 case BlEvents.CheckingApplicationVersionsCompleted:
                     if (BL.Instance.AppScanner.IsChromeVulnerable)
                     {
-                        _statusTextbox.Text += $"\r\n    Vulnerable version of Chrome found!";
+                        statusTextbox.Text += $"\r\n    Vulnerable version of Chrome found!";
                     }
                     break;
                 case BlEvents.CheckingElevatedUserCompleted:
                     if (BL.Instance.UserType.IsElevatedUser)
                     {
-                        _statusTextbox.Text += $"\r\n    Running as an elevated user!";
+                        statusTextbox.Text += $"\r\n    Running as an elevated user!";
                     }
                     break;
                 case BlEvents.CheckingWindowsScriptingHostCompleted:
                     if (BL.Instance.WindowsScriptingHostChecker.IsWshEnabled)
                     {
-                        _statusTextbox.Text += $"\r\n    Windows Scripting Host (WSH) is enabled!";
+                        statusTextbox.Text += $"\r\n    Windows Scripting Host (WSH) is enabled!";
                     }
                     break;
                 case BlEvents.CheckingRdpEnabledCompleted:
                     if (BL.Instance.RdpChecker.IsRdpEnabled)
                     {
-                        _statusTextbox.Text += $"\r\n    Remote Desktop Protocol (RDP) is enabled!";
+                        statusTextbox.Text += $"\r\n    Remote Desktop Protocol (RDP) is enabled!";
                     }
                     if (BL.Instance.RdpChecker.IsRdpWeak)
                     {
-                        _statusTextbox.Text += $"\r\n    Remote Desktop Protocol is using weak encryption!";
+                        statusTextbox.Text += $"\r\n    Remote Desktop Protocol is using weak encryption!";
                     }
                     break;
                 case BlEvents.CheckingSecureBootEnabledCompleted:
                     if (!BL.Instance.SecureBootChecker.IsSecureBootEnabled)
                     {
-                        _statusTextbox.Text += $"\r\n    SecureBoot is not enabled!";
+                        statusTextbox.Text += $"\r\n    SecureBoot is not enabled!";
                     }
                     break;
                 case BlEvents.CheckingFirewallCompleted:
                     if (!BL.Instance.FirewallChecker.IsFirewallEnabled)
                     {
-                        _statusTextbox.Text += $"\r\n    Firewall is not enabled!";
+                        statusTextbox.Text += $"\r\n    Firewall is not enabled!";
                     }
                     break;
                 case BlEvents.CheckingWindowsVersionCompleted:
                     string windowsVersionInfoFormatted = string.Join("\r\n", BL.Instance.WindowsVersionChecker.VersionInfo.Select(kvp => $"    {kvp.Key}: {kvp.Value}"));
-                    _statusTextbox.Text += $"\r\n{windowsVersionInfoFormatted}";
+                    statusTextbox.Text += $"\r\n{windowsVersionInfoFormatted}";
                     if (BL.Instance.IsInternetConnectionAuthorized)
                     {
-                        _statusTextbox.Text += $"\r\n    Windows Update is Available";
+                        statusTextbox.Text += $"\r\n    Windows Update is Available";
                         foreach (string update in BL.Instance.WindowsVersionChecker.AvailableUpdates)
                         {
-                            _statusTextbox.Text += $"\r\n        {update}";
+                            statusTextbox.Text += $"\r\n        {update}";
                         }
                     }
                     break;

@@ -28,42 +28,43 @@
         /// </summary>
         private void InitializeComponent()
         {
-            _startButton = new Button();
-            _stopButton = new Button();
-            _statusTextbox = new TextBox();
+            startButton = new Button();
+            stopButton = new Button();
+            statusTextbox = new TextBox();
             authorizeInternetConnectionCheckbox = new CheckBox();
+            generateReportButton = new Button();
             SuspendLayout();
             // 
-            // _startButton
+            // startButton
             // 
-            _startButton.Location = new Point(50, 27);
-            _startButton.Name = "_startButton";
-            _startButton.Size = new Size(117, 53);
-            _startButton.TabIndex = 0;
-            _startButton.Text = "Start";
-            _startButton.UseVisualStyleBackColor = true;
-            _startButton.Click += OnStartButtonClick;
+            startButton.Location = new Point(50, 27);
+            startButton.Name = "startButton";
+            startButton.Size = new Size(117, 53);
+            startButton.TabIndex = 0;
+            startButton.Text = "Start";
+            startButton.UseVisualStyleBackColor = true;
+            startButton.Click += OnStartButtonClick;
             // 
-            // _stopButton
+            // stopButton
             // 
-            _stopButton.Location = new Point(221, 27);
-            _stopButton.Name = "_stopButton";
-            _stopButton.Size = new Size(117, 53);
-            _stopButton.TabIndex = 1;
-            _stopButton.Text = "Stop";
-            _stopButton.UseVisualStyleBackColor = true;
-            _stopButton.Click += OnStopButtonClick;
+            stopButton.Location = new Point(221, 27);
+            stopButton.Name = "stopButton";
+            stopButton.Size = new Size(117, 53);
+            stopButton.TabIndex = 1;
+            stopButton.Text = "Stop";
+            stopButton.UseVisualStyleBackColor = true;
+            stopButton.Click += OnStopButtonClick;
             // 
             // _statusTextbox
             // 
-            _statusTextbox.BackColor = Color.White;
-            _statusTextbox.Location = new Point(50, 149);
-            _statusTextbox.Multiline = true;
-            _statusTextbox.Name = "_statusTextbox";
-            _statusTextbox.ReadOnly = true;
-            _statusTextbox.ScrollBars = ScrollBars.Vertical;
-            _statusTextbox.Size = new Size(812, 423);
-            _statusTextbox.TabIndex = 2;
+            statusTextbox.BackColor = Color.White;
+            statusTextbox.Location = new Point(50, 149);
+            statusTextbox.Multiline = true;
+            statusTextbox.Name = "_statusTextbox";
+            statusTextbox.ReadOnly = true;
+            statusTextbox.ScrollBars = ScrollBars.Vertical;
+            statusTextbox.Size = new Size(812, 423);
+            statusTextbox.TabIndex = 2;
             // 
             // authorizeInternetConnectionCheckbox
             // 
@@ -76,15 +77,26 @@
             authorizeInternetConnectionCheckbox.UseVisualStyleBackColor = true;
             authorizeInternetConnectionCheckbox.CheckedChanged += OnAuthorizeInternetConnectionCheckboxCheckedChanged;
             // 
+            // generateReportButton
+            // 
+            generateReportButton.Location = new Point(745, 27);
+            generateReportButton.Name = "generateReportButton";
+            generateReportButton.Size = new Size(117, 53);
+            generateReportButton.TabIndex = 4;
+            generateReportButton.Text = "Generate Report";
+            generateReportButton.UseVisualStyleBackColor = true;
+            generateReportButton.Click += OnGenerateReportButtonClick;
+            // 
             // mainForm
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.White;
             ClientSize = new Size(897, 584);
+            Controls.Add(generateReportButton);
             Controls.Add(authorizeInternetConnectionCheckbox);
-            Controls.Add(_statusTextbox);
-            Controls.Add(_stopButton);
-            Controls.Add(_startButton);
+            Controls.Add(statusTextbox);
+            Controls.Add(stopButton);
+            Controls.Add(startButton);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.SizableToolWindow;
             Name = "mainForm";
@@ -95,9 +107,10 @@
 
         #endregion
 
-        private Button _startButton;
-        private Button _stopButton;
-        private TextBox _statusTextbox;
+        private Button startButton;
+        private Button stopButton;
+        private TextBox statusTextbox;
         private CheckBox authorizeInternetConnectionCheckbox;
+        private Button generateReportButton;
     }
 }

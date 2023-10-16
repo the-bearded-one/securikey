@@ -18,6 +18,7 @@ namespace BusinessLogic
         private bool isInternetConnectionAuthorized = false;
         private BackgroundWorker backgroundWorker = new BackgroundWorker();
         private List<IChecker> checkers = new List<IChecker>();
+        private ReportGenerator reportGenerator = new ReportGenerator();
 
         #region Constructor
 
@@ -48,7 +49,7 @@ namespace BusinessLogic
         {
             get
             {
-                if (_instance == null) _instance = new BL();
+                _instance ??= new BL();
                 return _instance;
             }
         }
@@ -128,6 +129,11 @@ namespace BusinessLogic
             {
                 backgroundWorker.CancelAsync(); // Stop the long-running process
             }
+        }
+
+        public void GenerateReport(string filePath, string content)
+        {
+            reportGenerator.CreatePdf(filePath, content, "cyber295");
         }
 
         #endregion
