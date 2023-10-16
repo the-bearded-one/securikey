@@ -51,6 +51,7 @@
             // 
             // newScanButton
             // 
+            newScanButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             newScanButton.BackColor = Color.Black;
             newScanButton.BorderColor = Color.FromArgb(0, 66, 114);
             newScanButton.BorderRadius = 40;
