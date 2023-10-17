@@ -29,6 +29,8 @@
         CheckingRegularUpdates,
         CheckingRegularUpdatesCompleted,
         CheckingBitLocker,
-        CheckingBitLockerCompleted
+        CheckingBitLockerCompleted,
+        CheckingUac,
+        CheckingUacCompleted
     }
 }

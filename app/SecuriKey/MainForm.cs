@@ -175,6 +175,18 @@ namespace SecuriKey
                         }
                     }
                     break;
+                case BlEvents.CheckingUacCompleted: // requires admin to test
+                    if (BL.Instance.UacChecker.UnableToQuery == false)
+                    {
+                        if (BL.Instance.UacChecker.IsUacDisabled)
+                        {
+                            statusTextbox.Text += $"\r\n    User Access Control (UAC) is disabled!";
+                        } else if (!BL.Instance.UacChecker.IsUacAtRecommendedLevel)
+                        {
+                            statusTextbox.Text += $"\r\n    User Access Control (UAC) is enabled but not at recommended level!";
+                        }
+                    }
+                    break;
                 case BlEvents.CheckingWindowsVersionCompleted:
                     string windowsVersionInfoFormatted = string.Join("\r\n", BL.Instance.WindowsVersionChecker.VersionInfo.Select(kvp => $"    {kvp.Key}: {kvp.Value}"));
                     statusTextbox.Text += $"\r\n{windowsVersionInfoFormatted}";
