@@ -15,6 +15,8 @@ namespace BusinessLogic.Scanning
 
         public void Scan()
         {
+            ScanResults.Clear();
+
             EventAggregator.Instance.FireEvent(BlEvents.CveCheckStarted);
             // clear list of previous vulnerabilities in case there was a previous scan
             this._Vulnerabilities.Clear();
@@ -45,5 +47,7 @@ namespace BusinessLogic.Scanning
 
             EventAggregator.Instance.FireEvent(BlEvents.CveCheckCompleted);
         }
+
+        public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
     }
 }

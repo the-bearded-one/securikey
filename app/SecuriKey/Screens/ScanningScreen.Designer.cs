@@ -35,23 +35,23 @@
             // 
             // progressBar
             // 
-            progressBar.Anchor = AnchorStyles.Top;
+            progressBar.Anchor = AnchorStyles.None;
             progressBar.ForeColor = Color.FromArgb(0, 66, 114);
-            progressBar.Location = new Point(115, 296);
+            progressBar.Location = new Point(35, 164);
             progressBar.Margin = new Padding(3, 4, 3, 4);
             progressBar.Name = "progressBar";
-            progressBar.Size = new Size(618, 36);
+            progressBar.Size = new Size(724, 36);
             progressBar.Style = ProgressBarStyle.Continuous;
             progressBar.TabIndex = 0;
             // 
             // progressLabel
             // 
-            progressLabel.Anchor = AnchorStyles.Top;
+            progressLabel.Anchor = AnchorStyles.None;
             progressLabel.AutoSize = true;
             progressLabel.BackColor = Color.Black;
             progressLabel.Font = new Font("Arial", 18F, FontStyle.Regular, GraphicsUnit.Point);
             progressLabel.ForeColor = Color.White;
-            progressLabel.Location = new Point(115, 244);
+            progressLabel.Location = new Point(35, 116);
             progressLabel.Name = "progressLabel";
             progressLabel.Size = new Size(131, 27);
             progressLabel.TabIndex = 1;
@@ -59,11 +59,11 @@
             // 
             // encouragementLabel
             // 
-            encouragementLabel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            encouragementLabel.Anchor = AnchorStyles.None;
             encouragementLabel.BackColor = Color.Black;
             encouragementLabel.Font = new Font("Arial", 18F, FontStyle.Regular, GraphicsUnit.Point);
             encouragementLabel.ForeColor = Color.White;
-            encouragementLabel.Location = new Point(0, 421);
+            encouragementLabel.Location = new Point(-39, 289);
             encouragementLabel.Name = "encouragementLabel";
             encouragementLabel.Size = new Size(874, 36);
             encouragementLabel.TabIndex = 2;
@@ -79,7 +79,7 @@
             Controls.Add(progressBar);
             Margin = new Padding(3, 4, 3, 4);
             Name = "ScanningScreen";
-            Size = new Size(878, 864);
+            Size = new Size(800, 600);
             ResumeLayout(false);
             PerformLayout();
         }

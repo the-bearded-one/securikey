@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using BusinessLogic.Scanning.POCOs;
 using System.Management;
 using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessLogic.Scanning
 {
     public class BitLockerChecker : IChecker
     {
+        public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
         public bool IsStatusProtected { get; private set; } = false;
         public bool IsBitLockerSupported { get; private set; } = false;
         public bool IsBitLockerEnabled { get; private set; } = false;
@@ -46,43 +43,67 @@ namespace BusinessLogic.Scanning
 
         public void Scan()
         {
+            ScanResults.Clear();
 
             EventAggregator.Instance.FireEvent(BlEvents.CheckingBitLocker);
             
             if ( IsCurrentUserAdmin() == false )
             {
                 IsStatusProtected = true;
-                return;
-            }
-
-
-            string edition = GetWindowsEdition();
-            bool supportsBitLocker = !edition.Contains("Home");
-
-            if ( supportsBitLocker == false )
-            {
-                IsBitLockerSupported = false;
-                IsBitLockerEnabled = false;
-                return;
             }
             else
             {
-                IsBitLockerSupported = true;
-            }
 
-            ManagementScope scope = new ManagementScope(@"\root\cimv2\Security\MicrosoftVolumeEncryption");
-            ObjectQuery query = new ObjectQuery("SELECT * FROM Win32_EncryptableVolume WHERE DriveLetter = 'C:'");
-            ManagementObjectSearcher searcher = new ManagementObjectSearcher(scope, query);
+                string edition = GetWindowsEdition();
+                bool supportsBitLocker = !edition.Contains("Home");
 
-            foreach (ManagementObject queryObj in searcher.Get())
-            {
-                uint status = (uint)queryObj["ProtectionStatus"];
-                if (status == 1)
+                if (supportsBitLocker == false)
                 {
-                    IsBitLockerEnabled = true;                    
+                    IsBitLockerSupported = false;
+                    IsBitLockerEnabled = false;
+                }
+                else
+                {
+                    IsBitLockerSupported = true;
+                    IsBitLockerEnabled = false;
+
+                    ManagementScope scope = new ManagementScope(@"\root\cimv2\Security\MicrosoftVolumeEncryption");
+                    ObjectQuery query = new ObjectQuery("SELECT * FROM Win32_EncryptableVolume WHERE DriveLetter = 'C:'");
+                    ManagementObjectSearcher searcher = new ManagementObjectSearcher(scope, query);
+
+                    foreach (ManagementObject queryObj in searcher.Get())
+                    {
+                        uint status = (uint)queryObj["ProtectionStatus"];
+                        if (status == 1)
+                        {
+                            IsBitLockerEnabled = true;
+                        }
+                    }
+
+                    if (IsBitLockerSupported == true && IsBitLockerEnabled == false)
+                    {
+                        ScanResult result = new ScanResult();
+                        result.ScanType = "BitLocker";
+                        result.Severity = Severity.High;
+                        result.ShortDescription = "BitLocker is not enabled on your computer";
+                        result.DetailedDescription = $"BitLocker was not found to be enabled on your computer. It is recommended to user BitLocker to protect your privacy and data on your computer.";
+                        ScanResults.Add(result);
+                    }
+                    else if (IsBitLockerSupported == true && IsBitLockerEnabled == true)
+                    {
+                        ScanResult result = new ScanResult();
+                        result.ScanType = "BitLocker";
+                        result.Severity = Severity.Ok;
+                        result.ShortDescription = "Your privacy and data is protected by BitLocker";
+                        result.DetailedDescription = $"BitLocker is enabled on your computer. BitLocker protects your privacy and data on your computer through encrpytion.";
+                        ScanResults.Add(result);
+                    }
+                    else
+                    {
+                        // report nothing since bitlocker is not present on this system
+                    }
                 }
             }
-            IsBitLockerEnabled = false;
 
             EventAggregator.Instance.FireEvent(BlEvents.CheckingBitLockerCompleted);
         }

@@ -6,9 +6,11 @@ namespace BusinessLogic.Scanning
     public class PortChecker : IChecker
     {
         public event Action<List<int>>? OnCompletion;
+        public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
 
         public void Scan()
         {
+            ScanResults.Clear();
             // TODO
         }
 

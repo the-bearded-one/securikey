@@ -1,6 +1,6 @@
-﻿namespace SecuriKey
+﻿namespace SecuriKey.Controls
 {
-    partial class SecuriKeyForm
+    partial class SeverityIndicator
     {
         /// <summary> 
         /// Required designer variable.
@@ -30,15 +30,12 @@
         {
             SuspendLayout();
             // 
-            // SecuriKeyForm
+            // SeverityIndicator
             // 
             AutoScaleMode = AutoScaleMode.None;
-            BackColor = Color.Black;
-            ClientSize = new Size(784, 561);
-            ForeColor = Color.White;
-            FormBorderStyle = FormBorderStyle.SizableToolWindow;
-            Margin = new Padding(3, 4, 3, 4);
-            Name = "SecuriKeyForm";
+            BackColor = Color.Transparent;
+            Name = "SeverityIndicator";
+            Size = new Size(150, 52);
             ResumeLayout(false);
         }
 

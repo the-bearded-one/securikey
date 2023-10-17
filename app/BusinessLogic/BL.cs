@@ -85,6 +85,7 @@ namespace BusinessLogic
         public UacChecker UacChecker { get; private set; } = new UacChecker();
         public PowerShellChecker PowerShellChecker { get; private set; } = new PowerShellChecker();
         public int ScanPercentCompleted { get => (int)((double)scanChecksCompleted / (double)checkers.Count * 100D); }
+        public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
 
         #endregion
 
@@ -109,6 +110,7 @@ namespace BusinessLogic
 
         private void OnBackgroundWorkerDoWork(object? sender, DoWorkEventArgs e)
         {
+            ScanResults.Clear();
             scanChecksCompleted = 0;
 
             EventAggregator.Instance.FireEvent(BlEvents.SystemScanStarted);
@@ -119,6 +121,12 @@ namespace BusinessLogic
                 checker.Scan();
                 scanChecksCompleted++;
             });
+
+            // now compile a universal list of results
+            foreach(IChecker checker in checkers)
+            {
+                ScanResults.AddRange(checker.ScanResults);
+            }
 
             // still in work
             Debug.WriteLine("Posture grade: ", postureGrader.Grader());

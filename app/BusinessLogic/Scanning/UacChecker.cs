@@ -8,9 +8,12 @@ public class UacChecker : IChecker
     public bool UnableToQuery { get; set; } = false;
     public bool IsUacDisabled { get; set; } = false;
     public bool IsUacAtRecommendedLevel { get; set; } = false;
+    public List<ScanResult> ScanResults => new List<ScanResult>();
 
     public void Scan()
     {
+        ScanResults.Clear();
+
         EventAggregator.Instance.FireEvent(BlEvents.CheckingUac);
 
         try
@@ -33,15 +36,36 @@ public class UacChecker : IChecker
                         if ((int)consentPromptBehaviorAdmin == 2 && (int)promptOnSecureDesktop == 1)
                         {                            
                             IsUacAtRecommendedLevel = true;
+
+                            ScanResult result = new ScanResult();
+                            result.ScanType = "User Access Control";
+                            result.Severity = Severity.Ok;
+                            result.ShortDescription = "You are protected by User Account Control";
+                            result.DetailedDescription = $"User Account Control (UAC) is important for security in Windows operating systems because it helps prevent unauthorized or potentially malicious changes to the system by requiring user confirmation or administrator-level permissions for certain actions.";
+                            ScanResults.Add(result);
                         }
                         else
                         {                            
                             IsUacAtRecommendedLevel = false;
+
+                            ScanResult result = new ScanResult();
+                            result.ScanType = "User Access Control";
+                            result.Severity = Severity.Medium;
+                            result.ShortDescription = "User Account Control is at an unsafe setting";
+                            result.DetailedDescription = $"User Account Control (UAC) is important for security in Windows operating systems because it helps prevent unauthorized or potentially malicious changes to the system by requiring user confirmation or administrator-level permissions for certain actions.";
+                            ScanResults.Add(result);
                         }
                     }
                     else
                     {
-                        IsUacDisabled = true;                        
+                        IsUacDisabled = true;
+
+                        ScanResult result = new ScanResult();
+                        result.ScanType = "User Access Control";
+                        result.Severity = Severity.High;
+                        result.ShortDescription = "User Account Control is disabled";
+                        result.DetailedDescription = $"User Account Control (UAC) is important for security in Windows operating systems because it helps prevent unauthorized or potentially malicious changes to the system by requiring user confirmation or administrator-level permissions for certain actions.";
+                        ScanResults.Add(result);
                     }
                 }
                 else

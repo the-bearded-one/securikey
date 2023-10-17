@@ -37,10 +37,10 @@
             // 
             // logoPictureBox
             // 
-            logoPictureBox.Anchor = AnchorStyles.Top;
+            logoPictureBox.Anchor = AnchorStyles.None;
             logoPictureBox.BackgroundImageLayout = ImageLayout.None;
             logoPictureBox.Image = Resources.Resources.SecuriKeyLogo;
-            logoPictureBox.Location = new Point(199, -36);
+            logoPictureBox.Location = new Point(215, -60);
             logoPictureBox.Name = "logoPictureBox";
             logoPictureBox.Size = new Size(374, 362);
             logoPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
@@ -49,7 +49,7 @@
             // 
             // offlineScanButton
             // 
-            offlineScanButton.Anchor = AnchorStyles.Top;
+            offlineScanButton.Anchor = AnchorStyles.None;
             offlineScanButton.BackColor = Color.Black;
             offlineScanButton.BorderColor = Color.FromArgb(0, 66, 114);
             offlineScanButton.BorderRadius = 40;
@@ -65,7 +65,7 @@
             // 
             // onlineScanButton
             // 
-            onlineScanButton.Anchor = AnchorStyles.Top;
+            onlineScanButton.Anchor = AnchorStyles.None;
             onlineScanButton.BackColor = Color.Black;
             onlineScanButton.BorderColor = Color.FromArgb(0, 66, 114);
             onlineScanButton.BorderRadius = 40;
@@ -81,7 +81,7 @@
             // 
             // aboutButton
             // 
-            aboutButton.Anchor = AnchorStyles.Top;
+            aboutButton.Anchor = AnchorStyles.None;
             aboutButton.BackColor = Color.Black;
             aboutButton.BorderColor = Color.FromArgb(0, 66, 114);
             aboutButton.BorderRadius = 40;
@@ -109,7 +109,7 @@
             Controls.Add(logoPictureBox);
             ForeColor = SystemColors.ControlText;
             Name = "HomeScreen";
-            Size = new Size(768, 648);
+            Size = new Size(800, 600);
             ((System.ComponentModel.ISupportInitialize)logoPictureBox).EndInit();
             ResumeLayout(false);
         }

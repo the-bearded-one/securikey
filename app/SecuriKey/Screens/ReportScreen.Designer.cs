@@ -28,41 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
-            statusTextbox = new TextBox();
             newScanButton = new Controls.RoundedButton();
             reportButton = new Controls.RoundedButton();
             scanResultsText = new Label();
+            resultsPanel = new TableLayoutPanel();
             SuspendLayout();
-            // 
-            // statusTextbox
-            // 
-            statusTextbox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            statusTextbox.BackColor = Color.Black;
-            statusTextbox.BorderStyle = BorderStyle.FixedSingle;
-            statusTextbox.ForeColor = Color.White;
-            statusTextbox.Location = new Point(15, 76);
-            statusTextbox.Margin = new Padding(3, 4, 3, 4);
-            statusTextbox.Multiline = true;
-            statusTextbox.Name = "statusTextbox";
-            statusTextbox.ReadOnly = true;
-            statusTextbox.ScrollBars = ScrollBars.Vertical;
-            statusTextbox.Size = new Size(845, 533);
-            statusTextbox.TabIndex = 0;
             // 
             // newScanButton
             // 
             newScanButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             newScanButton.BackColor = Color.Black;
             newScanButton.BorderColor = Color.FromArgb(0, 66, 114);
-            newScanButton.BorderRadius = 40;
+            newScanButton.BorderRadius = 20;
             newScanButton.BorderThickness = 5F;
             newScanButton.ButtonText = "New Scan";
             newScanButton.ForeColor = Color.White;
-            newScanButton.Location = new Point(493, 648);
+            newScanButton.Location = new Point(571, 502);
             newScanButton.Margin = new Padding(3, 5, 3, 5);
             newScanButton.Name = "newScanButton";
             newScanButton.PressedColor = Color.FromArgb(0, 96, 166);
-            newScanButton.Size = new Size(368, 123);
+            newScanButton.Size = new Size(212, 70);
             newScanButton.TabIndex = 1;
             // 
             // reportButton
@@ -70,15 +55,15 @@
             reportButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             reportButton.BackColor = Color.Black;
             reportButton.BorderColor = Color.FromArgb(0, 66, 114);
-            reportButton.BorderRadius = 40;
+            reportButton.BorderRadius = 20;
             reportButton.BorderThickness = 5F;
             reportButton.ButtonText = "Generate Report";
             reportButton.ForeColor = Color.White;
-            reportButton.Location = new Point(15, 648);
+            reportButton.Location = new Point(15, 502);
             reportButton.Margin = new Padding(3, 5, 3, 5);
             reportButton.Name = "reportButton";
             reportButton.PressedColor = Color.FromArgb(0, 96, 166);
-            reportButton.Size = new Size(368, 123);
+            reportButton.Size = new Size(212, 70);
             reportButton.TabIndex = 2;
             // 
             // scanResultsText
@@ -92,26 +77,41 @@
             scanResultsText.TabIndex = 3;
             scanResultsText.Text = "Scan Results";
             // 
+            // resultsPanel
+            // 
+            resultsPanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            resultsPanel.AutoScroll = true;
+            resultsPanel.BackColor = Color.FromArgb(40, 40, 40);
+            resultsPanel.ColumnCount = 1;
+            resultsPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            resultsPanel.Location = new Point(15, 61);
+            resultsPanel.Name = "resultsPanel";
+            resultsPanel.Padding = new Padding(10, 0, 10, 0);
+            resultsPanel.RowCount = 1;
+            resultsPanel.RowStyles.Add(new RowStyle());
+            resultsPanel.Size = new Size(768, 433);
+            resultsPanel.TabIndex = 4;
+            // 
             // ReportScreen
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.Black;
+            Controls.Add(resultsPanel);
             Controls.Add(scanResultsText);
             Controls.Add(reportButton);
             Controls.Add(newScanButton);
-            Controls.Add(statusTextbox);
             Margin = new Padding(3, 4, 3, 4);
             Name = "ReportScreen";
-            Size = new Size(878, 864);
+            Size = new Size(800, 600);
+            Load += ReportScreen_Load;
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private TextBox statusTextbox;
         private Controls.RoundedButton newScanButton;
         private Controls.RoundedButton reportButton;
         private Label scanResultsText;
+        private TableLayoutPanel resultsPanel;
     }
 }

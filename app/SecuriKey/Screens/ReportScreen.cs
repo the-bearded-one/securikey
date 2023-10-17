@@ -1,7 +1,7 @@
-﻿using BusinessLogic;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
+
+using BusinessLogic;
 
 namespace SecuriKey.Screens
 {
@@ -22,6 +24,13 @@ namespace SecuriKey.Screens
 
             reportButton.Click += OnReportButtonClick;
             newScanButton.Click += OnNewScanButtonClick; ;
+
+            foreach (ScanResult result in BL.Instance.ScanResults)
+            {
+                var resultCtl = new Controls.ResultItem(result);
+                resultCtl.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
+                resultsPanel.Controls.Add(resultCtl);
+            }
         }
 
         public event EventHandler NewScanButtonClick;
@@ -30,11 +39,11 @@ namespace SecuriKey.Screens
         {
             get
             {
-                return statusTextbox.Text;
+                return string.Empty;
             }
             set
             {
-                statusTextbox.Text = value;
+                var str = value;
             }
         }
 
@@ -71,7 +80,7 @@ namespace SecuriKey.Screens
                     // save it
                     else
                     {
-                        BL.Instance.GenerateReport(sfd.FileName, statusTextbox.Text);
+                        BL.Instance.GenerateReport(sfd.FileName, string.Empty);// statusTextbox.Text);
                     }
                 }
             }
@@ -92,6 +101,11 @@ namespace SecuriKey.Screens
                 isPathOnNetworkDrive = true; // default to safest answer
             }
             return isPathOnNetworkDrive;
+        }
+
+        private void ReportScreen_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
