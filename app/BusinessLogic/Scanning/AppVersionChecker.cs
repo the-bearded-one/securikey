@@ -12,8 +12,9 @@ namespace BusinessLogic.Scanning
 {
     public class AppScanner : IChecker
     {
-        
         public List<BusinessLogic.Scanning.POCOs.Vulnerability> VulnerabiltiesSeen { get; private set; } = new List<BusinessLogic.Scanning.POCOs.Vulnerability>();
+
+        public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
 
         public bool IsChromeVersionLower(string version1, string version2)
         {
@@ -45,6 +46,7 @@ namespace BusinessLogic.Scanning
         {
             EventAggregator.Instance.FireEvent(BlEvents.CheckingApplicationVersions);
 
+            ScanResults.Clear();
 
             string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "applications.json");
 
@@ -71,6 +73,12 @@ namespace BusinessLogic.Scanning
                         {
                             VulnerabiltiesSeen.Add(vulnerability);
 
+                            ScanResult result = new ScanResult();
+                            result.ScanType = "Application";
+                            result.Severity = Severity.High;
+                            result.ShortDescription = "Google chrome has newer version";
+                            result.DetailedDescription = $"Google Chrome version is unsafe. Please update Google Chrome to ensure you have the latest security patches. CVE ID {vulnerability.CVE}";
+                            ScanResults.Add(result);
                         }
                     }
                 }
@@ -93,6 +101,13 @@ namespace BusinessLogic.Scanning
                         if (IsChromeVersionLower(appVersion, vulnerability.Version))
                         {
                             VulnerabiltiesSeen.Add(vulnerability);
+
+                            ScanResult result = new ScanResult();
+                            result.ScanType = "Application";
+                            result.Severity = Severity.High;
+                            result.ShortDescription = "Spotify has newer version";
+                            result.DetailedDescription = $"Spotify version is unsafe. Please update Spotify to ensure you have the latest security patches. CVE ID {vulnerability.CVE}";
+                            ScanResults.Add(result);
                         }
                     }
                 }
@@ -115,11 +130,29 @@ namespace BusinessLogic.Scanning
                         if (IsChromeVersionLower(appVersion, vulnerability.Version))
                         {
                             VulnerabiltiesSeen.Add(vulnerability);
+
+                            ScanResult result = new ScanResult();
+                            result.ScanType = "Application";
+                            result.Severity = Severity.High;
+                            result.ShortDescription = "Mozilla Firefox has newer version";
+                            result.DetailedDescription = $"Mozilla Firefox version is unsafe. Please update Mozilla Firefox to ensure you have the latest security patches. CVE ID {vulnerability.CVE}";
+                            ScanResults.Add(result);
                         }
                     }
                 }
             }
             #endregion
+
+            // check if no applications were found to be out of date. if so, tell user they are in Ok shape
+            if (ScanResults.Count == 0)
+            {
+                ScanResult result = new ScanResult();
+                result.ScanType = "Application";
+                result.Severity = Severity.Ok;
+                result.ShortDescription = "All high risk applications were found to be up to date";
+                result.DetailedDescription = $"All high risk applications were found to be up to date. It is important to keep all applications up to date on your system to ensure you always have the latest security patches.";
+                ScanResults.Add(result);
+            }
 
             EventAggregator.Instance.FireEvent(BlEvents.CheckingApplicationVersionsCompleted);
 

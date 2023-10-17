@@ -20,13 +20,12 @@ namespace SecuriKey.Controls
         Color idleColor = Color.FromArgb(0, 0, 0);
 
         #region Constructors
-        public ResultItem(ScanResults result) : base()
+        public ResultItem(ScanResult result) : this()
         {
             this.Severity = result.Severity;
             this.ScanType = result.ScanType;
             this.ShortDescription = result.ShortDescription;
-            string details = $"Detail Description: {result.DetailedDescription}\r\n\r\nRemediation: {result.Remediation}";
-            this.Details = details;
+            this.Details = result.DetailedDescription;
         }
 
         public ResultItem()

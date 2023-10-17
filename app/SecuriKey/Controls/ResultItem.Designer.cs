@@ -41,7 +41,7 @@
             shortDescriptionLabel.BackColor = Color.Transparent;
             shortDescriptionLabel.Font = new Font("Arial", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             shortDescriptionLabel.ForeColor = Color.White;
-            shortDescriptionLabel.Location = new Point(269, 11);
+            shortDescriptionLabel.Location = new Point(159, 11);
             shortDescriptionLabel.Name = "shortDescriptionLabel";
             shortDescriptionLabel.Size = new Size(129, 18);
             shortDescriptionLabel.TabIndex = 0;
@@ -87,7 +87,7 @@
             detailsTextbox.Multiline = true;
             detailsTextbox.Name = "detailsTextbox";
             detailsTextbox.ReadOnly = true;
-            detailsTextbox.Size = new Size(610, 176);
+            detailsTextbox.Size = new Size(610, 73);
             detailsTextbox.TabIndex = 3;
             detailsTextbox.Text = "details textbox";
             // 

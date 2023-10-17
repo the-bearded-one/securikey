@@ -1,5 +1,6 @@
 using BusinessLogic;
 using BusinessLogic.Scanning;
+using BusinessLogic.Scanning.POCOs;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using WUApiLib;
@@ -10,9 +11,12 @@ public class WindowsVersionChecker : IChecker
     public bool IsUpdateAvailable { get; set; } = false;
     public Dictionary<string, string> VersionInfo = new Dictionary<string, string>();
     public List<string> AvailableUpdates = new List<string>();
+    public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
 
     public void Scan()
     {
+        ScanResults.Clear();
+
         EventAggregator.Instance.FireEvent(BlEvents.CheckingWindowsVersion);
 
         VersionInfo.Clear();
@@ -52,6 +56,25 @@ public class WindowsVersionChecker : IChecker
 
         // if internet access is authorized, check if a windows update is available
         if (IsInternetAccessAuthorized) CheckForWindowsUpdate();
+
+        if (AvailableUpdates.Count > 0)
+        {
+            ScanResult result = new ScanResult();
+            result.ScanType = "Windows Version";
+            result.Severity = Severity.High;
+            result.ShortDescription = "Windows has newer version";
+            result.DetailedDescription = $"Keeping Windows up to date is crucial because it ensures the security of your system by patching vulnerabilities, safeguards your personal data, enhances system stability and performance, maintains compatibility with software and hardware, and provides access to new features, all while reducing the risk of cyberattacks, data breaches, and system failures.";
+            ScanResults.Add(result);
+        }
+        else
+        {
+            ScanResult result = new ScanResult();
+            result.ScanType = "Windows Version";
+            result.Severity = Severity.Ok;
+            result.ShortDescription = "You are protected with the newest Windows version";
+            result.DetailedDescription = $"Keeping Windows up to date is crucial because it ensures the security of your system by patching vulnerabilities, safeguards your personal data, enhances system stability and performance, maintains compatibility with software and hardware, and provides access to new features, all while reducing the risk of cyberattacks, data breaches, and system failures.";
+            ScanResults.Add(result);
+        }
 
         EventAggregator.Instance.FireEvent(BlEvents.CheckingWindowsVersionCompleted);
     }

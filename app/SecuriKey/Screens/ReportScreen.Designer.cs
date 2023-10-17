@@ -39,15 +39,15 @@
             newScanButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             newScanButton.BackColor = Color.Black;
             newScanButton.BorderColor = Color.FromArgb(0, 66, 114);
-            newScanButton.BorderRadius = 40;
+            newScanButton.BorderRadius = 20;
             newScanButton.BorderThickness = 5F;
             newScanButton.ButtonText = "New Scan";
             newScanButton.ForeColor = Color.White;
-            newScanButton.Location = new Point(415, 449);
+            newScanButton.Location = new Point(571, 502);
             newScanButton.Margin = new Padding(3, 5, 3, 5);
             newScanButton.Name = "newScanButton";
             newScanButton.PressedColor = Color.FromArgb(0, 96, 166);
-            newScanButton.Size = new Size(368, 123);
+            newScanButton.Size = new Size(212, 70);
             newScanButton.TabIndex = 1;
             // 
             // reportButton
@@ -55,15 +55,15 @@
             reportButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             reportButton.BackColor = Color.Black;
             reportButton.BorderColor = Color.FromArgb(0, 66, 114);
-            reportButton.BorderRadius = 40;
+            reportButton.BorderRadius = 20;
             reportButton.BorderThickness = 5F;
             reportButton.ButtonText = "Generate Report";
             reportButton.ForeColor = Color.White;
-            reportButton.Location = new Point(15, 449);
+            reportButton.Location = new Point(15, 502);
             reportButton.Margin = new Padding(3, 5, 3, 5);
             reportButton.Name = "reportButton";
             reportButton.PressedColor = Color.FromArgb(0, 96, 166);
-            reportButton.Size = new Size(368, 123);
+            reportButton.Size = new Size(212, 70);
             reportButton.TabIndex = 2;
             // 
             // scanResultsText
@@ -89,7 +89,7 @@
             resultsPanel.Padding = new Padding(10, 0, 10, 0);
             resultsPanel.RowCount = 1;
             resultsPanel.RowStyles.Add(new RowStyle());
-            resultsPanel.Size = new Size(768, 362);
+            resultsPanel.Size = new Size(768, 433);
             resultsPanel.TabIndex = 4;
             // 
             // ReportScreen

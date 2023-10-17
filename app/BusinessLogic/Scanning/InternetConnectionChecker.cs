@@ -9,6 +9,7 @@ namespace BusinessLogic
         private static extern bool InternetGetConnectedState(out int description, int reservedValue);
 
         public bool IsConnected { get; private set; } = false;
+        public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
 
         public void Scan()
         {

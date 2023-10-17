@@ -1,7 +1,7 @@
-﻿using BusinessLogic;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
+
+using BusinessLogic;
 
 namespace SecuriKey.Screens
 {
@@ -23,17 +25,11 @@ namespace SecuriKey.Screens
             reportButton.Click += OnReportButtonClick;
             newScanButton.Click += OnNewScanButtonClick; ;
 
-            for (int i = 0; i < 13; i++)
+            foreach (ScanResult result in BL.Instance.ScanResults)
             {
-                var ctrl = new Controls.ResultItem();
-                ctrl.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
-                var rand = new Random();
-                var sev = rand.Next(0, 4);
-                if (sev == 0) ctrl.Severity = Severity.Ok;
-                if (sev == 1) ctrl.Severity = Severity.Low;
-                if (sev == 2) ctrl.Severity = Severity.Medium;
-                if (sev == 3) ctrl.Severity = Severity.High;
-                resultsPanel.Controls.Add(ctrl);
+                var resultCtl = new Controls.ResultItem(result);
+                resultCtl.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
+                resultsPanel.Controls.Add(resultCtl);
             }
         }
 
