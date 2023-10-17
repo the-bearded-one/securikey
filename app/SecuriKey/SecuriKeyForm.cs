@@ -21,7 +21,38 @@ namespace SecuriKey
         {
             InitializeComponent();
 
-            // Listen to BL events and display the right screen accordingly
+            // detect monitor size and resize to a reasonable size
+            var displayScreen = Screen.FromControl(this);
+            if (displayScreen != null)
+            {
+                if (displayScreen.Bounds.Width >= 1440)
+                {
+                    this.Width = 1440;
+                    this.Height = 1080;
+                }
+                else if (displayScreen.Bounds.Width >= 1280)
+                {
+                    this.Width = 1280;
+                    this.Height = 960;
+                }
+                else if (displayScreen.Bounds.Width >= 1024)
+                {
+                    this.Width = 1024;
+                    this.Height = 768;
+                }
+                else if (displayScreen.Bounds.Width >= 800)
+                {
+                    this.Width = 800;
+                    this.Height = 600;
+                }
+                else if (displayScreen.Bounds.Width >= 640)
+                {
+                    this.Width = 640;
+                    this.Height = 480;
+                }
+            }
+
+            // listen to BL events and display the right screen accordingly
             BL.Instance.EventAggregator.BlEvent += OnEventAggregatorBlEvent;
 
             // load initial screen

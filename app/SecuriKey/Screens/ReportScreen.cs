@@ -22,6 +22,18 @@ namespace SecuriKey.Screens
 
             reportButton.Click += OnReportButtonClick;
             newScanButton.Click += OnNewScanButtonClick; ;
+
+            for (int i = 0; i < 10; i++)
+            {
+                var ctrl = new Controls.ResultItem();
+                ctrl.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
+                var rand = new Random();
+                var sev = rand.Next(0, 3);
+                if (sev == 0) ctrl.Severity = Severity.Low;
+                if (sev == 1) ctrl.Severity = Severity.Medium;
+                if (sev == 2) ctrl.Severity = Severity.High;
+                resultsPanel.Controls.Add(ctrl);
+            }
         }
 
         public event EventHandler NewScanButtonClick;
@@ -30,11 +42,11 @@ namespace SecuriKey.Screens
         {
             get
             {
-                return statusTextbox.Text;
+                return string.Empty;
             }
             set
             {
-                statusTextbox.Text = value;
+                var str = value;
             }
         }
 
@@ -71,7 +83,7 @@ namespace SecuriKey.Screens
                     // save it
                     else
                     {
-                        BL.Instance.GenerateReport(sfd.FileName, statusTextbox.Text);
+                        BL.Instance.GenerateReport(sfd.FileName, string.Empty);// statusTextbox.Text);
                     }
                 }
             }
@@ -92,6 +104,11 @@ namespace SecuriKey.Screens
                 isPathOnNetworkDrive = true; // default to safest answer
             }
             return isPathOnNetworkDrive;
+        }
+
+        private void ReportScreen_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

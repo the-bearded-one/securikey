@@ -35,7 +35,7 @@
             // 
             // progressBar
             // 
-            progressBar.Anchor = AnchorStyles.Top;
+            progressBar.Anchor = AnchorStyles.None;
             progressBar.ForeColor = Color.FromArgb(0, 66, 114);
             progressBar.Location = new Point(115, 296);
             progressBar.Margin = new Padding(3, 4, 3, 4);
@@ -46,7 +46,7 @@
             // 
             // progressLabel
             // 
-            progressLabel.Anchor = AnchorStyles.Top;
+            progressLabel.Anchor = AnchorStyles.None;
             progressLabel.AutoSize = true;
             progressLabel.BackColor = Color.Black;
             progressLabel.Font = new Font("Arial", 18F, FontStyle.Regular, GraphicsUnit.Point);
@@ -59,7 +59,7 @@
             // 
             // encouragementLabel
             // 
-            encouragementLabel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            encouragementLabel.Anchor = AnchorStyles.None;
             encouragementLabel.BackColor = Color.Black;
             encouragementLabel.Font = new Font("Arial", 18F, FontStyle.Regular, GraphicsUnit.Point);
             encouragementLabel.ForeColor = Color.White;
