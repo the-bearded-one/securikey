@@ -49,6 +49,7 @@
             newScanButton.PressedColor = Color.FromArgb(0, 96, 166);
             newScanButton.Size = new Size(212, 70);
             newScanButton.TabIndex = 1;
+            newScanButton.UnpressedColor = Color.Black;
             // 
             // reportButton
             // 
@@ -65,9 +66,11 @@
             reportButton.PressedColor = Color.FromArgb(0, 96, 166);
             reportButton.Size = new Size(212, 70);
             reportButton.TabIndex = 2;
+            reportButton.UnpressedColor = Color.Black;
             // 
             // scanResultsText
             // 
+            scanResultsText.Anchor = AnchorStyles.Top;
             scanResultsText.AutoSize = true;
             scanResultsText.Font = new Font("Arial", 20.25F, FontStyle.Regular, GraphicsUnit.Point);
             scanResultsText.ForeColor = Color.White;

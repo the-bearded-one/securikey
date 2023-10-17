@@ -41,26 +41,18 @@ namespace SecuriKey.Controls
         public float BorderThickness { get; set; } = 5;
         public Color PressedColor { get; set; } = Color.FromArgb(0, 96, 166);
         public Color BorderColor { get; set; } = Color.FromArgb(0, 66, 114);
-
-
-        protected override void OnPaintBackground(PaintEventArgs e)
-        {
-            // disable background paint
-        }
+        public Color UnpressedColor { get; set; } = Color.Black;
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            using (var backgroundBrush = new SolidBrush(this.BackColor))
+            using (var unpressedBrush = new SolidBrush(this.UnpressedColor))
             using (var pressedBrush = new SolidBrush(this.PressedColor))
             using (var borderPen = new Pen(BorderColor, BorderThickness))
             using (var graphicsPath = new GraphicsPath())
             {
-                // first draw background
-                e.Graphics.FillRectangle(backgroundBrush, this.ClientRectangle);
-
                 // Create a rounded rectangle path
                 int BorderWidthInt = Convert.ToInt32(BorderThickness);
-                var rect = new Rectangle(BorderWidthInt/2, BorderWidthInt/2, Width - BorderWidthInt, Height - BorderWidthInt);
+                var rect = new Rectangle(BorderWidthInt / 2, BorderWidthInt / 2, Width - BorderWidthInt, Height - BorderWidthInt);
                 graphicsPath.AddArc(rect.Left, rect.Top, BorderRadius * 2, BorderRadius * 2, 180, 90); // Top left corner
                 graphicsPath.AddArc(rect.Right - BorderRadius * 2, rect.Top, BorderRadius * 2, BorderRadius * 2, 270, 90); // Top right corner
                 graphicsPath.AddArc(rect.Right - BorderRadius * 2, rect.Bottom - BorderRadius * 2, BorderRadius * 2, BorderRadius * 2, 0, 90); // Bottom right corner
@@ -69,7 +61,7 @@ namespace SecuriKey.Controls
 
                 // Fill the button with a flat color
                 if (isPressed) e.Graphics.FillPath(pressedBrush, graphicsPath);
-                else e.Graphics.FillPath(backgroundBrush, graphicsPath);
+                else e.Graphics.FillPath(unpressedBrush, graphicsPath);
 
                 // Draw the border
                 e.Graphics.DrawPath(borderPen, graphicsPath);

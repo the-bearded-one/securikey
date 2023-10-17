@@ -38,20 +38,21 @@
             textLabel.Font = new Font("Arial", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
             textLabel.Location = new Point(0, 0);
             textLabel.Name = "textLabel";
-            textLabel.Size = new Size(322, 92);
+            textLabel.Size = new Size(368, 123);
             textLabel.TabIndex = 0;
             textLabel.Text = "textLabel";
             textLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // RoundedButton
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.Black;
+            BackColor = Color.Transparent;
             Controls.Add(textLabel);
             ForeColor = Color.White;
+            Margin = new Padding(3, 4, 3, 4);
             Name = "RoundedButton";
-            Size = new Size(322, 92);
+            Size = new Size(368, 123);
             MouseClick += OnRoundedButtonMouseClick;
             MouseDown += OnRoundedButtonMouseDown;
             MouseUp += OnRoundedButtonMouseUp;

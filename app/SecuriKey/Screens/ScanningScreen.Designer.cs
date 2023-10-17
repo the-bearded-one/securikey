@@ -31,6 +31,8 @@
             progressBar = new ProgressBar();
             progressLabel = new Label();
             encouragementLabel = new Label();
+            backgroundPictureBox = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)backgroundPictureBox).BeginInit();
             SuspendLayout();
             // 
             // progressBar
@@ -48,7 +50,7 @@
             // 
             progressLabel.Anchor = AnchorStyles.None;
             progressLabel.AutoSize = true;
-            progressLabel.BackColor = Color.Black;
+            progressLabel.BackColor = Color.Transparent;
             progressLabel.Font = new Font("Arial", 18F, FontStyle.Regular, GraphicsUnit.Point);
             progressLabel.ForeColor = Color.White;
             progressLabel.Location = new Point(35, 116);
@@ -60,7 +62,7 @@
             // encouragementLabel
             // 
             encouragementLabel.Anchor = AnchorStyles.None;
-            encouragementLabel.BackColor = Color.Black;
+            encouragementLabel.BackColor = Color.Transparent;
             encouragementLabel.Font = new Font("Arial", 18F, FontStyle.Regular, GraphicsUnit.Point);
             encouragementLabel.ForeColor = Color.White;
             encouragementLabel.Location = new Point(-39, 289);
@@ -70,6 +72,17 @@
             encouragementLabel.Text = "nice!";
             encouragementLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // backgroundPictureBox
+            // 
+            backgroundPictureBox.Dock = DockStyle.Fill;
+            backgroundPictureBox.Image = Resources.Resources.bg;
+            backgroundPictureBox.Location = new Point(0, 0);
+            backgroundPictureBox.Name = "backgroundPictureBox";
+            backgroundPictureBox.Size = new Size(800, 600);
+            backgroundPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            backgroundPictureBox.TabIndex = 3;
+            backgroundPictureBox.TabStop = false;
+            // 
             // ScanningScreen
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -77,9 +90,11 @@
             Controls.Add(encouragementLabel);
             Controls.Add(progressLabel);
             Controls.Add(progressBar);
+            Controls.Add(backgroundPictureBox);
             Margin = new Padding(3, 4, 3, 4);
             Name = "ScanningScreen";
             Size = new Size(800, 600);
+            ((System.ComponentModel.ISupportInitialize)backgroundPictureBox).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -89,5 +104,6 @@
         private ProgressBar progressBar;
         private Label progressLabel;
         private Label encouragementLabel;
+        private PictureBox backgroundPictureBox;
     }
 }

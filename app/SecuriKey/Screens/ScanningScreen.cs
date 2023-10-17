@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,6 +38,8 @@ namespace SecuriKey.Screens
             wordsOfEncourangement.Add("protect the things you care about");
             wordsOfEncourangement.Add("empower yourself through digital security");
 
+            SuspendLayout();
+
             // randomize initial words of encouragement
             UpdateWordsOfEncouragement();
 
@@ -47,6 +50,24 @@ namespace SecuriKey.Screens
 
             // start the encouragement stopwatch so that we can rotate encouragement
             encouragementStopwatch.Start();
+
+            // to get transparency, the parent of controls need to be the background. so set the background image of this screen to parent of other screens
+            // // put all controls into a seperate list since we will be iterating over them
+            List<Control> ctrls = new List<Control>();
+            foreach (Control ctrl in Controls)
+            {
+                ctrls.Add(ctrl);
+            }
+            // // now iterate over the controls and change the parent
+            foreach (var ctrl in ctrls)
+            {
+                if (ctrl != this.backgroundPictureBox) ctrl.Parent = this.backgroundPictureBox;
+            }
+
+            // TODO fix this kludge - darkent he image of the background
+            ChangePictureBoxOpacity(backgroundPictureBox, 0.15);
+
+            ResumeLayout();
         }
 
         private void OnAnimationTimerTick(object? sender, EventArgs e)
@@ -104,6 +125,33 @@ namespace SecuriKey.Screens
             int idx = random.Next(0, wordsOfEncourangement.Count - 1);
             encouragementLabel.Text = wordsOfEncourangement[idx];
             encouragementStopwatch.Restart();
+        }
+
+        private void ChangePictureBoxOpacity(PictureBox pictureBox, double opacity)
+        {
+            if (pictureBox.Image != null)
+            {
+                // Create a new Bitmap with the same size as the PictureBox's image.
+                Bitmap bmp = new Bitmap(pictureBox.Image.Width, pictureBox.Image.Height);
+
+                // Create a graphics object for the new Bitmap.
+                using (Graphics g = Graphics.FromImage(bmp))
+                {
+                    // Create a color matrix that sets the image opacity.
+                    ColorMatrix matrix = new ColorMatrix();
+                    matrix.Matrix33 = (float)opacity; // Opacity value, 1.0 for fully visible, 0.0 for fully transparent
+
+                    // Create an image attribute and set the color matrix.
+                    ImageAttributes attributes = new ImageAttributes();
+                    attributes.SetColorMatrix(matrix);
+
+                    // Draw the image with the specified opacity onto the new Bitmap.
+                    g.DrawImage(pictureBox.Image, new Rectangle(0, 0, bmp.Width, bmp.Height), 0, 0, bmp.Width, bmp.Height, GraphicsUnit.Pixel, attributes);
+                }
+
+                // Set the PictureBox's image to the modified Bitmap.
+                pictureBox.Image = bmp;
+            }
         }
     }
 }
