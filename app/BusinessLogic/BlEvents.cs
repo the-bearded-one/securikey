@@ -31,6 +31,8 @@
         CheckingBitLocker,
         CheckingBitLockerCompleted,
         CheckingUac,
-        CheckingUacCompleted
+        CheckingUacCompleted,
+        CheckingPowerShellExecutionPolicy,
+        CheckingPowerShellExecutionPolicyCompleted
     }
 }

@@ -56,7 +56,7 @@
             offlineScanButton.BorderThickness = 5F;
             offlineScanButton.ButtonText = "Scan Offline";
             offlineScanButton.ForeColor = Color.White;
-            offlineScanButton.Location = new Point(226, 307);
+            offlineScanButton.Location = new Point(226, 347);
             offlineScanButton.Margin = new Padding(3, 4, 3, 4);
             offlineScanButton.Name = "offlineScanButton";
             offlineScanButton.PressedColor = Color.FromArgb(0, 96, 166);
@@ -72,7 +72,7 @@
             onlineScanButton.BorderThickness = 5F;
             onlineScanButton.ButtonText = "Scan Online";
             onlineScanButton.ForeColor = Color.White;
-            onlineScanButton.Location = new Point(226, 410);
+            onlineScanButton.Location = new Point(226, 450);
             onlineScanButton.Margin = new Padding(3, 4, 3, 4);
             onlineScanButton.Name = "onlineScanButton";
             onlineScanButton.PressedColor = Color.FromArgb(0, 96, 166);
@@ -88,7 +88,7 @@
             aboutButton.BorderThickness = 5F;
             aboutButton.ButtonText = "About";
             aboutButton.ForeColor = Color.White;
-            aboutButton.Location = new Point(226, 510);
+            aboutButton.Location = new Point(226, 550);
             aboutButton.Margin = new Padding(3, 4, 3, 4);
             aboutButton.Name = "aboutButton";
             aboutButton.PressedColor = Color.FromArgb(0, 96, 166);
@@ -98,7 +98,11 @@
             // HomeScreen
             // 
             AutoScaleMode = AutoScaleMode.None;
-            BackColor = Color.Black;
+
+            BackgroundImage = Image.FromFile(Path.Combine(Directory.GetCurrentDirectory(), "Resources", "bg.png"));
+            BackgroundImageLayout = ImageLayout.Stretch;  // or any other ImageLayout value
+
+
             Controls.Add(aboutButton);
             Controls.Add(onlineScanButton);
             Controls.Add(offlineScanButton);

@@ -39,6 +39,7 @@ namespace BusinessLogic
             checkers.Add(this.FirewallChecker);
             checkers.Add(this.BitLockerChecker);
             checkers.Add(this.UacChecker);
+            checkers.Add(this.PowerShellChecker);
 
 
             // subscribe to events
@@ -82,6 +83,7 @@ namespace BusinessLogic
         public WindowsUpdateChecker WindowsUpdateChecker { get; private set; } = new WindowsUpdateChecker();
         public BitLockerChecker BitLockerChecker { get; private set; } = new BitLockerChecker();
         public UacChecker UacChecker { get; private set; } = new UacChecker();
+        public PowerShellChecker PowerShellChecker { get; private set; } = new PowerShellChecker();
         public int ScanPercentCompleted { get => (int)((double)scanChecksCompleted / (double)checkers.Count * 100D); }
 
         #endregion

@@ -187,6 +187,15 @@ namespace SecuriKey
                         }
                     }
                     break;
+                case BlEvents.CheckingPowerShellExecutionPolicyCompleted:
+                    if (BL.Instance.PowerShellChecker.UnableToQuery == false)
+                    {
+                        if (BL.Instance.PowerShellChecker.HasWeakExecutionPolicy)
+                        {
+                            statusTextbox.Text += $"\r\n    PowerShell Execution Policy is Weak!";
+                        }
+                    }
+                    break;
                 case BlEvents.CheckingWindowsVersionCompleted:
                     string windowsVersionInfoFormatted = string.Join("\r\n", BL.Instance.WindowsVersionChecker.VersionInfo.Select(kvp => $"    {kvp.Key}: {kvp.Value}"));
                     statusTextbox.Text += $"\r\n{windowsVersionInfoFormatted}";

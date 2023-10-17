@@ -31,6 +31,9 @@
     <None Update="Resources\applications.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Resources\bg.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\SecuriKeyLogo.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
