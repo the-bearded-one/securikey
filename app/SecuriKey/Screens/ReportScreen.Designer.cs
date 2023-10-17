@@ -43,7 +43,7 @@
             newScanButton.BorderThickness = 5F;
             newScanButton.ButtonText = "New Scan";
             newScanButton.ForeColor = Color.White;
-            newScanButton.Location = new Point(493, 648);
+            newScanButton.Location = new Point(415, 449);
             newScanButton.Margin = new Padding(3, 5, 3, 5);
             newScanButton.Name = "newScanButton";
             newScanButton.PressedColor = Color.FromArgb(0, 96, 166);
@@ -59,7 +59,7 @@
             reportButton.BorderThickness = 5F;
             reportButton.ButtonText = "Generate Report";
             reportButton.ForeColor = Color.White;
-            reportButton.Location = new Point(15, 648);
+            reportButton.Location = new Point(15, 449);
             reportButton.Margin = new Padding(3, 5, 3, 5);
             reportButton.Name = "reportButton";
             reportButton.PressedColor = Color.FromArgb(0, 96, 166);
@@ -86,9 +86,10 @@
             resultsPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             resultsPanel.Location = new Point(15, 61);
             resultsPanel.Name = "resultsPanel";
+            resultsPanel.Padding = new Padding(10, 0, 10, 0);
             resultsPanel.RowCount = 1;
             resultsPanel.RowStyles.Add(new RowStyle());
-            resultsPanel.Size = new Size(846, 564);
+            resultsPanel.Size = new Size(768, 362);
             resultsPanel.TabIndex = 4;
             // 
             // ReportScreen
@@ -101,7 +102,7 @@
             Controls.Add(newScanButton);
             Margin = new Padding(3, 4, 3, 4);
             Name = "ReportScreen";
-            Size = new Size(878, 864);
+            Size = new Size(800, 600);
             Load += ReportScreen_Load;
             ResumeLayout(false);
             PerformLayout();

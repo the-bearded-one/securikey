@@ -40,7 +40,7 @@
             logoPictureBox.Anchor = AnchorStyles.None;
             logoPictureBox.BackgroundImageLayout = ImageLayout.None;
             logoPictureBox.Image = Resources.Resources.SecuriKeyLogo;
-            logoPictureBox.Location = new Point(199, -36);
+            logoPictureBox.Location = new Point(215, -60);
             logoPictureBox.Name = "logoPictureBox";
             logoPictureBox.Size = new Size(374, 362);
             logoPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
@@ -56,7 +56,7 @@
             offlineScanButton.BorderThickness = 5F;
             offlineScanButton.ButtonText = "Scan Offline";
             offlineScanButton.ForeColor = Color.White;
-            offlineScanButton.Location = new Point(226, 307);
+            offlineScanButton.Location = new Point(242, 283);
             offlineScanButton.Margin = new Padding(3, 4, 3, 4);
             offlineScanButton.Name = "offlineScanButton";
             offlineScanButton.PressedColor = Color.FromArgb(0, 96, 166);
@@ -72,7 +72,7 @@
             onlineScanButton.BorderThickness = 5F;
             onlineScanButton.ButtonText = "Scan Online";
             onlineScanButton.ForeColor = Color.White;
-            onlineScanButton.Location = new Point(226, 410);
+            onlineScanButton.Location = new Point(242, 386);
             onlineScanButton.Margin = new Padding(3, 4, 3, 4);
             onlineScanButton.Name = "onlineScanButton";
             onlineScanButton.PressedColor = Color.FromArgb(0, 96, 166);
@@ -88,7 +88,7 @@
             aboutButton.BorderThickness = 5F;
             aboutButton.ButtonText = "About";
             aboutButton.ForeColor = Color.White;
-            aboutButton.Location = new Point(226, 510);
+            aboutButton.Location = new Point(242, 486);
             aboutButton.Margin = new Padding(3, 4, 3, 4);
             aboutButton.Name = "aboutButton";
             aboutButton.PressedColor = Color.FromArgb(0, 96, 166);
@@ -105,7 +105,7 @@
             Controls.Add(logoPictureBox);
             ForeColor = SystemColors.ControlText;
             Name = "HomeScreen";
-            Size = new Size(768, 648);
+            Size = new Size(800, 600);
             ((System.ComponentModel.ISupportInitialize)logoPictureBox).EndInit();
             ResumeLayout(false);
         }

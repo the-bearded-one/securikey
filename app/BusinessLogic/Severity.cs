@@ -2,9 +2,9 @@
 {
     public enum Severity
     {
+        Ok,
         Low,
         Medium,
-        High,
-        Critical
+        High
     }
 }

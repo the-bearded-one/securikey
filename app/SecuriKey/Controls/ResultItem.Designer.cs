@@ -66,8 +66,12 @@
             severityIndicator.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             severityIndicator.BackColor = Color.Transparent;
             severityIndicator.BorderRadius = 8;
+            severityIndicator.HighColor = Color.FromArgb(168, 37, 33);
             severityIndicator.Location = new Point(526, 6);
+            severityIndicator.LowColor = Color.FromArgb(135, 133, 156);
+            severityIndicator.MediumColor = Color.FromArgb(209, 130, 36);
             severityIndicator.Name = "severityIndicator";
+            severityIndicator.OkColor = Color.FromArgb(61, 131, 97);
             severityIndicator.Severity = BusinessLogic.Severity.Low;
             severityIndicator.Size = new Size(102, 26);
             severityIndicator.TabIndex = 2;
@@ -96,10 +100,14 @@
             Controls.Add(severityIndicator);
             Controls.Add(scanTypeLabel);
             Controls.Add(shortDescriptionLabel);
-            Font = new Font("Arial Narrow", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             Name = "ResultItem";
             Size = new Size(638, 38);
             Click += OnResultItemClick;
+            MouseDown += OnResultItemMouseDown;
+            MouseEnter += OnResultItemMouseEnter;
+            MouseLeave += OnResultItemMouseLeave;
+            MouseUp += OnResultItemMouseUp;
             ResumeLayout(false);
             PerformLayout();
         }

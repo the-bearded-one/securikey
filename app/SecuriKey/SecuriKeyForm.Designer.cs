@@ -34,7 +34,7 @@
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.Black;
-            ClientSize = new Size(859, 812);
+            ClientSize = new Size(784, 561);
             ForeColor = Color.White;
             FormBorderStyle = FormBorderStyle.SizableToolWindow;
             Margin = new Padding(3, 4, 3, 4);

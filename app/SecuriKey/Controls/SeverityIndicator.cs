@@ -21,7 +21,8 @@ namespace SecuriKey.Controls
         }
 
         public int BorderRadius { get; set; } = 15;
-        public Severity Severity { get; set; } = Severity.Low; 
+        public Severity Severity { get; set; } = Severity.Low;
+        public Color OkColor { get; set; } = Color.FromArgb(61, 131, 97);
         public Color HighColor { get; set; } = Color.FromArgb(168, 37, 33);
         public Color MediumColor { get; set; } = Color.FromArgb(209, 130, 36);
         public Color LowColor { get; set; } = Color.FromArgb(135, 133, 156);
@@ -31,9 +32,10 @@ namespace SecuriKey.Controls
             base.OnPaint(e);
 
             // configure look based on severity
-            Color fillColor = HighColor;
+            Color fillColor = OkColor;
             if (this.Severity == Severity.Low) fillColor = LowColor;
             else if (this.Severity == Severity.Medium) fillColor = MediumColor;
+            else if (this.Severity == Severity.High) fillColor = HighColor;
 
             var fontSize = GetMaxFontSize(this.Severity.ToString(), this.Font);
             

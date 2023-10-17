@@ -40,15 +40,10 @@ namespace SecuriKey
                     this.Width = 1024;
                     this.Height = 768;
                 }
-                else if (displayScreen.Bounds.Width >= 800)
+                else
                 {
                     this.Width = 800;
                     this.Height = 600;
-                }
-                else if (displayScreen.Bounds.Width >= 640)
-                {
-                    this.Width = 640;
-                    this.Height = 480;
                 }
             }
 

@@ -23,15 +23,16 @@ namespace SecuriKey.Screens
             reportButton.Click += OnReportButtonClick;
             newScanButton.Click += OnNewScanButtonClick; ;
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 13; i++)
             {
                 var ctrl = new Controls.ResultItem();
                 ctrl.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
                 var rand = new Random();
-                var sev = rand.Next(0, 3);
-                if (sev == 0) ctrl.Severity = Severity.Low;
-                if (sev == 1) ctrl.Severity = Severity.Medium;
-                if (sev == 2) ctrl.Severity = Severity.High;
+                var sev = rand.Next(0, 4);
+                if (sev == 0) ctrl.Severity = Severity.Ok;
+                if (sev == 1) ctrl.Severity = Severity.Low;
+                if (sev == 2) ctrl.Severity = Severity.Medium;
+                if (sev == 3) ctrl.Severity = Severity.High;
                 resultsPanel.Controls.Add(ctrl);
             }
         }
