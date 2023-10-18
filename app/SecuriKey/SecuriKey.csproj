@@ -12,7 +12,6 @@
   <ItemGroup>
     <None Remove="Resources\AboutSecuriKeyTitle.png" />
     <None Remove="Resources\bg.png" />
-    <None Remove="Resources\cves_severity_high.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,9 +23,6 @@
     <EmbeddedResource Include="Resources\bg.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\cves_severity_high.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
@@ -34,9 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Resources\applications.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="Resources\SecuriKeyLogo.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>

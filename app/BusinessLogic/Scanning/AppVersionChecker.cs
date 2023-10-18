@@ -48,10 +48,7 @@ namespace BusinessLogic.Scanning
 
             ScanResults.Clear();
 
-            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "applications.json");
-
-            // Read the file content
-            string json = File.ReadAllText(path);
+            string json = Shared.ReadAllTextFromFileAsBytes(Resources.Resources.applications);
 
             // Deserialize the JSON content to a list of ApplicationInfo objects
             List<BusinessLogic.Scanning.POCOs.ApplicationInfo> apps = JsonConvert.DeserializeObject<List<BusinessLogic.Scanning.POCOs.ApplicationInfo>>(json);

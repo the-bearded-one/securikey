@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using BusinessLogic;
 
 namespace BusinessLogic.Scanning
 {
@@ -25,9 +26,7 @@ namespace BusinessLogic.Scanning
             _appsInfo = _sbomGenerator.GetInstalledAppInfo();
 
             // load local CVE db
-            string cveFileName = "cves_severity_high.json";
-            var cveFilePath = Path.Combine(Directory.GetCurrentDirectory(), "Resources", cveFileName);
-            var cveObjectAsJsonStr = File.ReadAllText(cveFilePath);
+            var cveObjectAsJsonStr  = Shared.ReadAllTextFromFileAsBytes(Resources.Resources.cves_severity_high);
             CveRoot cveRoot = JsonConvert.DeserializeObject<CveRoot>(cveObjectAsJsonStr);
 
             // TODO: Talk to Anastasia about how to scan the CVE DB
