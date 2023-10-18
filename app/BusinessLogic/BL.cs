@@ -152,9 +152,9 @@ namespace BusinessLogic
             }
         }
 
-        public void GenerateReport(string filePath, string content)
+        public void GenerateReport(string filePath, string content, string password)
         {
-            reportGenerator.CreatePdf(filePath, content, "cyber295");
+            reportGenerator.CreatePdf(filePath, content, password);
         }
 
         #endregion

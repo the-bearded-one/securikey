@@ -80,7 +80,23 @@ namespace SecuriKey.Screens
                     // save it
                     else
                     {
-                        BL.Instance.GenerateReport(sfd.FileName, string.Empty);// statusTextbox.Text);
+                        // generate a simple report by looping over scan results in the BL
+                        StringBuilder sb = new StringBuilder();
+                        foreach(var result in BL.Instance.ScanResults)
+                        {
+                            sb.AppendLine("=======================================");
+                            sb.Append(result.ToString());
+                            sb.AppendLine(string.Empty);
+                        }
+
+                        // generate random password.. 12 char for 54-bit equ
+                        var password = GenerateRandomString(12);
+
+                        // generate the report
+                        BL.Instance.GenerateReport(sfd.FileName, sb.ToString(), password);
+
+                        // inform user of password
+                        MessageBox.Show($"Below is the password you will need to view your PDF report. Please memorize this password. Do not write down this password. If you forget this password, you can always rerun the scan.\r\n\r\n{password}", "Report Password");
                     }
                 }
             }
@@ -101,6 +117,21 @@ namespace SecuriKey.Screens
                 isPathOnNetworkDrive = true; // default to safest answer
             }
             return isPathOnNetworkDrive;
+        }
+
+        string GenerateRandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            Random random = new Random();
+            StringBuilder sb = new StringBuilder(length);
+
+            for (int i = 0; i < length; i++)
+            {
+                int index = random.Next(chars.Length);
+                sb.Append(chars[index]);
+            }
+
+            return sb.ToString();
         }
 
         public UserControl AsUserControl()
