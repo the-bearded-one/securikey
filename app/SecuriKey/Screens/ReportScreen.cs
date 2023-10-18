@@ -15,7 +15,7 @@ using BusinessLogic;
 
 namespace SecuriKey.Screens
 {
-    public partial class ReportScreen : UserControl
+    public partial class ReportScreen : UserControl, IScreen
     {
 
         public ReportScreen()
@@ -33,7 +33,7 @@ namespace SecuriKey.Screens
             }
         }
 
-        public event EventHandler NewScanButtonClick;
+        public event EventHandler<NavigationEventArgs> NavigationRequest;
 
         public string ReportText
         {
@@ -49,7 +49,7 @@ namespace SecuriKey.Screens
 
         private void OnNewScanButtonClick(object? sender, EventArgs e)
         {
-            NewScanButtonClick?.Invoke(this, new EventArgs());
+            NavigationRequest?.Invoke(this, new NavigationEventArgs(new HomeScreen()));
         }
 
         private void OnReportButtonClick(object? sender, EventArgs e)
@@ -103,9 +103,9 @@ namespace SecuriKey.Screens
             return isPathOnNetworkDrive;
         }
 
-        private void ReportScreen_Load(object sender, EventArgs e)
+        public UserControl AsUserControl()
         {
-
+            return this;
         }
     }
 }

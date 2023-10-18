@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace SecuriKey.Screens
 {
-    public partial class HomeScreen : UserControl
+    public partial class HomeScreen : UserControl, IScreen
     {
         public HomeScreen()
         {
@@ -39,6 +39,8 @@ namespace SecuriKey.Screens
             onlineScanButton.Click += OnOnlineScanButtonClick;
         }
 
+        public event EventHandler<NavigationEventArgs> NavigationRequest;
+
         private void OnOfflineScanButtonClick(object? sender, EventArgs e)
         {
             BL.Instance.IsInternetConnectionAuthorized = false;
@@ -51,9 +53,14 @@ namespace SecuriKey.Screens
             BL.Instance.StartSystemScan();
         }
 
-        private void OnHomeScreenLoad(object sender, EventArgs e)
+        private void OnAboutButtonClick(object sender, EventArgs e)
         {
+            NavigationRequest?.Invoke(this, new NavigationEventArgs(new  AboutScreen()));
+        }
 
+        public UserControl AsUserControl()
+        {
+            return this;
         }
     }
 }

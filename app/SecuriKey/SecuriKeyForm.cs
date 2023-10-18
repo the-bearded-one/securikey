@@ -15,7 +15,7 @@ namespace SecuriKey
     public partial class SecuriKeyForm : Form
     {
         string status = string.Empty;
-        Control CurrentScreen = null;
+        IScreen CurrentScreen = null;
 
         public SecuriKeyForm()
         {
@@ -25,15 +25,15 @@ namespace SecuriKey
             var displayScreen = Screen.FromControl(this);
             if (displayScreen != null)
             {
-                if (displayScreen.Bounds.Width >= 1440)
+                if (displayScreen.Bounds.Width >= 1920)
                 {
-                    this.Width = 1440;
+                    this.Width = 1920;
                     this.Height = 1080;
                 }
                 else if (displayScreen.Bounds.Width >= 1280)
                 {
                     this.Width = 1280;
-                    this.Height = 960;
+                    this.Height = 720;
                 }
                 else if (displayScreen.Bounds.Width >= 1024)
                 {
@@ -54,7 +54,7 @@ namespace SecuriKey
             LoadScreen(new HomeScreen());
         }
 
-        private void LoadScreen(Control screen)
+        private void LoadScreen(IScreen screen)
         {
             if (InvokeRequired)
             {
@@ -65,29 +65,26 @@ namespace SecuriKey
                 // remove the old screen if any
                 if (CurrentScreen != null)
                 {
-                    // fake smart navigation since this may be temporary
-                    if (CurrentScreen.GetType() == typeof(ReportScreen))
-                    {
-                        // we want to know when new scan is requested
-                        (CurrentScreen as ReportScreen).NewScanButtonClick -= OnSecuriKeyFormNewScanButtonClick;
-                    }
+                    Controls.Remove(CurrentScreen.AsUserControl());
+                    CurrentScreen.AsUserControl().Dispose();
 
-                    Controls.Remove(CurrentScreen);
-                    CurrentScreen.Dispose();
+                    // unsubscribe to old screen events
+                    CurrentScreen.NavigationRequest -= OnNavigationRequest;
                 }
 
                 // load new screen
                 CurrentScreen = screen;
-                Controls.Add(CurrentScreen);
-                CurrentScreen.Dock = DockStyle.Fill;
+                Controls.Add(CurrentScreen.AsUserControl());
+                CurrentScreen.AsUserControl().Dock = DockStyle.Fill;
 
-                // fake smart navigation since this may be temporary
-                if (CurrentScreen.GetType() == typeof(ReportScreen))
-                {
-                    // we want to know when new scan is requested
-                    (CurrentScreen as ReportScreen).NewScanButtonClick += OnSecuriKeyFormNewScanButtonClick;
-                }
+                // subscribe to new screen events
+                CurrentScreen.NavigationRequest += OnNavigationRequest;
             }
+        }
+
+        private void OnNavigationRequest(object sender, NavigationEventArgs e)
+        {
+            LoadScreen(e.RequestedScreen);
         }
 
         private void OnSecuriKeyFormNewScanButtonClick(object? sender, EventArgs e)

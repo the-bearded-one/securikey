@@ -87,6 +87,7 @@
             aboutButton.Size = new Size(300, 85);
             aboutButton.TabIndex = 4;
             aboutButton.UnpressedColor = Color.Black;
+            aboutButton.Click += OnAboutButtonClick;
             // 
             // logoPictureBox
             // 
@@ -124,7 +125,6 @@
             ForeColor = SystemColors.ControlText;
             Name = "HomeScreen";
             Size = new Size(800, 600);
-            Load += OnHomeScreenLoad;
             ((System.ComponentModel.ISupportInitialize)logoPictureBox).EndInit();
             ((System.ComponentModel.ISupportInitialize)backgroundPictureBox).EndInit();
             ResumeLayout(false);

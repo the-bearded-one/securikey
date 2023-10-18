@@ -106,7 +106,6 @@
             Margin = new Padding(3, 4, 3, 4);
             Name = "ReportScreen";
             Size = new Size(800, 600);
-            Load += ReportScreen_Load;
             ResumeLayout(false);
             PerformLayout();
         }

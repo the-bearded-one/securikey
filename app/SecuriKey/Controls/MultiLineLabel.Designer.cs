@@ -1,6 +1,6 @@
-﻿namespace SecuriKey
+﻿namespace SecuriKey.Controls
 {
-    partial class SecuriKeyForm
+    partial class MultiLineLabel
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,19 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            SuspendLayout();
-            // 
-            // SecuriKeyForm
-            // 
-            AutoScaleMode = AutoScaleMode.None;
-            BackColor = Color.Black;
-            ClientSize = new Size(784, 561);
-            DoubleBuffered = true;
-            ForeColor = Color.White;
-            FormBorderStyle = FormBorderStyle.SizableToolWindow;
-            Margin = new Padding(3, 4, 3, 4);
-            Name = "SecuriKeyForm";
-            ResumeLayout(false);
+            components = new System.ComponentModel.Container();
         }
 
         #endregion

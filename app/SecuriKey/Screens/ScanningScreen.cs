@@ -14,7 +14,7 @@ using System.Windows.Forms;
 
 namespace SecuriKey.Screens
 {
-    public partial class ScanningScreen : UserControl
+    public partial class ScanningScreen : UserControl, IScreen
     {
         List<string> wordsOfEncourangement = new List<string>();
         System.Timers.Timer animationTimer = new System.Timers.Timer();
@@ -69,6 +69,8 @@ namespace SecuriKey.Screens
 
             ResumeLayout();
         }
+
+        public event EventHandler<NavigationEventArgs> NavigationRequest;
 
         private void OnAnimationTimerTick(object? sender, EventArgs e)
         {
@@ -152,6 +154,11 @@ namespace SecuriKey.Screens
                 // Set the PictureBox's image to the modified Bitmap.
                 pictureBox.Image = bmp;
             }
+        }
+
+        public UserControl AsUserControl()
+        {
+            return this;
         }
     }
 }
