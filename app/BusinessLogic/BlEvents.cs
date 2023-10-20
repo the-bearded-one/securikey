@@ -33,6 +33,8 @@
         CheckingUac,
         CheckingUacCompleted,
         CheckingPowerShellExecutionPolicy,
-        CheckingPowerShellExecutionPolicyCompleted
+        CheckingPowerShellExecutionPolicyCompleted,
+        CheckingNtlmV1Enabled,
+        CheckingNtlmV1EnabledComplete
     }
 }

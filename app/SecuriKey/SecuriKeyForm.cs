@@ -167,6 +167,13 @@ namespace SecuriKey
                         status += $"\r\n    Firewall is not enabled!";
                     }
                     break;
+                case BlEvents.CheckingNtlmV1EnabledComplete:
+                    var issues = BL.Instance.NtlmChecker.ScanResults.Where(sr => sr.ScanType == "NTLM Version").ToList();
+                    if ( issues.Count > 0 )
+                    {
+                        status += $"\r\n    NTLM v1 is enabled!";
+                    }
+                    break;
                 case BlEvents.CheckingWindowsVersionCompleted:
                     string windowsVersionInfoFormatted = string.Join("\r\n", BL.Instance.WindowsVersionChecker.VersionInfo.Select(kvp => $"    {kvp.Key}: {kvp.Value}"));
                     status += $"\r\n{windowsVersionInfoFormatted}";

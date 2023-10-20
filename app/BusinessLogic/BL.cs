@@ -40,6 +40,7 @@ namespace BusinessLogic
             checkers.Add(this.BitLockerChecker);
             checkers.Add(this.UacChecker);
             checkers.Add(this.PowerShellChecker);
+            checkers.Add(this.NtlmChecker);
 
 
             // subscribe to events
@@ -84,6 +85,7 @@ namespace BusinessLogic
         public BitLockerChecker BitLockerChecker { get; private set; } = new BitLockerChecker();
         public UacChecker UacChecker { get; private set; } = new UacChecker();
         public PowerShellChecker PowerShellChecker { get; private set; } = new PowerShellChecker();
+        public NtlmChecker NtlmChecker { get; private set; } = new NtlmChecker();
         public int ScanPercentCompleted { get => (int)((double)scanChecksCompleted / (double)checkers.Count * 100D); }
         public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
 
