@@ -35,6 +35,8 @@
         CheckingPowerShellExecutionPolicy,
         CheckingPowerShellExecutionPolicyCompleted,
         CheckingNtlmV1Enabled,
-        CheckingNtlmV1EnabledComplete
+        CheckingNtlmV1EnabledComplete,
+        CheckingPageFileEncryption,
+        CheckingPageFileEncryptionCompleted
     }
 }

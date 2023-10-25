@@ -12,22 +12,14 @@ namespace BusinessLogic.Scanning
     {
         public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
 
+        public bool IsNtmlV1InUse { get; private set; } = false;
+
         public void Scan()
         {
             EventAggregator.Instance.FireEvent(BlEvents.CheckingNtlmV1Enabled);
 
-            bool v1InUse = CheckNTLMv1Settings(@"SYSTEM\CurrentControlSet\Control\Lsa\MSV1_0");
+            IsNtmlV1InUse = CheckNTLMv1Settings(@"SYSTEM\CurrentControlSet\Control\Lsa\MSV1_0");
 
-            if ( v1InUse )
-            {
-                ScanResult result = new ScanResult();
-                result.ScanType = "NTLM Version";
-                result.Severity = Severity.High;
-                result.ShortDescription = "NTLMv1 in use";
-                result.DetailedDescription = $"Disabling Remote Desktop Protocol (RDP) when not used can protect against security risks";
-                ScanResults.Add(result);
-            }
-        
             EventAggregator.Instance.FireEvent(BlEvents.CheckingNtlmV1EnabledComplete);
 
         }

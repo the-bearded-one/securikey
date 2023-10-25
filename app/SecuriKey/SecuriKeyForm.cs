@@ -167,11 +167,16 @@ namespace SecuriKey
                         status += $"\r\n    Firewall is not enabled!";
                     }
                     break;
-                case BlEvents.CheckingNtlmV1EnabledComplete:
-                    var issues = BL.Instance.NtlmChecker.ScanResults.Where(sr => sr.ScanType == "NTLM Version").ToList();
-                    if ( issues.Count > 0 )
+                case BlEvents.CheckingNtlmV1EnabledComplete:                    
+                    if (BL.Instance.NtlmChecker.IsNtmlV1InUse)
                     {
                         status += $"\r\n    NTLM v1 is enabled!";
+                    }
+                    break;
+                case BlEvents.CheckingPageFileEncryptionCompleted:
+                    if ( !BL.Instance.EncryptedPageFileChecker.IsPageFileEncrypted )
+                    {
+                        status += $"\r\n    PageFile is not encrypted!";
                     }
                     break;
                 case BlEvents.CheckingWindowsVersionCompleted:

@@ -5,6 +5,8 @@
         Ok,
         Low,
         Medium,
-        High
+        High,
+        Critical
     }
+
 }
