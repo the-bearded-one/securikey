@@ -162,7 +162,7 @@ namespace SecuriKey
                     }
                     break;
                 case BlEvents.CheckingFirewallCompleted:
-                    if (!BL.Instance.FirewallChecker.IsFirewallEnabled)
+                    if (!BL.Instance.FirewallActiveChecker.IsFirewallEnabled)
                     {
                         status += $"\r\n    Firewall is not enabled!";
                     }

@@ -3,7 +3,7 @@ using NetFwTypeLib;
 
 namespace BusinessLogic.Scanning
 {
-    public class FirewallChecker : IChecker
+    public class FirewallActiveChecker : IChecker
     {
         public bool IsFirewallEnabled { get; private set; } = false;
         public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();

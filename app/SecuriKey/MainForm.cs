@@ -161,7 +161,7 @@ namespace SecuriKey
                     }
                     break;
                 case BlEvents.CheckingFirewallCompleted:
-                    if (!BL.Instance.FirewallChecker.IsFirewallEnabled)
+                    if (!BL.Instance.FirewallActiveChecker.IsFirewallEnabled)
                     {
                         statusTextbox.Text += $"\r\n    Firewall is not enabled!";
                     }
@@ -194,6 +194,12 @@ namespace SecuriKey
                         {
                             statusTextbox.Text += $"\r\n    PowerShell Execution Policy is Weak!";
                         }
+                    }
+                    break;
+                case BlEvents.CheckingAutoRunEnabledCompleted:
+                    if (BL.Instance.AutoRunEnabledChecker.IsAutoRunEnabled == true)
+                    {
+                        statusTextbox.Text += $"\r\n    AutoRun is enabled for removable media!";
                     }
                     break;
                 case BlEvents.CheckingWindowsVersionCompleted:

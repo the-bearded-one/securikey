@@ -36,12 +36,14 @@ namespace BusinessLogic
             checkers.Add(this.RdpChecker);
             checkers.Add(this.SecureBootChecker);
             checkers.Add(this.WindowsUpdateChecker);
-            checkers.Add(this.FirewallChecker);
+            checkers.Add(this.FirewallActiveChecker);
             checkers.Add(this.BitLockerChecker);
             checkers.Add(this.UacChecker);
             checkers.Add(this.PowerShellChecker);
             checkers.Add(this.NtlmChecker);
             checkers.Add(this.EncryptedPageFileChecker);
+            checkers.Add(this.AutoRunEnabledChecker);
+            
 
 
             // subscribe to events
@@ -81,13 +83,14 @@ namespace BusinessLogic
         public WindowsScriptingHostChecker WindowsScriptingHostChecker { get; private set; } = new WindowsScriptingHostChecker();
         public RdpChecker RdpChecker { get; private set; } = new RdpChecker();
         public SecureBootChecker SecureBootChecker { get; private set; } = new SecureBootChecker();
-        public FirewallChecker FirewallChecker { get; private set; } = new FirewallChecker();
+        public FirewallActiveChecker FirewallActiveChecker { get; private set; } = new FirewallActiveChecker();
         public WindowsUpdateChecker WindowsUpdateChecker { get; private set; } = new WindowsUpdateChecker();
         public BitLockerChecker BitLockerChecker { get; private set; } = new BitLockerChecker();
         public UacChecker UacChecker { get; private set; } = new UacChecker();
         public PowerShellChecker PowerShellChecker { get; private set; } = new PowerShellChecker();
         public NtlmChecker NtlmChecker { get; private set; } = new NtlmChecker();
         public EncryptedPageFileChecker EncryptedPageFileChecker { get; private set; } = new EncryptedPageFileChecker();
+        public AutoRunEnabledChecker AutoRunEnabledChecker { get; private set; } = new AutoRunEnabledChecker();
         public int ScanPercentCompleted { get => (int)((double)scanChecksCompleted / (double)checkers.Count * 100D); }
         public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
 

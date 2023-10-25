@@ -37,6 +37,8 @@
         CheckingNtlmV1Enabled,
         CheckingNtlmV1EnabledComplete,
         CheckingPageFileEncryption,
-        CheckingPageFileEncryptionCompleted
+        CheckingPageFileEncryptionCompleted,
+        CheckingAutoRunEnabled,
+        CheckingAutoRunEnabledCompleted
     }
 }
