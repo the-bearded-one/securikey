@@ -45,7 +45,7 @@ namespace BusinessLogic
             checkers.Add(this.AutoRunEnabledChecker);
             checkers.Add(this.SmbChecker);
             checkers.Add(this.HeartbleedChecker);
-
+            checkers.Add(this.NoPasswordExpiryChecker);
 
 
             // subscribe to events
@@ -95,6 +95,7 @@ namespace BusinessLogic
         public AutoRunEnabledChecker AutoRunEnabledChecker { get; private set; } = new AutoRunEnabledChecker();
         public SmbChecker SmbChecker { get; private set; } = new SmbChecker();
         public HeartbleedChecker HeartbleedChecker { get; private set; } = new HeartbleedChecker();
+        public NoPasswordExpiryChecker NoPasswordExpiryChecker  { get; private set; } = new NoPasswordExpiryChecker();
         public int ScanPercentCompleted { get => (int)((double)scanChecksCompleted / (double)checkers.Count * 100D); }
         public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
 

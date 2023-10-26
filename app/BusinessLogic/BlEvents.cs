@@ -43,6 +43,8 @@
         CheckingSmbEnabled,
         CheckingSmbEnabledCompleted,
         CheckingHeartbleed,
-        CheckingHeartbleedCompleted
+        CheckingHeartbleedCompleted,
+        CheckingPasswordExpiry,
+        CheckingPasswordExpiryCompleted
     }
 }
