@@ -20,6 +20,21 @@ namespace BusinessLogic.Scanning
 
             CheckAutoRun(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer");
 
+            ScanResult result = new ScanResult();
+            result.ScanType = "Secure Defaults";
+            result.DetailedDescription = $"Having AutoRun enabled for removable media is a security risk because it allows for the automatic execution of potentially malicious software the moment a removable device like a USB drive is plugged in. This makes it easier for malware to spread and infect your system.";
+            if (IsAutoRunEnabled)
+            {
+                result.Severity = Severity.Critical;
+                result.ShortDescription = $"Autorun is enabled for removable media!";
+            }
+            else
+            {
+                result.Severity = Severity.Ok;
+                result.ShortDescription = $"Autorun is not enabled for removable media.";
+            }
+            ScanResults.Add(result);
+
             EventAggregator.Instance.FireEvent(BlEvents.CheckingNtlmV1EnabledComplete);
 
         }
@@ -47,7 +62,9 @@ namespace BusinessLogic.Scanning
                     }
                     else
                     {
-                        IsAutoRunEnabled = true;                        
+                        // no explicit registry key was defined which means it defaults to standard behavior.
+                        // on windows 10/11, that means AutoRun is off
+                        IsAutoRunEnabled = false;                        
                     }
                 }
             }

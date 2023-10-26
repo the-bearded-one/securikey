@@ -41,6 +41,8 @@
         CheckingAutoRunEnabled,
         CheckingAutoRunEnabledCompleted,
         CheckingSmbEnabled,
-        CheckingSmbEnabledCompleted
+        CheckingSmbEnabledCompleted,
+        CheckingHeartbleed,
+        CheckingHeartbleedCompleted
     }
 }

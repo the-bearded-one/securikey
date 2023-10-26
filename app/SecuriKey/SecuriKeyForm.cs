@@ -189,6 +189,12 @@ namespace SecuriKey
                         status += $"\r\n    SMBv1 Client is enabled!";
                     }
                     break;
+                case BlEvents.CheckingHeartbleedCompleted:
+                    if (!BL.Instance.HeartbleedChecker.IsVulnerable)
+                    {
+                        status += $"\r\n    Vulnerable to Heartbleed! (Insecure OpenSSL)";
+                    }
+                    break;
                 case BlEvents.CheckingWindowsVersionCompleted:
                     string windowsVersionInfoFormatted = string.Join("\r\n", BL.Instance.WindowsVersionChecker.VersionInfo.Select(kvp => $"    {kvp.Key}: {kvp.Value}"));
                     status += $"\r\n{windowsVersionInfoFormatted}";

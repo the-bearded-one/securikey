@@ -14,7 +14,7 @@ namespace BusinessLogic.Scanning
         public bool HasWeakExecutionPolicy { get; private set; } = false;
         public bool HasExecutionPolicyDefined { get; private set; } = true;
         public bool UnableToQuery { get; private set; } = false;
-        public List<ScanResult> ScanResults => new List<ScanResult>();
+        public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
 
         public void Scan()
         {

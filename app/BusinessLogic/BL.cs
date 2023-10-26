@@ -44,6 +44,7 @@ namespace BusinessLogic
             checkers.Add(this.EncryptedPageFileChecker);
             checkers.Add(this.AutoRunEnabledChecker);
             checkers.Add(this.SmbChecker);
+            checkers.Add(this.HeartbleedChecker);
 
 
 
@@ -93,6 +94,7 @@ namespace BusinessLogic
         public EncryptedPageFileChecker EncryptedPageFileChecker { get; private set; } = new EncryptedPageFileChecker();
         public AutoRunEnabledChecker AutoRunEnabledChecker { get; private set; } = new AutoRunEnabledChecker();
         public SmbChecker SmbChecker { get; private set; } = new SmbChecker();
+        public HeartbleedChecker HeartbleedChecker { get; private set; } = new HeartbleedChecker();
         public int ScanPercentCompleted { get => (int)((double)scanChecksCompleted / (double)checkers.Count * 100D); }
         public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
 

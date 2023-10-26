@@ -8,7 +8,7 @@ public class UacChecker : IChecker
     public bool UnableToQuery { get; set; } = false;
     public bool IsUacDisabled { get; set; } = false;
     public bool IsUacAtRecommendedLevel { get; set; } = false;
-    public List<ScanResult> ScanResults => new List<ScanResult>();
+    public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
 
     public void Scan()
     {
