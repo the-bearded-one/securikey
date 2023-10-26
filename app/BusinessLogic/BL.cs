@@ -43,7 +43,8 @@ namespace BusinessLogic
             checkers.Add(this.NtlmChecker);
             checkers.Add(this.EncryptedPageFileChecker);
             checkers.Add(this.AutoRunEnabledChecker);
-            
+            checkers.Add(this.SmbChecker);
+
 
 
             // subscribe to events
@@ -91,8 +92,10 @@ namespace BusinessLogic
         public NtlmChecker NtlmChecker { get; private set; } = new NtlmChecker();
         public EncryptedPageFileChecker EncryptedPageFileChecker { get; private set; } = new EncryptedPageFileChecker();
         public AutoRunEnabledChecker AutoRunEnabledChecker { get; private set; } = new AutoRunEnabledChecker();
+        public SmbChecker SmbChecker { get; private set; } = new SmbChecker();
         public int ScanPercentCompleted { get => (int)((double)scanChecksCompleted / (double)checkers.Count * 100D); }
         public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
+
 
         #endregion
 

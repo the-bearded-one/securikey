@@ -39,6 +39,8 @@
         CheckingPageFileEncryption,
         CheckingPageFileEncryptionCompleted,
         CheckingAutoRunEnabled,
-        CheckingAutoRunEnabledCompleted
+        CheckingAutoRunEnabledCompleted,
+        CheckingSmbEnabled,
+        CheckingSmbEnabledCompleted
     }
 }

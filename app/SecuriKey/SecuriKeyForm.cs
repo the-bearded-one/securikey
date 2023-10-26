@@ -179,6 +179,16 @@ namespace SecuriKey
                         status += $"\r\n    PageFile is not encrypted!";
                     }
                     break;
+                case BlEvents.CheckingSmbEnabledCompleted:
+                    if (!BL.Instance.SmbChecker.IsServerEnabled)
+                    {
+                        status += $"\r\n    SMBv1 Server is enabled!";
+                    }
+                    if (!BL.Instance.SmbChecker.IsClientEnabled)
+                    {
+                        status += $"\r\n    SMBv1 Client is enabled!";
+                    }
+                    break;
                 case BlEvents.CheckingWindowsVersionCompleted:
                     string windowsVersionInfoFormatted = string.Join("\r\n", BL.Instance.WindowsVersionChecker.VersionInfo.Select(kvp => $"    {kvp.Key}: {kvp.Value}"));
                     status += $"\r\n{windowsVersionInfoFormatted}";
