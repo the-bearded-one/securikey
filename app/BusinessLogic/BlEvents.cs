@@ -45,6 +45,10 @@
         CheckingHeartbleed,
         CheckingHeartbleedCompleted,
         CheckingPasswordExpiry,
-        CheckingPasswordExpiryCompleted
+        CheckingPasswordExpiryCompleted,
+        CheckingIE,
+        CheckingIECompleted,
+        CheckingWsl,
+        CheckingWslCompleted
     }
 }

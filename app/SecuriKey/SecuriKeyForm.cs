@@ -195,6 +195,18 @@ namespace SecuriKey
                         status += $"\r\n    Vulnerable to Heartbleed! (Insecure OpenSSL)";
                     }
                     break;
+                case BlEvents.CheckingIE:
+                    if (!BL.Instance.IEChecker.IsDefaultBrowser)
+                    {
+                        status += $"\r\n    Internet Explorer is default browser!";
+                    }
+                    break;
+                case BlEvents.CheckingWslCompleted:
+                    if (!BL.Instance.WindowsSubsystemLinuxChecker.IsActive)
+                    {
+                        status += $"\r\n    Windows Subsystem for Linux (WSL) is enabled!";
+                    }
+                    break;
                 case BlEvents.CheckingWindowsVersionCompleted:
                     string windowsVersionInfoFormatted = string.Join("\r\n", BL.Instance.WindowsVersionChecker.VersionInfo.Select(kvp => $"    {kvp.Key}: {kvp.Value}"));
                     status += $"\r\n{windowsVersionInfoFormatted}";
