@@ -145,6 +145,12 @@ namespace BusinessLogic
                 ScanResults.AddRange(checker.ScanResults);
             }
 
+            // finallry, sort the scan results by severity
+            ScanResults.Sort((a, b) =>
+            {
+                return b.Severity.CompareTo(a.Severity);
+            });
+
             // still in work
             Debug.WriteLine("Posture grade: ", postureGrader.Grader());
         }
