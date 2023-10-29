@@ -60,7 +60,7 @@ namespace SecuriKey
                     // save it
                     else
                     {
-                        BL.Instance.GenerateReport(sfd.FileName, statusTextbox.Text, "password");
+                        BL.Instance.GenerateReport(sfd.FileName, "password");
                     }
                 }
             }

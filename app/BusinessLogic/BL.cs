@@ -1,4 +1,5 @@
-﻿using BusinessLogic.Scanning;
+﻿using BusinessLogic.Reports;
+using BusinessLogic.Scanning;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics;
@@ -175,9 +176,9 @@ namespace BusinessLogic
             }
         }
 
-        public void GenerateReport(string filePath, string content, string password)
+        public void GenerateReport(string filePath, string password)
         {
-            reportGenerator.CreatePdf(filePath, content, password);
+            reportGenerator.CreatePdf(filePath, ScanResults, password);
         }
 
         #endregion

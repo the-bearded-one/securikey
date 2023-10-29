@@ -93,7 +93,7 @@ namespace SecuriKey.Screens
                         var password = GenerateRandomString(12);
 
                         // generate the report
-                        BL.Instance.GenerateReport(sfd.FileName, sb.ToString(), password);
+                        BL.Instance.GenerateReport(sfd.FileName, password);
 
                         // inform user of password
                         MessageBox.Show($"Below is the password you will need to view your PDF report. Please memorize this password. Do not write down this password. If you forget this password, you can always rerun the scan.\r\n\r\n{password}", "Report Password");
