@@ -17,6 +17,7 @@ namespace SecuriKey.Screens
 {
     public partial class ReportScreen : UserControl, IScreen
     {
+        string passwordPromptText = "Please enter the report password below. The password will be required to view the report in the future. The password must meet the following criteria:\r\n\r\n* 8 to 20 characters in length\r\n* at least 1 capital letter,\r\n* at least 1 lowercase letter\r\n* at least 1 number\r\n* at least 1 special character";
 
         public ReportScreen()
         {
@@ -54,6 +55,19 @@ namespace SecuriKey.Screens
 
         private void OnReportButtonClick(object? sender, EventArgs e)
         {
+            // ask user for password
+            var passwordPrompt = new PopUpPrompt("Please Enter Password", passwordPromptText, InputValidation.Password);
+            var result = passwordPrompt.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                MessageBox.Show("OK!");
+            }
+            else
+            {
+                MessageBox.Show("CANCEL!");
+            }
+            passwordPrompt.Dispose();
+
             // Ask user where to save file
             using (var sfd = new SaveFileDialog())
             {
@@ -80,23 +94,8 @@ namespace SecuriKey.Screens
                     // save it
                     else
                     {
-                        // generate a simple report by looping over scan results in the BL
-                        StringBuilder sb = new StringBuilder();
-                        foreach(var result in BL.Instance.ScanResults)
-                        {
-                            sb.AppendLine("=======================================");
-                            sb.Append(result.ToString());
-                            sb.AppendLine(string.Empty);
-                        }
-
-                        // generate random password.. 12 char for 54-bit equ
-                        var password = GenerateRandomString(12);
-
-                        // generate the report
-                        BL.Instance.GenerateReport(sfd.FileName, password);
-
-                        // inform user of password
-                        MessageBox.Show($"Below is the password you will need to view your PDF report. Please memorize this password. Do not write down this password. If you forget this password, you can always rerun the scan.\r\n\r\n{password}", "Report Password");
+                        //// generate the report
+                        //BL.Instance.GenerateReport(sfd.FileName, password);
                     }
                 }
             }
@@ -117,21 +116,6 @@ namespace SecuriKey.Screens
                 isPathOnNetworkDrive = true; // default to safest answer
             }
             return isPathOnNetworkDrive;
-        }
-
-        string GenerateRandomString(int length)
-        {
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-            Random random = new Random();
-            StringBuilder sb = new StringBuilder(length);
-
-            for (int i = 0; i < length; i++)
-            {
-                int index = random.Next(chars.Length);
-                sb.Append(chars[index]);
-            }
-
-            return sb.ToString();
         }
 
         public UserControl AsUserControl()
