@@ -30,6 +30,9 @@ namespace SecuriKey
 
             // validate input in input field
             inputTextBox.KeyUp += OnInputKeyUp;
+
+            // call validation to initialize GUI
+            OnInputKeyUp(this, EventArgs.Empty);
         }
 
         public string Value => inputTextBox.Text;
@@ -43,11 +46,12 @@ namespace SecuriKey
         private void OnInputKeyUp(object? sender, EventArgs e)
         {
             if (inputValidation == InputValidation.Password) inputTextBox.Text = SanitizeText(_passwordChars, inputTextBox.Text);
+            this.errorLabel.Text = CheckIfValidEntry() ? string.Empty : "Please satisfy password requirements to continue";
         }
 
         private void OnOkButtonClick(object sender, EventArgs e)
         {
-            bool isValid = IsInputValid();
+            bool isValid = CheckIfValidEntry();
 
             if (!isValid)
             {
@@ -89,7 +93,7 @@ namespace SecuriKey
             return sanitizedText.ToString();
         }
 
-        private bool IsInputValid()
+        private bool CheckIfValidEntry()
         {
             bool isValid = false;
 

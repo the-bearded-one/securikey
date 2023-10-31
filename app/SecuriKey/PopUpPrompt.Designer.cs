@@ -99,7 +99,7 @@
             errorLabel.Name = "errorLabel";
             errorLabel.Size = new Size(600, 23);
             errorLabel.TabIndex = 4;
-            errorLabel.Text = "Invalid password. Please check that password meet minimum requirements!";
+            errorLabel.Text = "Password requirements not yet met";
             errorLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // PopUpPrompt
