@@ -17,6 +17,7 @@ namespace SecuriKey.Screens
 {
     public partial class ReportScreen : UserControl, IScreen
     {
+        string passwordPromptText = "Please enter the report password below. The password will be required to view the report in the future. The password must meet the following criteria:\r\n\r\n* 8 to 20 characters in length\r\n* at least 1 capital letter,\r\n* at least 1 lowercase letter\r\n* at least 1 number\r\n* at least 1 special character";
 
         public ReportScreen()
         {
@@ -54,49 +55,43 @@ namespace SecuriKey.Screens
 
         private void OnReportButtonClick(object? sender, EventArgs e)
         {
-            // Ask user where to save file
+            string password = string.Empty;
+
+            // ask user for password
+            using (var passwordPrompt = new PopUpPrompt("Please Enter Password", passwordPromptText, InputValidation.Password))
             using (var sfd = new SaveFileDialog())
             {
-                sfd.Title = "Save Security Posture Report";
-                sfd.Filter = "pdf (*.pdf)|*.pdf";
-                sfd.ValidateNames = true;
-
-                if (sfd.ShowDialog() == DialogResult.OK)
+                if (passwordPrompt.ShowDialog() == DialogResult.OK)
                 {
-                    // do a basic security check... make sure the path they chose is NOT on a network drive
-                    var dirPath = Path.GetDirectoryName(sfd.FileName);
-                    var isPathOnNetwork = IsFilePathOnNetwork(dirPath);
+                    password = passwordPrompt.Value;
 
-                    // first, check to make sure user is saving to local path
-                    if (isPathOnNetwork)
+                    // Ask user where to save file
+                    sfd.Title = "Save Security Posture Report";
+                    sfd.Filter = "pdf (*.pdf)|*.pdf";
+                    sfd.ValidateNames = true;
+
+                    if (sfd.ShowDialog() == DialogResult.OK)
                     {
-                        MessageBox.Show("Unable to save to a network drive or removeable drive. Please save to a local drive");
-                    }
-                    // next, make sure the user entered a valid path
-                    else if (!Directory.Exists(dirPath))
-                    {
-                        MessageBox.Show("Please enter a valid file path");
-                    }
-                    // save it
-                    else
-                    {
-                        // generate a simple report by looping over scan results in the BL
-                        StringBuilder sb = new StringBuilder();
-                        foreach(var result in BL.Instance.ScanResults)
+                        // do a basic security check... make sure the path they chose is NOT on a network drive
+                        var dirPath = Path.GetDirectoryName(sfd.FileName);
+                        var isPathOnNetwork = IsFilePathOnNetwork(dirPath);
+
+                        // first, check to make sure user is saving to local path
+                        if (isPathOnNetwork)
                         {
-                            sb.AppendLine("=======================================");
-                            sb.Append(result.ToString());
-                            sb.AppendLine(string.Empty);
+                            MessageBox.Show("Unable to save to a network drive or removeable drive. Please save to a local drive");
                         }
-
-                        // generate random password.. 12 char for 54-bit equ
-                        var password = GenerateRandomString(12);
-
-                        // generate the report
-                        BL.Instance.GenerateReport(sfd.FileName, password);
-
-                        // inform user of password
-                        MessageBox.Show($"Below is the password you will need to view your PDF report. Please memorize this password. Do not write down this password. If you forget this password, you can always rerun the scan.\r\n\r\n{password}", "Report Password");
+                        // next, make sure the user entered a valid path
+                        else if (!Directory.Exists(dirPath))
+                        {
+                            MessageBox.Show("Please enter a valid file path");
+                        }
+                        // save it
+                        else
+                        {
+                            // generate the report
+                            BL.Instance.GenerateReport(sfd.FileName, password);
+                        }
                     }
                 }
             }
@@ -117,21 +112,6 @@ namespace SecuriKey.Screens
                 isPathOnNetworkDrive = true; // default to safest answer
             }
             return isPathOnNetworkDrive;
-        }
-
-        string GenerateRandomString(int length)
-        {
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-            Random random = new Random();
-            StringBuilder sb = new StringBuilder(length);
-
-            for (int i = 0; i < length; i++)
-            {
-                int index = random.Next(chars.Length);
-                sb.Append(chars[index]);
-            }
-
-            return sb.ToString();
         }
 
         public UserControl AsUserControl()
