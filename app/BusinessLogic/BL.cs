@@ -32,7 +32,6 @@ namespace BusinessLogic
             checkers.Add(this.SecurityProductChecker);
             checkers.Add(this.WindowsVersionChecker);
             checkers.Add(this.AppScanner);
-            checkers.Add(this.UserType);
             checkers.Add(this.WindowsScriptingHostChecker);
             checkers.Add(this.RdpChecker);
             checkers.Add(this.SecureBootChecker);
@@ -51,6 +50,7 @@ namespace BusinessLogic
             checkers.Add(this.WindowsSubsystemLinuxChecker);
             checkers.Add(this.UnsignedDriverUnelevatedChecker);
             checkers.Add(this.UnsignedDriverElevatedChecker);
+            checkers.Add(this.AdminChecker);
 
 
             // subscribe to events
@@ -86,7 +86,6 @@ namespace BusinessLogic
         public SecurityProductChecker SecurityProductChecker { get; private set; } = new SecurityProductChecker();
         public WindowsVersionChecker WindowsVersionChecker { get; private set; } = new WindowsVersionChecker();
         public AppScanner AppScanner { get; private set; } = new AppScanner();
-        public UserType UserType { get; private set; } = new UserType();
         public WindowsScriptingHostChecker WindowsScriptingHostChecker { get; private set; } = new WindowsScriptingHostChecker();
         public RdpChecker RdpChecker { get; private set; } = new RdpChecker();
         public SecureBootChecker SecureBootChecker { get; private set; } = new SecureBootChecker();
@@ -105,6 +104,7 @@ namespace BusinessLogic
         public WindowsSubsystemLinuxChecker WindowsSubsystemLinuxChecker { get; private set; } = new WindowsSubsystemLinuxChecker();
         public UnsignedDriverUnelevatedChecker UnsignedDriverUnelevatedChecker { get; private set; } = new UnsignedDriverUnelevatedChecker();
         public UnsignedDriverElevatedChecker UnsignedDriverElevatedChecker { get; private set; } = new UnsignedDriverElevatedChecker();
+        public AdminChecker AdminChecker { get; private set; } = new AdminChecker();
         public int ScanPercentCompleted { get => (int)((double)scanChecksCompleted / (double)checkers.Count * 100D); }
         public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
 

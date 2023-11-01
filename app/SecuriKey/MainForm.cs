@@ -126,7 +126,7 @@ namespace SecuriKey
                 case BlEvents.CheckingApplicationVersionsCompleted:
                     break;
                 case BlEvents.CheckingElevatedUserCompleted:
-                    if (BL.Instance.UserType.IsElevatedUser)
+                    if (BL.Instance.AdminChecker.IsElevatedUser)
                     {
                         statusTextbox.Text += $"\r\n    Running as an elevated user!";
                     }

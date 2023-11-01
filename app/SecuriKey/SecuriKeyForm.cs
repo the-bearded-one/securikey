@@ -134,9 +134,9 @@ namespace SecuriKey
                     }
                     break;
                 case BlEvents.CheckingElevatedUserCompleted:
-                    if (BL.Instance.UserType.IsElevatedUser)
+                    if (BL.Instance.AdminChecker.IsElevatedUser)
                     {
-                        status += $"\r\n    Running as an elevated user!";
+                        status += $"\r\n    Running as a user with elevated privileges!";
                     }
                     break;
                 case BlEvents.CheckingWindowsScriptingHostCompleted:
