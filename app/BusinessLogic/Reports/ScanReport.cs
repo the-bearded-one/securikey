@@ -56,10 +56,16 @@ namespace BusinessLogic.Reports
                         text.Span("Time: ").SemiBold();
                         text.Span($"{DateTime.Now.ToString("HH:mm:ss")}");
                     });
+
+                    column.Item().Text(text =>
+                    {
+                        text.Span("Machine Name: ").SemiBold();
+                        text.Span($"{System.Net.Dns.GetHostEntry("localhost").HostName}");
+                    });
                 });
 
                 var logoAsBytes = BitmapToByteArray(Resources.Resources.SecuriKeyLogo);
-                row.ConstantItem(50).Height(100).Image(logoAsBytes);
+                row.ConstantItem(62).Height(125).Image(logoAsBytes);
             });
         }
 
@@ -77,14 +83,13 @@ namespace BusinessLogic.Reports
 
         void ComposeTable(IContainer container)
         {
-            container.Table(table =>
+            container.PaddingHorizontal(100).Table(table =>
             {
                 // step 1 define number of columns
                 table.ColumnsDefinition(columns =>
                 {
+                    columns.RelativeColumn(4);
                     columns.RelativeColumn(1);
-                    columns.RelativeColumn(1);
-                    columns.RelativeColumn(2);
                 });
 
                 // step 2 add column titles
@@ -92,7 +97,6 @@ namespace BusinessLogic.Reports
                 {
                     header.Cell().Element(CellStyle).Text("Severity");
                     header.Cell().Element(CellStyle).Text("Total");
-                    header.Cell().Element(CellStyle).Text("Comment");
 
                     static IContainer CellStyle(IContainer container)
                     {
@@ -113,19 +117,15 @@ namespace BusinessLogic.Reports
 
                 table.Cell().Element(CellStyle).Text("High").FontColor(_highColor).Bold();
                 table.Cell().Element(CellStyle).Text(highNb.ToString()).FontColor(Colors.Black).NormalWeight();
-                table.Cell().Element(CellStyle).Text("Important to fix!").FontColor(Colors.Black).NormalWeight();
 
                 table.Cell().Element(CellStyle).Text("Medium").FontColor(_medColor).Bold();
                 table.Cell().Element(CellStyle).Text(medNb.ToString()).FontColor(Colors.Black).NormalWeight();
-                table.Cell().Element(CellStyle).Text("Somewhat important to fix!").FontColor(Colors.Black).NormalWeight();
 
                 table.Cell().Element(CellStyle).Text("Low").FontColor(_lowColor).Bold();
                 table.Cell().Element(CellStyle).Text(lowNb.ToString()).FontColor(Colors.Black).NormalWeight();
-                table.Cell().Element(CellStyle).Text("Fix if you have time!").FontColor(Colors.Black).NormalWeight();
 
                 table.Cell().Element(CellStyle).Text("OK").FontColor(_okColor).Bold();
                 table.Cell().Element(CellStyle).Text(okNb.ToString()).FontColor(Colors.Black).NormalWeight();
-                table.Cell().Element(CellStyle).Text("No issues here!").FontColor(Colors.Black).NormalWeight();
             });
         }
 
@@ -139,7 +139,7 @@ namespace BusinessLogic.Reports
 
         void ComposeIntro(IContainer container)
         {
-            container.Background(Colors.Grey.Lighten3).Padding(10).Column(column =>
+            container.PaddingHorizontal(100).Background(Colors.Grey.Lighten3).Padding(10).Column(column =>
             {
                 column.Spacing(5);
                 column.Item().Text("Disclaimer").FontSize(12).Bold();
