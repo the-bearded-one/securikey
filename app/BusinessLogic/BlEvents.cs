@@ -49,6 +49,10 @@
         CheckingIE,
         CheckingIECompleted,
         CheckingWsl,
-        CheckingWslCompleted
+        CheckingWslCompleted,
+        CheckingUnsignedDriverUnelevated,
+        CheckingUnsignedDriverUnelevatedCompleted,
+        CheckingUnsignedDriverElevated,
+        CheckingUnsignedDriverElevatedCompleted
     }
 }

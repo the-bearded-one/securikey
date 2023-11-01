@@ -9,6 +9,7 @@ public class UacChecker : IChecker
     public bool IsUacDisabled { get; set; } = false;
     public bool IsUacAtRecommendedLevel { get; set; } = false;
     public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
+    public bool RequiresElevatedPrivilege { get; } = false;
 
     public void Scan()
     {

@@ -14,6 +14,7 @@ namespace BusinessLogic.Scanning
         public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
 
         public bool IsDefaultBrowser { get; private set; } = false;
+        public bool RequiresElevatedPrivilege { get; } = false;
 
         public void Scan()
         {

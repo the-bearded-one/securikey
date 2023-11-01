@@ -8,6 +8,7 @@ namespace BusinessLogic.Scanning
         private SbomGenerator _sbomGenerator = new SbomGenerator();
         private List<ApplicationInfo> _appsInfo = null;
         private List<Vulnerability> _Vulnerabilities = new List<Vulnerability>();
+        public bool RequiresElevatedPrivilege { get; } = false;
 
         public List<Vulnerability> GetVulnerabilities()
         {

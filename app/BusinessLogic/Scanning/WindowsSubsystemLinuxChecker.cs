@@ -7,7 +7,7 @@ namespace BusinessLogic.Scanning
     public class WindowsSubsystemLinuxChecker : IChecker
     {
         public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
-
+        public bool RequiresElevatedPrivilege { get; } = false;
         public bool IsActive { get; private set; } = false;
 
         public void Scan()

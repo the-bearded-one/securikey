@@ -4,5 +4,7 @@
     {
         public void Scan();
         public List<ScanResult> ScanResults { get; }
+
+        public bool RequiresElevatedPrivilege { get; }
     }
 }

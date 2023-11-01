@@ -8,6 +8,7 @@ namespace BusinessLogic.Scanning
         public List<string> AntispywareProducts { get; private set; } = new List<string>();
         public List<string> FirewallProducts { get; private set; } = new List<string>();
         public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
+        public bool RequiresElevatedPrivilege { get; } = false;
 
         public void Scan()
         {

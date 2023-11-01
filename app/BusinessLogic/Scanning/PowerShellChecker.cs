@@ -15,6 +15,7 @@ namespace BusinessLogic.Scanning
         public bool HasExecutionPolicyDefined { get; private set; } = true;
         public bool UnableToQuery { get; private set; } = false;
         public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
+        public bool RequiresElevatedPrivilege { get; } = false;
 
         public void Scan()
         {

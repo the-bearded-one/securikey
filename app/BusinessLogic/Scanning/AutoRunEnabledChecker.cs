@@ -14,6 +14,8 @@ namespace BusinessLogic.Scanning
 
         public bool IsAutoRunEnabled { get; private set; } = false;
 
+        public bool RequiresElevatedPrivilege { get; } = false;
+
         public void Scan()
         {
             EventAggregator.Instance.FireEvent(BlEvents.CheckingAutoRunEnabled);

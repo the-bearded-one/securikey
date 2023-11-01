@@ -15,6 +15,8 @@ namespace BusinessLogic.Scanning
         public List<BusinessLogic.Scanning.POCOs.Vulnerability> VulnerabiltiesSeen { get; private set; } = new List<BusinessLogic.Scanning.POCOs.Vulnerability>();
 
         public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
+        public bool RequiresElevatedPrivilege { get; } = false;
+
 
         public bool IsChromeVersionLower(string version1, string version2)
         {

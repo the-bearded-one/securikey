@@ -10,6 +10,7 @@ namespace BusinessLogic.Scanning
 
         public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
         public bool IsSecureBootEnabled { get; private set; } = false;
+        public bool RequiresElevatedPrivilege { get; } = false;
 
         public void Scan()
         {

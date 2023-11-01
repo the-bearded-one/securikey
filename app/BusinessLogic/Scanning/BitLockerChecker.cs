@@ -11,6 +11,8 @@ namespace BusinessLogic.Scanning
         public bool IsBitLockerSupported { get; private set; } = false;
         public bool IsBitLockerEnabled { get; private set; } = false;
 
+        public bool RequiresElevatedPrivilege { get; } = false;
+
         public string GetWindowsEdition()
         {
             ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_OperatingSystem");

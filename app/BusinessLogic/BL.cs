@@ -49,6 +49,8 @@ namespace BusinessLogic
             checkers.Add(this.NoPasswordExpiryChecker);
             checkers.Add(this.IEChecker);
             checkers.Add(this.WindowsSubsystemLinuxChecker);
+            checkers.Add(this.UnsignedDriverUnelevatedChecker);
+            checkers.Add(this.UnsignedDriverElevatedChecker);
 
 
             // subscribe to events
@@ -101,6 +103,8 @@ namespace BusinessLogic
         public NoPasswordExpiryChecker NoPasswordExpiryChecker  { get; private set; } = new NoPasswordExpiryChecker();
         public IEChecker IEChecker  { get; private set; } = new IEChecker();
         public WindowsSubsystemLinuxChecker WindowsSubsystemLinuxChecker { get; private set; } = new WindowsSubsystemLinuxChecker();
+        public UnsignedDriverUnelevatedChecker UnsignedDriverUnelevatedChecker { get; private set; } = new UnsignedDriverUnelevatedChecker();
+        public UnsignedDriverElevatedChecker UnsignedDriverElevatedChecker { get; private set; } = new UnsignedDriverElevatedChecker();
         public int ScanPercentCompleted { get => (int)((double)scanChecksCompleted / (double)checkers.Count * 100D); }
         public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
 

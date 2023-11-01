@@ -9,6 +9,7 @@ namespace BusinessLogic.Scanning
         public bool IsRdpEnabled { get; private set; } = false;
         public bool IsRdpWeak { get; private set; } = false;
         public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
+        public bool RequiresElevatedPrivilege { get; } = false;
 
         public void Scan()
         {

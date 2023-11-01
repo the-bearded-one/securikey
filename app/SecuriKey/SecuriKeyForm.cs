@@ -207,6 +207,18 @@ namespace SecuriKey
                         status += $"\r\n    Windows Subsystem for Linux (WSL) is enabled!";
                     }
                     break;
+                case BlEvents.CheckingUnsignedDriverUnelevatedCompleted:
+                    if (!BL.Instance.UnsignedDriverUnelevatedChecker.UnsignedDriverUnelevatedFound)
+                    {
+                        status += $"\r\n    Unsigned Windows drivers possibly found!";
+                    }
+                    break;
+                case BlEvents.CheckingUnsignedDriverElevatedCompleted:
+                    if (!BL.Instance.UnsignedDriverElevatedChecker.UnsignedDriverElevatedFound)
+                    {
+                        status += $"\r\n    Unsigned Windows drivers possibly found!";
+                    }
+                    break;
                 case BlEvents.CheckingWindowsVersionCompleted:
                     string windowsVersionInfoFormatted = string.Join("\r\n", BL.Instance.WindowsVersionChecker.VersionInfo.Select(kvp => $"    {kvp.Key}: {kvp.Value}"));
                     status += $"\r\n{windowsVersionInfoFormatted}";

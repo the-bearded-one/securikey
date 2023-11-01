@@ -7,6 +7,7 @@ namespace BusinessLogic.Scanning
     {
         public event Action<List<int>>? OnCompletion;
         public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
+        public bool RequiresElevatedPrivilege { get; } = false;
 
         public void Scan()
         {
