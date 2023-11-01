@@ -53,6 +53,8 @@
         CheckingUnsignedDriverUnelevated,
         CheckingUnsignedDriverUnelevatedCompleted,
         CheckingUnsignedDriverElevated,
-        CheckingUnsignedDriverElevatedCompleted
+        CheckingUnsignedDriverElevatedCompleted,
+        CheckingPasswordComplexityPolicy,
+        CheckingPasswordComplexityPolicyCompleted,
     }
 }

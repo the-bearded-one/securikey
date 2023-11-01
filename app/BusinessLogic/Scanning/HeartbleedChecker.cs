@@ -32,7 +32,7 @@ namespace BusinessLogic.Scanning
             }
             else 
             {
-                result.Severity = Severity.Critical;
+                result.Severity = Severity.High;
                 result.ShortDescription = $"Vulnerable version of OpenSSL found!";
             }
             ScanResults.Add(result);

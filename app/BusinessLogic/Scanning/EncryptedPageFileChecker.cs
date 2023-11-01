@@ -25,7 +25,7 @@ namespace BusinessLogic.Scanning
 
             ScanResult result = new ScanResult();
             result.ScanType = "Secure Defaults";
-            result.DetailedDescription = $"Having a Heartbleed-vulnerable version of OpenSSL exposes sensitive data like private keys and user credentials, making your system highly susceptible to unauthorized access and data breaches. It's a critical vulnerability that can lead to catastrophic security incidents.";
+            result.DetailedDescription = $"Encrypting the page file enhances data security by making it more difficult for attackers to harvest sensitive information that might be written to disk from RAM. Without encryption, data remnants like passwords or encryption keys stored in the page file could be accessible to unauthorized users, creating a potential attack vector for data exfiltration or system compromise.";
             if ( IsPageFileEncrypted )
             {
                 result.Severity = Severity.Ok;
