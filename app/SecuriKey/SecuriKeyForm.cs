@@ -213,6 +213,12 @@ namespace SecuriKey
                         status += $"\r\n    Unsigned Windows drivers possibly found!";
                     }
                     break;
+                case BlEvents.CheckingAutoConnectOpenWifiCompleted:
+                    if (!BL.Instance.WifiAutoConnectChecker.DoesWifiAutoConnect)
+                    {
+                        status += $"\r\n    System automatically connects to open wireless networks!";
+                    }
+                    break;
                 case BlEvents.CheckingUnsignedDriverElevatedCompleted:
                     if (!BL.Instance.UnsignedDriverElevatedChecker.UnsignedDriverElevatedFound)
                     {

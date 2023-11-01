@@ -52,6 +52,7 @@ namespace BusinessLogic
             checkers.Add(this.UnsignedDriverElevatedChecker);
             checkers.Add(this.AdminChecker);
             checkers.Add(this.PasswordComplexityChecker);
+            checkers.Add(this.WifiAutoConnectChecker);
 
             // subscribe to events
             backgroundWorker.DoWork += OnBackgroundWorkerDoWork;
@@ -106,6 +107,7 @@ namespace BusinessLogic
         public UnsignedDriverElevatedChecker UnsignedDriverElevatedChecker { get; private set; } = new UnsignedDriverElevatedChecker();
         public AdminChecker AdminChecker { get; private set; } = new AdminChecker();
         public PasswordComplexityChecker PasswordComplexityChecker{ get; private set; } = new PasswordComplexityChecker();
+        public WifiAutoConnectChecker WifiAutoConnectChecker { get; private set; } = new WifiAutoConnectChecker();
         public int ScanPercentCompleted { get => (int)((double)scanChecksCompleted / (double)checkers.Count * 100D); }
         public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
 

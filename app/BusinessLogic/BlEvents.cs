@@ -56,5 +56,7 @@
         CheckingUnsignedDriverElevatedCompleted,
         CheckingPasswordComplexityPolicy,
         CheckingPasswordComplexityPolicyCompleted,
+        CheckingAutoConnectOpenWifi,
+        CheckingAutoConnectOpenWifiCompleted
     }
 }
