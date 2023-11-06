@@ -11757,5 +11757,8 @@ html {
     width: 75px;  /* Adjust the width as needed */
     height: 75px; /* Adjust the height as needed */
   }
+  .logo {
+    max-width: 100px;
+  }
 
 }
