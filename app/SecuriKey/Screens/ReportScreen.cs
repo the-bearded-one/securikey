@@ -90,7 +90,7 @@ namespace SecuriKey.Screens
                         else
                         {
                             // generate the report
-                            BL.Instance.GenerateReport(sfd.FileName, password);
+                            BL.Instance.GenerateReport(sfd.FileName, password, openReportCheckBox.Checked);
                         }
                     }
                 }

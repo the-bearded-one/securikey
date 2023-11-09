@@ -183,9 +183,22 @@ namespace BusinessLogic
             }
         }
 
-        public void GenerateReport(string filePath, string password)
+        public void GenerateReport(string filePath, string password, bool shallOpenAfterSaving)
         {
-            reportGenerator.CreatePdf(filePath, ScanResults, password);
+            bool isSuccess = reportGenerator.CreatePdf(filePath, ScanResults, password);
+
+            try
+            {
+                if (shallOpenAfterSaving && isSuccess)
+                {
+                    // open pdf to view
+                    Process.Start("explorer.exe", filePath);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: Unable to open PDF Report");
+            }
         }
 
         #endregion

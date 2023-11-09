@@ -32,6 +32,7 @@
             reportButton = new Controls.RoundedButton();
             scanResultsText = new Label();
             resultsPanel = new TableLayoutPanel();
+            openReportCheckBox = new CheckBox();
             SuspendLayout();
             // 
             // newScanButton
@@ -95,10 +96,25 @@
             resultsPanel.Size = new Size(768, 433);
             resultsPanel.TabIndex = 4;
             // 
+            // openReportCheckBox
+            // 
+            openReportCheckBox.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            openReportCheckBox.AutoSize = true;
+            openReportCheckBox.Checked = true;
+            openReportCheckBox.CheckState = CheckState.Checked;
+            openReportCheckBox.ForeColor = Color.White;
+            openReportCheckBox.Location = new Point(233, 530);
+            openReportCheckBox.Name = "openReportCheckBox";
+            openReportCheckBox.Size = new Size(198, 24);
+            openReportCheckBox.TabIndex = 5;
+            openReportCheckBox.Text = "Open Report After Saving";
+            openReportCheckBox.UseVisualStyleBackColor = true;
+            // 
             // ReportScreen
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.Black;
+            Controls.Add(openReportCheckBox);
             Controls.Add(resultsPanel);
             Controls.Add(scanResultsText);
             Controls.Add(reportButton);
@@ -115,5 +131,6 @@
         private Controls.RoundedButton reportButton;
         private Label scanResultsText;
         private TableLayoutPanel resultsPanel;
+        private CheckBox openReportCheckBox;
     }
 }
