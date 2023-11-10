@@ -1,7 +1,6 @@
 [
   {
     "ID": "SK-01",
-    "GPT": "Why is it importan for SMB to have an appropriate PowerShell execution policy configured?",
     "Name": "PowerShell Execution Policy",
     "Category": "Policy Setting",
     "Relevance": "Setting an appropriate PowerShell execution policy helps protect SMB computers from untrusted scripts. By controlling the execution of scripts, SMBs can prevent unauthorized code from running, which could be used for malicious purposes such as data theft or system damage.",
@@ -23,29 +22,27 @@
 
   {
     "ID": "SK-02",
-    "GPT": "Why is it important for SMB to disable Windows Scripting Host if they don't have a need for it?",
     "Name": "Windows Scripting Host (WSH)",
-    "Category": "",
-    "Relevance": "",
+    "Category": "Script Management",
+    "Relevance": "Disabling Windows Scripting Host reduces the attack surface for SMBs by preventing potentially harmful scripts from running. This is particularly relevant for SMBs that do not utilize WSH for legitimate business processes.",
     "Severity": {
-      "Rating": "",
-      "Justification": ""
+      "Rating": "Medium",
+      "Justification": "While disabling WSH can mitigate certain types of script-based threats, it may not be a critical threat vector for all SMBs."
     },
-    "SimpleAnalogy": "",
+    "SimpleAnalogy": "Disabling WSH is like removing a rarely used, yet potentially risky tool from your toolbox to prevent misuse or accidents.",
     "Windows": {
       "Win10": true,
       "Win11": true,
       "RequiresElevatedPrivileges": false,
       "RequiresOnlineConnectivity": false
     },
-    "CompliantMessage": "",
-    "ActionRequiredMessage": "",
-    "Remediation": ""
+    "CompliantMessage": "Windows Scripting Host is disabled.",
+    "ActionRequiredMessage": "Windows Scripting Host is enabled. Consider disabling it if not in use.",
+    "Remediation": "Disable Windows Scripting Host through group policy or registry settings."
   },
 
   {
     "ID": "SK-03",
-    "GPT": "Why is it important for SMB to have UAC enabled on their systems?",
     "Name": "User Access Control (UAC)",
     "Category": "Access Control",
     "Relevance": "Enabling UAC is crucial for SMBs as it acts as a barrier against unauthorized changes to the system, ensuring that any significant alterations are made with the user's knowledge and consent.",
@@ -67,29 +64,27 @@
 
   {
     "ID": "SK-04",
-    "GPT": "Why is it important for SMB to have the windows guest account enabled?",
     "Name": "Windows Guest Account",
-    "Category": "Account Management",
-    "Relevance": "Enabling the guest account on Windows allows SMBs to provide limited access to their systems for temporary or untrusted users, reducing the risk of unauthorized access to sensitive data.",
+    "Category": "User Account Management",
+    "Relevance": "Disabling the Windows guest account is important for SMBs to enhance security. The guest account can be a potential security risk as it may allow unauthorized access to the system with limited yet significant privileges.",
     "Severity": {
-      "Rating": "Low",
-      "Justification": "While useful for certain scenarios, the guest account is not a critical security feature for most SMBs."
+      "Rating": "Medium",
+      "Justification": "While the guest account has limited privileges, its misuse can still lead to security issues, hence the need for cautious management."
     },
-    "SimpleAnalogy": "Having a guest account is like providing a visitor badge in an office; it offers limited access while keeping sensitive areas secure.",
+    "SimpleAnalogy": "Leaving the guest account enabled is like leaving a backdoor unlocked; it might not give full access to the house, but it's still a security risk.",
     "Windows": {
       "Win10": true,
       "Win11": true,
       "RequiresElevatedPrivileges": false,
       "RequiresOnlineConnectivity": false
     },
-    "CompliantMessage": "Windows guest account is enabled.",
-    "ActionRequiredMessage": "Windows guest account is disabled. Consider enabling it for limited access purposes.",
-    "Remediation": "Enable the guest account through User Accounts settings or Group Policy."
+    "CompliantMessage": "Windows guest account is disabled, reducing potential unauthorized access risks.",
+    "ActionRequiredMessage": "Windows guest account is enabled. It is recommended to disable it to enhance security.",
+    "Remediation": "Disable the Windows guest account through Local Users and Groups, Group Policy, or PowerShell."
   },
 
   {
     "ID": "SK-05",
-    "GPT": "Why is it important for SMB to have the machines configured where normal users have elevated/admin privileges?",
     "Name": "User has Elevated Privileges",
     "Category": "Privilege Management",
     "Relevance": "It's generally advised for SMBs to restrict normal users from having elevated privileges to prevent unauthorized system changes and reduce the risk of malware execution.",
@@ -111,7 +106,6 @@
 
   {
     "ID": "SK-06",
-    "GPT": "Why is it important for SMB to disable Print Spooler if printing is not needed. Couldn't this lead to issues like PrintNightmare?",
     "Name": "Spooler Enabled",
     "Category": "",
     "Relevance": "",
@@ -133,7 +127,6 @@
 
   {
     "ID": "SK-07",
-    "GPT": "Why is it important for SMB to have BitLocker enabled?",
     "Name": "BitLocker Enabled",
     "Category": "Data Encryption",
     "Relevance": "Enabling BitLocker is vital for SMBs to secure sensitive data on their drives, protecting against unauthorized access, especially in case of device theft or loss.",
@@ -155,7 +148,6 @@
 
   {
     "ID": "SK-08",
-    "GPT": "Why is it important for SMB to not have AutoRun enabled on removable media?",
     "Name": "AutoRun Enabled",
     "Category": "Media Control",
     "Relevance": "Disabling AutoRun on removable media is crucial for SMBs to prevent the automatic execution of potentially malicious software, which can be a common attack vector.",
@@ -177,7 +169,6 @@
 
   {
     "ID": "SK-09",
-    "GPT": "Why is it important for SMB to encrypt their pagefile?",
     "Name": "Encrypted PageFile",
     "Category": "Data Protection",
     "Relevance": "Encrypting the pagefile is important for SMBs to prevent sensitive information from being recovered from it, as it can contain remnants of documents and other data.",
@@ -199,7 +190,6 @@
 
   {
     "ID": "SK-10",
-    "GPT": "Why is it important for SMB to not have an obsolete/vulnerable version of OpenSSL on their machine?",
     "Name": "Vulnerable OpenSSL (Heartbleed)",
     "Category": "Software Vulnerability",
     "Relevance": "For SMBs, having an up-to-date version of OpenSSL is crucial to protect against known vulnerabilities like Heartbleed, which can expose sensitive data to attackers.",
@@ -221,7 +211,6 @@
 
   {
     "ID": "SK-11",
-    "GPT": "Why is it important for SMB to not have Internet Explorer set as the default browser? (I think it's no longer supported or updated)",
     "Name": "Internet Explorer Default",
     "Category": "Web Browser Security",
     "Relevance": "For SMBs, avoiding Internet Explorer as the default browser is key due to its lack of updates and support, making it more vulnerable to security threats compared to modern browsers.",
@@ -243,7 +232,6 @@
 
   {
     "ID": "SK-12",
-    "GPT": "Why is it important for SMB to enforce password expiry on their machines",
     "Name": "Password Expiry",
     "Category": "Authentication Policy",
     "Relevance": "Enforcing password expiry is important for SMBs as it compels users to change passwords regularly, reducing the risk of prolonged unauthorized access from compromised credentials.",
@@ -265,7 +253,6 @@
 
   {
     "ID": "SK-13",
-    "GPT": "Why is it important for SMB not to have NTLMv1 enabled",
     "Name": "NTLMv1",
     "Category": "Protocol Security",
     "Relevance": "Disabling NTLMv1 for SMBs is crucial as it is an outdated and insecure authentication protocol, susceptible to various types of cyber attacks.",
@@ -287,7 +274,6 @@
 
   {
     "ID": "SK-14",
-    "GPT": "Why is it important for SMB to require password complexity on its users",
     "Name": "Password Complexity",
     "Category": "Authentication Security",
     "Relevance": "Requiring password complexity is crucial for SMBs to reduce the risk of unauthorized access through easily guessable passwords, enhancing overall security.",
@@ -308,7 +294,6 @@
 
   {
     "ID": "SK-15",
-    "GPT": "Why is it important for SMB to disable RDP if they don't need it?",
     "Name": "RDP Checker",
     "Category": "Remote Access Control",
     "Relevance": "Disabling RDP when not needed reduces the risk of unauthorized remote access and potential exploitation through vulnerabilities in the service.",
@@ -329,7 +314,6 @@
 
   {
     "ID": "SK-16",
-    "GPT": "Why is it important for SMB to use SecureBoot on their machines",
     "Name": "SecureBoot Enabled",
     "Category": "Boot Security",
     "Relevance": "Using SecureBoot helps SMBs prevent unauthorized low-level threats by ensuring that only trusted software is loaded during the system startup.",
@@ -350,7 +334,6 @@
 
   {
     "ID": "SK-17",
-    "GPT": "Why is it important for SMB to ensure SMBv1 client is not enabled on their machines?",
     "Name": "SMBv1 Client Enabled",
     "Category": "Protocol Security",
     "Relevance": "Disabling SMBv1 client is crucial for SMBs due to its known vulnerabilities and the availability of more secure versions of the SMB protocol.",
@@ -371,7 +354,6 @@
 
   {
     "ID": "SK-18",
-    "GPT": "Why is it important for SMB to ensure SMBv1 server is not enabled on their machines?",
     "Name": "SMBv1 Server Enabled",
     "Category": "Network Protocol",
     "Relevance": "Ensuring SMBv1 server is disabled is vital for SMBs to protect against vulnerabilities associated with this outdated protocol, which has been exploited in widespread attacks.",
@@ -392,7 +374,6 @@
 
   {
     "ID": "SK-19",
-    "GPT": "Why is it important for SMB to not use unsigned drivers if possible?",
     "Name": "Unsigned Drivers #1",
     "Category": "Driver Integrity",
     "Relevance": "Avoiding the use of unsigned drivers is important for SMBs as they can pose security risks, potentially allowing malicious code to run at a low level within the system.",
@@ -413,7 +394,6 @@
 
   {
     "ID": "SK-20",
-    "GPT": "Why is it important for SMB to not use unsigned drivers if possible?",
     "Name": "Unsigned Drivers #1",
     "Category": "Driver Integrity",
     "Relevance": "Avoiding the use of unsigned drivers is important for SMBs as they can pose security risks, potentially allowing malicious code to run at a low level within the system.",
