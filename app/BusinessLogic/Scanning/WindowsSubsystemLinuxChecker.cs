@@ -1,3 +1,4 @@
+using BusinessLogic.Scanning.Interfaces;
 using Microsoft.Win32;
 using System;
 using System.DirectoryServices;
@@ -7,8 +8,18 @@ namespace BusinessLogic.Scanning
     public class WindowsSubsystemLinuxChecker : IChecker
     {
         public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
-        public bool RequiresElevatedPrivilege { get; } = false;
+        public List<SecurityCheck> SecurityResults { get; private set; } = new List<SecurityCheck>();
+
         public bool IsActive { get; private set; } = false;
+
+        public SecurityCheck SecurityCheck { get; private set; }
+
+        public const String ID = "SK-22";
+        public WindowsSubsystemLinuxChecker()
+        {
+            SecurityCheck = SecurityCheck.GetInstanceById(ID);
+            SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.NotRun;
+        }
 
         public void Scan()
         {
@@ -16,20 +27,19 @@ namespace BusinessLogic.Scanning
 
             IsActive = CheckWslActive();
 
-            ScanResult result = new ScanResult();
-            result.ScanType = "Secure Defaults";
-            result.DetailedDescription = $"Having WSL (Windows Subsystem for Linux) enabled on a system that doesn't require it can present an additional attack surface for potential intruders. WSL allows for the execution of Linux binaries, which could be exploited by an attacker to bypass Windows-specific security measures or to run malicious Linux software. By disabling unused features like WSL, you're effectively reducing the areas that need to be secured, thereby lowering the risk of a successful cyberattack.";
-            if (IsActive)
+            if (SecurityCheck.Outcome != SecurityCheck.OutcomeTypes.Error)
             {
-                result.Severity = Severity.Medium;
-                result.ShortDescription = $"Windows Subsystem for Linux is enabled!";
+                if (IsActive)
+                {
+                    SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.ActionRecommended;
+                }
+                else
+                {
+                    SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Pass;
+                }
             }
-            else
-            {
-                result.Severity = Severity.Ok;
-                result.ShortDescription = $"Windows Subsystem for Linux is disabled";
-            }
-            ScanResults.Add(result);
+
+            SecurityResults.Add(SecurityCheck);
 
             EventAggregator.Instance.FireEvent(BlEvents.CheckingWslCompleted);
 
@@ -82,6 +92,8 @@ namespace BusinessLogic.Scanning
             }
             catch (Exception ex)
             {
+                SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Error;
+                SecurityCheck.ErrorMessage = ex.Message;
                 Console.WriteLine($"An error occurred: {ex.Message}");
             }
             return true;

@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using BusinessLogic.Scanning.Interfaces;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +10,19 @@ namespace BusinessLogic.Scanning
 {
     public class AutoRunEnabledChecker : IChecker
     {
-
         public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
+        public List<SecurityCheck> SecurityResults { get; private set; } = new List<SecurityCheck>();
 
         public bool IsAutoRunEnabled { get; private set; } = false;
 
-        public bool RequiresElevatedPrivilege { get; } = false;
+        public SecurityCheck SecurityCheck { get; private set; }
+
+        public const String ID = "SK-08";
+        public AutoRunEnabledChecker()
+        {
+            SecurityCheck = SecurityCheck.GetInstanceById(ID);
+            SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.NotRun;
+        }
 
         public void Scan()
         {
@@ -22,20 +30,19 @@ namespace BusinessLogic.Scanning
 
             CheckAutoRun(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer");
 
-            ScanResult result = new ScanResult();
-            result.ScanType = "Secure Defaults";
-            result.DetailedDescription = $"Having AutoRun enabled for removable media is a security risk because it allows for the automatic execution of potentially malicious software the moment a removable device like a USB drive is plugged in. This makes it easier for malware to spread and infect your system.";
-            if (IsAutoRunEnabled)
+            if (SecurityCheck.Outcome != SecurityCheck.OutcomeTypes.Error)
             {
-                result.Severity = Severity.Critical;
-                result.ShortDescription = $"Autorun is enabled for removable media!";
+                if (IsAutoRunEnabled)
+                {
+                    SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.ActionRecommended;
+                }
+                else
+                {
+                    SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Pass;
+                }
             }
-            else
-            {
-                result.Severity = Severity.Ok;
-                result.ShortDescription = $"Autorun is not enabled for removable media.";
-            }
-            ScanResults.Add(result);
+
+            SecurityResults.Add(SecurityCheck);
 
             EventAggregator.Instance.FireEvent(BlEvents.CheckingNtlmV1EnabledComplete);
 
@@ -72,6 +79,9 @@ namespace BusinessLogic.Scanning
             }
             catch (Exception ex)
             {
+                SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Error;
+                SecurityCheck.ErrorMessage = ex.Message;
+
                 Console.WriteLine($"An error occurred: {ex.Message}");
             };
 

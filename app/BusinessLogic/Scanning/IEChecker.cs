@@ -1,3 +1,4 @@
+using BusinessLogic.Scanning.Interfaces;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -12,9 +13,18 @@ namespace BusinessLogic.Scanning
     public class IEChecker : IChecker
     {
         public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
+        public List<SecurityCheck> SecurityResults { get; private set; } = new List<SecurityCheck>();
 
         public bool IsDefaultBrowser { get; private set; } = false;
-        public bool RequiresElevatedPrivilege { get; } = false;
+
+        public const String ID = "SK-11";
+        public SecurityCheck SecurityCheck { get; private set; }
+
+        public IEChecker()
+        {
+            SecurityCheck = SecurityCheck.GetInstanceById(ID);
+            SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.NotRun;
+        }
 
         public void Scan()
         {
@@ -22,20 +32,19 @@ namespace BusinessLogic.Scanning
 
             IsDefaultBrowser = CheckDefaultBrowser();
 
-            ScanResult result = new ScanResult();
-            result.ScanType = "Application Software";
-            result.DetailedDescription = $"Internet Explorer is no longer supported. Consider switching to a modern browser.";
-            if ( !IsDefaultBrowser )
+            if ( SecurityCheck.Outcome != SecurityCheck.OutcomeTypes.Error )
             {
-                result.Severity = Severity.Ok;
-                result.ShortDescription = $"Internet Explorer is not the default browser.";
+                if (IsDefaultBrowser)
+                {
+                    SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.ActionRecommended;
+                }
+                else
+                {
+                    SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Pass;
+                }
             }
-            else 
-            {
-                result.Severity = Severity.High;
-                result.ShortDescription = $"Internet Explorer is the default browser!";
-            }
-            ScanResults.Add(result);
+
+            SecurityResults.Add(SecurityCheck);
 
             EventAggregator.Instance.FireEvent(BlEvents.CheckingIECompleted);
 
@@ -70,6 +79,8 @@ namespace BusinessLogic.Scanning
             }
             catch (Exception ex)
             {
+                SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Error;
+                SecurityCheck.ErrorMessage = ex.Message;
                 Console.WriteLine($"An error occurred: {ex.Message}");
             }
             return false;

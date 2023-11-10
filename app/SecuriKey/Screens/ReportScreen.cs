@@ -12,6 +12,7 @@ using System.Timers;
 using System.Windows.Forms;
 
 using BusinessLogic;
+using static SkiaSharp.HarfBuzz.SKShaper;
 
 namespace SecuriKey.Screens
 {
@@ -32,6 +33,7 @@ namespace SecuriKey.Screens
                 resultCtl.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
                 resultsPanel.Controls.Add(resultCtl);
             }
+
         }
 
         public event EventHandler<NavigationEventArgs> NavigationRequest;

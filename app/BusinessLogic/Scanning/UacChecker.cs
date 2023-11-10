@@ -1,5 +1,5 @@
 using BusinessLogic;
-using BusinessLogic.Scanning;
+using BusinessLogic.Scanning.Interfaces;
 using Microsoft.Win32;
 
 
@@ -9,13 +9,41 @@ public class UacChecker : IChecker
     public bool IsUacDisabled { get; set; } = false;
     public bool IsUacAtRecommendedLevel { get; set; } = false;
     public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
-    public bool RequiresElevatedPrivilege { get; } = false;
+    public List<SecurityCheck> SecurityCheckResults { get; private set; } = new List<SecurityCheck>();
+    public List<SecurityCheck> SecurityResults { get; private set; } = new List<SecurityCheck>();
+
+    public const String ID = "SK-03";
+    public SecurityCheck SecurityCheck { get; private set; }
+    public UacChecker()
+    {
+        SecurityCheck = SecurityCheck.GetInstanceById(ID);
+        SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.NotRun;
+    }
 
     public void Scan()
     {
         ScanResults.Clear();
 
         EventAggregator.Instance.FireEvent(BlEvents.CheckingUac);
+
+        ProbeUac();
+
+        if (IsUacDisabled == true)
+        {
+            SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.ActionRecommended;
+        }
+        else
+        {
+            SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Pass;
+        }
+
+        SecurityResults.Add(SecurityCheck);
+
+        EventAggregator.Instance.FireEvent(BlEvents.CheckingUacCompleted);
+    }
+
+    private void ProbeUac()
+    {
 
         try
         {
@@ -35,54 +63,43 @@ public class UacChecker : IChecker
                     if ((int)enableLUA == 1)
                     {
                         if ((int)consentPromptBehaviorAdmin == 2 && (int)promptOnSecureDesktop == 1)
-                        {                            
-                            IsUacAtRecommendedLevel = true;
+                        {
+                            SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Pass;
 
-                            ScanResult result = new ScanResult();
-                            result.ScanType = "User Access Control";
-                            result.Severity = Severity.Ok;
-                            result.ShortDescription = "You are protected by User Account Control";
-                            result.DetailedDescription = $"User Account Control (UAC) is important for security in Windows operating systems because it helps prevent unauthorized or potentially malicious changes to the system by requiring user confirmation or administrator-level permissions for certain actions.";
-                            ScanResults.Add(result);
+                            IsUacAtRecommendedLevel = true;
                         }
                         else
-                        {                            
-                            IsUacAtRecommendedLevel = false;
+                        {
+                            SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.ActionRecommended;
 
-                            ScanResult result = new ScanResult();
-                            result.ScanType = "User Access Control";
-                            result.Severity = Severity.Medium;
-                            result.ShortDescription = "User Account Control is at an unsafe setting";
-                            result.DetailedDescription = $"User Account Control (UAC) is important for security in Windows operating systems because it helps prevent unauthorized or potentially malicious changes to the system by requiring user confirmation or administrator-level permissions for certain actions.";
-                            ScanResults.Add(result);
+                            IsUacAtRecommendedLevel = false;
                         }
                     }
                     else
                     {
+                        SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.ActionRecommended;
+
                         IsUacDisabled = true;
 
-                        ScanResult result = new ScanResult();
-                        result.ScanType = "User Access Control";
-                        result.Severity = Severity.High;
-                        result.ShortDescription = "User Account Control is disabled";
-                        result.DetailedDescription = $"User Account Control (UAC) is important for security in Windows operating systems because it helps prevent unauthorized or potentially malicious changes to the system by requiring user confirmation or administrator-level permissions for certain actions.";
-                        ScanResults.Add(result);
                     }
                 }
                 else
-                {                    
-                    UnableToQuery = true;
+                {
+                    SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Error;
+                    SecurityCheck.ErrorMessage = "Unable to probe UAC settings";
                 }
             }
         }
         catch (Exception ex)
         {
-            UnableToQuery = true;            
+            SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Error;
+            SecurityCheck.ErrorMessage = ex.Message;
+            UnableToQuery = true;
         }
 
 
-        EventAggregator.Instance.FireEvent(BlEvents.CheckingUacCompleted);
     }
+
 
 
 }

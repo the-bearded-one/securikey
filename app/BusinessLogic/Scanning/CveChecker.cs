@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 using BusinessLogic;
+using BusinessLogic.Scanning.Interfaces;
+using BusinessLogic.Scanning.POCOs;
 
 namespace BusinessLogic.Scanning
 {
@@ -8,7 +10,8 @@ namespace BusinessLogic.Scanning
         private SbomGenerator _sbomGenerator = new SbomGenerator();
         private List<ApplicationInfo> _appsInfo = null;
         private List<Vulnerability> _Vulnerabilities = new List<Vulnerability>();
-        public bool RequiresElevatedPrivilege { get; } = false;
+        public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
+        public List<SecurityCheck> SecurityResults { get; private set; } = new List<SecurityCheck>();
 
         public List<Vulnerability> GetVulnerabilities()
         {
@@ -48,6 +51,5 @@ namespace BusinessLogic.Scanning
             EventAggregator.Instance.FireEvent(BlEvents.CveCheckCompleted);
         }
 
-        public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
     }
 }

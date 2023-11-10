@@ -5,73 +5,71 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static System.Formats.Asn1.AsnWriter;
 
 namespace BusinessLogic.Scanning
 {
-    public class EncryptedPageFileChecker : IChecker
-    {
-
+    public class SmbClientChecker : IChecker
+    {        
         public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
         public List<SecurityCheck> SecurityResults { get; private set; } = new List<SecurityCheck>();
-
-        public bool IsPageFileEncrypted { get; private set; } = false;
-       
-
-        public const String ID = "SK-09";
+        public bool IsServerEnabled { get; private set; } = false;
+        public bool IsClientEnabled { get; private set; } = false;
         public SecurityCheck SecurityCheck { get; private set; }
 
-        public EncryptedPageFileChecker()
+        public const String ID = "SK-17";
+        public SmbClientChecker()
         {
             SecurityCheck = SecurityCheck.GetInstanceById(ID);
             SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.NotRun;
         }
-
         public void Scan()
         {
             ScanResults.Clear();
 
-            EventAggregator.Instance.FireEvent(BlEvents.CheckingPowerShellExecutionPolicy);
+            EventAggregator.Instance.FireEvent(BlEvents.CheckingSmbServerEnabled);
+            CheckSMBv1Client(@"SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters");
 
-            CheckPagefileEncryption(@"SYSTEM\CurrentControlSet\Control\FileSystem");
-
-            if (IsPageFileEncrypted)
+            if (IsClientEnabled)
             {
-                SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Pass;
+                SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.ActionRecommended;
             }
             else
             {
-                SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.ActionRecommended;
+                SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Pass;
             }
 
             SecurityResults.Add(SecurityCheck);
 
-            EventAggregator.Instance.FireEvent(BlEvents.CheckingPowerShellExecutionPolicyCompleted);
+            EventAggregator.Instance.FireEvent(BlEvents.CheckingSmbServerEnabledCompleted);
         }
 
-        private void CheckPagefileEncryption(string subKey)
+        private void CheckSMBv1Client(string subKey)
         {
             try
             {
                 using (RegistryKey key = Registry.LocalMachine.OpenSubKey(subKey, false))
                 {
-                    var isPagefileEncrypted = key?.GetValue("NtfsEncryptPagingFile");
-
-                    if (isPagefileEncrypted != null && isPagefileEncrypted.ToString() == "1")
+                    var dependOnService = key?.GetValue("DependOnService") as string[];
+                    if (dependOnService != null && Array.Exists(dependOnService, element => element == "MRxSmb10"))
                     {
-                        IsPageFileEncrypted = true;
+                        IsClientEnabled = true;
                     }
                     else
                     {
-                        IsPageFileEncrypted = false;
+                        IsClientEnabled = true;
                     }
                 }
             }
             catch (Exception ex)
             {
+                SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Error;
+                SecurityCheck.ErrorMessage = ex.Message;
+
                 Console.WriteLine($"An error occurred: {ex.Message}");
             }
         }
+
+
 
     }
 }

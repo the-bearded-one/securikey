@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using BusinessLogic.Scanning.Interfaces;
 
 namespace BusinessLogic.Scanning
 {
@@ -12,7 +13,7 @@ namespace BusinessLogic.Scanning
         
         public bool IsComplexityPolicyEnabled { get; private set; } = false;
         public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
-        public bool RequiresElevatedPrivilege { get; } = false;
+        public List<SecurityCheck> SecurityResults { get; private set; } = new List<SecurityCheck>();
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         public struct USER_MODALS_INFO_0
@@ -32,31 +33,41 @@ namespace BusinessLogic.Scanning
 
         [DllImport("Netapi32.dll", SetLastError = true)]
         public static extern int NetApiBufferFree(IntPtr buffer);
+
+
+        public const String ID = "SK-14";
+        public SecurityCheck SecurityCheck { get; private set; }
+
+        public PasswordComplexityChecker()
+        {
+            SecurityCheck = SecurityCheck.GetInstanceById(ID);
+            SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.NotRun;
+        }
+
         public void Scan()
         {
             EventAggregator.Instance.FireEvent(BlEvents.CheckingPasswordComplexityPolicy);
 
             CheckComplexityPolicy();
 
-            ScanResult result = new ScanResult();
-            result.ScanType = "Windows Policy";
-            result.DetailedDescription = $"Enforcing a password complexity policy makes it more difficult for attackers to guess or brute-force passwords, thereby enhancing account security. Complex passwords, which include a mix of characters, numbers, and symbols, are less susceptible to common attack techniques like dictionary attacks, significantly reducing the risk of unauthorized access.";
-            if (!IsComplexityPolicyEnabled)
+            if (SecurityCheck.Outcome != SecurityCheck.OutcomeTypes.Error)
             {
-                result.Severity = Severity.Medium;
-                result.ShortDescription = $"Password complexity policy is not enabled!";
+                if (IsComplexityPolicyEnabled)
+                {
+                    SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Pass;
+                }
+                else
+                {
+                    SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.ActionRecommended;
+                }
             }
-            else
-            {
-                result.Severity = Severity.Ok;
-                result.ShortDescription = $"Password complexity policy is enabled!";
-            }
-            ScanResults.Add(result);
+
+            SecurityResults.Add(SecurityCheck);
 
             EventAggregator.Instance.FireEvent(BlEvents.CheckingPasswordComplexityPolicyCompleted);
 
         }
-        public void CheckComplexityPolicy()
+        private void CheckComplexityPolicy()
         {
             IntPtr pBuffer = IntPtr.Zero;
 
@@ -82,6 +93,11 @@ namespace BusinessLogic.Scanning
                     IsComplexityPolicyEnabled = false;
                     Console.WriteLine($"Failed to get user modal information. Error code: {result}");
                 }
+            }
+            catch(Exception ex)
+            {
+                SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Error;
+                SecurityCheck.ErrorMessage = ex.Message;
             }
             finally
             {

@@ -4,12 +4,14 @@ using System.Linq;
 using System.Management;
 using System.Text;
 using System.Threading.Tasks;
+using BusinessLogic.Scanning.Interfaces;
 
 namespace BusinessLogic.Scanning
 {
     public class UnsignedDriverUnelevatedChecker : IChecker
     {
         public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
+        public List<SecurityCheck> SecurityResults { get; private set; } = new List<SecurityCheck>();
 
         public bool UnsignedDriverUnelevatedFound { get; private set; } = false;
 
@@ -17,7 +19,15 @@ namespace BusinessLogic.Scanning
          * if the current user is not running with elevated privileges
          */
 
-        public bool RequiresElevatedPrivilege { get; } = false;
+        public SecurityCheck SecurityCheck { get; private set; }
+
+        public const String ID = "SK-20";
+
+        public UnsignedDriverUnelevatedChecker()
+        {
+            SecurityCheck = SecurityCheck.GetInstanceById(ID);
+            SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.NotRun;
+        }
 
         public void Scan()
         {
@@ -25,51 +35,56 @@ namespace BusinessLogic.Scanning
 
             CheckInstallLogs();
 
-            ScanResult result = new ScanResult();
-            result.ScanType = "System Drivers (Unelevated)";
-            result.DetailedDescription = $"Unsigned drivers pose a significant security risk because they haven't undergone the verification process by Microsoft or another trusted entity. This lack of verification opens the door for malicious drivers that can compromise system integrity, expose sensitive data, or create a foothold for further attacks.";
-            if (UnsignedDriverUnelevatedFound)
+            if (SecurityCheck.Outcome != SecurityCheck.OutcomeTypes.Error)
             {
-                result.Severity = Severity.Medium;
-                result.ShortDescription = $"Possible unsigned Windows driver(s) found!";
-            }
-            else
-            {
-                result.Severity = Severity.Ok;
-                result.ShortDescription = $"No unsigned Windows driver(s) found.";
-
+                if (UnsignedDriverUnelevatedFound)
+                {
+                    SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.ActionRecommended;
+                }
+                else
+                {
+                    SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Pass;
+                }
             }
 
-            ScanResults.Add(result);
+            SecurityResults.Add(SecurityCheck);
 
             EventAggregator.Instance.FireEvent(BlEvents.CheckingUnsignedDriverUnelevatedCompleted);
         }
 
-        public void CheckInstallLogs()
+        private void CheckInstallLogs()
         {
-
-            string logFilePath = @"C:\Windows\INF\setupapi.dev.log";
-            if (File.Exists(logFilePath))
+            try
             {
-                string[] lines = File.ReadAllLines(logFilePath);
-                bool foundUnsignedDrivers = false;
-
-                foreach (string line in lines)
+                string logFilePath = @"C:\Windows\INF\setupapi.dev.log";
+                if (File.Exists(logFilePath))
                 {
-                    if (line.Contains("Driver not digitally signed"))
+                    string[] lines = File.ReadAllLines(logFilePath);
+                    bool foundUnsignedDrivers = false;
+
+                    foreach (string line in lines)
                     {
-                        UnsignedDriverUnelevatedFound = true;
+                        if (line.Contains("Driver not digitally signed"))
+                        {
+                            UnsignedDriverUnelevatedFound = true;
+                        }
+                    }
+
+                    if (!foundUnsignedDrivers)
+                    {
+                        UnsignedDriverUnelevatedFound = false;
                     }
                 }
-
-                if (!foundUnsignedDrivers)
+                else
                 {
-                    UnsignedDriverUnelevatedFound = false;
+                    UnsignedDriverUnelevatedFound = true;
                 }
+
             }
-            else
+            catch (Exception ex)
             {
-                UnsignedDriverUnelevatedFound = true;
+                SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Error;
+                SecurityCheck.ErrorMessage = ex.Message;
             }
 
         }

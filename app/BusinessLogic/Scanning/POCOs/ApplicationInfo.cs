@@ -1,4 +1,4 @@
-﻿namespace BusinessLogic.Scanning
+﻿namespace BusinessLogic.Scanning.POCOs
 {
     public class ApplicationInfo
     {

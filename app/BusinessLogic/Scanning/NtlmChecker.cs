@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using BusinessLogic.Scanning.Interfaces;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,18 @@ namespace BusinessLogic.Scanning
     public class NtlmChecker : IChecker
     {
         public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
+        public List<SecurityCheck> SecurityResults { get; private set; } = new List<SecurityCheck>();
 
         public bool IsNtmlV1InUse { get; private set; } = false;
-        public bool RequiresElevatedPrivilege { get; } = false;
+        
+        public const String ID = "SK-13";
+        public SecurityCheck SecurityCheck { get; private set; }
+
+        public NtlmChecker()
+        {
+            SecurityCheck = SecurityCheck.GetInstanceById(ID);
+            SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.NotRun;
+        }
 
         public void Scan()
         {
@@ -21,20 +31,19 @@ namespace BusinessLogic.Scanning
 
             IsNtmlV1InUse = CheckNTLMv1Settings(@"SYSTEM\CurrentControlSet\Control\Lsa\MSV1_0");
 
-            ScanResult result = new ScanResult();
-            result.ScanType = "Windows Services";
-            result.DetailedDescription = $"Having NTLMv1 enabled is a security risk because it uses weak cryptographic algorithms, making it susceptible to various attacks like relay and brute-force attacks. This could allow unauthorized access to network resources, compromising your system's security. Note that NTLMv1 isn't specifically tied to removable media; it's a network authentication protocol.";
-            if (IsNtmlV1InUse)
+            if (SecurityCheck.Outcome != SecurityCheck.OutcomeTypes.Error)
             {
-                result.Severity = Severity.Medium;
-                result.ShortDescription = $"NTLMv1 is enabled!";
+                if (IsNtmlV1InUse)
+                {
+                    SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.ActionRecommended;
+                }
+                else
+                {
+                    SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Pass;
+                }
             }
-            else
-            {
-                result.Severity = Severity.Ok;
-                result.ShortDescription = $"NTLMv1 is not enabled";
-            }
-            ScanResults.Add(result);
+
+            SecurityResults.Add(SecurityCheck);
 
             EventAggregator.Instance.FireEvent(BlEvents.CheckingNtlmV1EnabledComplete);
 
@@ -72,6 +81,9 @@ namespace BusinessLogic.Scanning
             }
             catch (Exception ex)
             {
+                SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Error;
+                SecurityCheck.ErrorMessage = ex.Message;
+
                 Console.WriteLine($"An error occurred: {ex.Message}");
             }
             return true;

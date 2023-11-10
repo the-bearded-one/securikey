@@ -118,11 +118,6 @@ namespace SecuriKey
                 case BlEvents.CheckingInternetStatusCompleted:
                     statusTextbox.Text += $"\r\n    System {(BL.Instance.InternetConnectionChecker.IsConnected ? "IS" : "is NOT")} connected to the internet";
                     break;
-                case BlEvents.CheckingSecurityProductsCompleted:
-                    statusTextbox.Text += $"\r\n    {BL.Instance.SecurityProductChecker.AntivirusProducts.Count} antivirus products found";
-                    statusTextbox.Text += $"\r\n    {BL.Instance.SecurityProductChecker.AntispywareProducts.Count} antispyware products found";
-                    statusTextbox.Text += $"\r\n    {BL.Instance.SecurityProductChecker.FirewallProducts.Count} firewall products found";
-                    break;
                 case BlEvents.CheckingApplicationVersionsCompleted:
                     break;
                 case BlEvents.CheckingElevatedUserCompleted:
@@ -153,7 +148,25 @@ namespace SecuriKey
                         statusTextbox.Text += $"\r\n    Automatic Windows Updates are not enabled!";
                     }
                     break;
-
+                case BlEvents.CheckingSecurityProductsAntivirusCompleted:
+                    if (BL.Instance.AntivirusInstalledChecker.AntivirusProducts.Count() > 0)
+                    {
+                        statusTextbox.Text += $"\r\n    Antivirus software not found";
+                    }
+                    break;
+                    
+                case BlEvents.CheckingTlsCompleted:
+                    if (BL.Instance.TlsChecker.IsVulnerable)
+                    {
+                        statusTextbox.Text += $"\r\n    Vulnerable TLS version found";
+                    }
+                    break;
+                case BlEvents.CheckingSecurityProductsFirewallCompleted:
+                    if (BL.Instance.FirewallInstalledChecker.FirewallProducts.Count() > 0)
+                    {
+                        statusTextbox.Text += $"\r\n    Firewall software not found";
+                    }
+                    break;
                 case BlEvents.CheckingSecureBootEnabledCompleted:
                     if (!BL.Instance.SecureBootChecker.IsSecureBootEnabled)
                     {
@@ -166,6 +179,24 @@ namespace SecuriKey
                         statusTextbox.Text += $"\r\n    Firewall is not enabled!";
                     }
                     break;
+                case BlEvents.CheckingRemoteRegistryCompleted:
+                    if (!BL.Instance.RemoteRegistryChecker.UsesRemoteRegistry)
+                    {
+                        statusTextbox.Text += $"\r\n    RemoteRegistry Service is enabled!";
+                    }
+                    break;
+                case BlEvents.CheckingTelnetCompleted:
+                    if (!BL.Instance.TelnetChecker.UsesTelnet)
+                    {
+                        statusTextbox.Text += $"\r\n    Telnet Service is enabled!";
+                    }
+                    break;
+                case BlEvents.CheckingSecurityProductsSpywareCompleted:
+                    if (BL.Instance.AntispywareInstalledChecker.Products.Count() > 0)
+                    {
+                        statusTextbox.Text += $"\r\n    AntiSpyware is not installed!";
+                    }
+                    break;                    
                 case BlEvents.CheckingBitLockerCompleted: // requires admin to test
                     if (BL.Instance.BitLockerChecker.IsStatusProtected == false)
                     {
@@ -196,6 +227,14 @@ namespace SecuriKey
                         }
                     }
                     break;
+                    
+                case BlEvents.CheckingWindowsGuestAccountEnabled:
+                    if (BL.Instance.AutoRunEnabledChecker.IsAutoRunEnabled == true)
+                    {
+                        statusTextbox.Text += $"\r\n    AutoRun is enabled for removable media!";
+                    }
+                    break;
+
                 case BlEvents.CheckingAutoRunEnabledCompleted:
                     if (BL.Instance.AutoRunEnabledChecker.IsAutoRunEnabled == true)
                     {

@@ -105,7 +105,7 @@ namespace SecuriKey
                 case BlEvents.SystemScanCompleted:
                     // kludge: delay loading the report screen just a bit so user can see completed progress bar
                     System.Timers.Timer tm = new System.Timers.Timer();
-                    tm.Interval = 4000;
+                    tm.Interval = 3000;
                     tm.Elapsed += new System.Timers.ElapsedEventHandler((s, ev) =>
                     {
                         tm.Stop();
@@ -121,17 +121,6 @@ namespace SecuriKey
                     break;
                 case BlEvents.CheckingInternetStatusCompleted:
                     status += $"\r\n    System {(BL.Instance.InternetConnectionChecker.IsConnected ? "IS" : "is NOT")} connected to the internet";
-                    break;
-                case BlEvents.CheckingSecurityProductsCompleted:
-                    status += $"\r\n    {BL.Instance.SecurityProductChecker.AntivirusProducts.Count} antivirus products found";
-                    status += $"\r\n    {BL.Instance.SecurityProductChecker.AntispywareProducts.Count} antispyware products found";
-                    status += $"\r\n    {BL.Instance.SecurityProductChecker.FirewallProducts.Count} firewall products found";
-                    break;
-                case BlEvents.CheckingApplicationVersionsCompleted:
-                    foreach (var vulnerability in BL.Instance.AppScanner.VulnerabiltiesSeen)
-                    {
-                        status += $"\r\n    Vulnerable versions found! CVE ID: {vulnerability.CVE}";
-                    }
                     break;
                 case BlEvents.CheckingElevatedUserCompleted:
                     if (BL.Instance.AdminChecker.IsElevatedUser)
@@ -161,6 +150,24 @@ namespace SecuriKey
                         status += $"\r\n    SecureBoot is not enabled!";
                     }
                     break;
+                case BlEvents.CheckingTlsCompleted:
+                    if (BL.Instance.TlsChecker.IsVulnerable)
+                    {
+                        status += $"\r\n    Vulnerable TLS version found";
+                    }
+                    break;
+                case BlEvents.CheckingRemoteRegistryCompleted:
+                    if (!BL.Instance.RemoteRegistryChecker.UsesRemoteRegistry)
+                    {
+                        status += $"\r\n    RemoteRegistry Service is enabled!";
+                    }
+                    break;
+                case BlEvents.CheckingTelnetCompleted:
+                    if (!BL.Instance.TelnetChecker.UsesTelnet)
+                    {
+                        status += $"\r\n    Telnet Service is enabled!";
+                    }
+                    break;
                 case BlEvents.CheckingFirewallCompleted:
                     if (!BL.Instance.FirewallActiveChecker.IsFirewallEnabled)
                     {
@@ -179,14 +186,10 @@ namespace SecuriKey
                         status += $"\r\n    PageFile is not encrypted!";
                     }
                     break;
-                case BlEvents.CheckingSmbEnabledCompleted:
-                    if (!BL.Instance.SmbChecker.IsServerEnabled)
+                case BlEvents.CheckingSmbServerEnabledCompleted:
+                    if (!BL.Instance.SmbServerChecker.IsServerEnabled)
                     {
                         status += $"\r\n    SMBv1 Server is enabled!";
-                    }
-                    if (!BL.Instance.SmbChecker.IsClientEnabled)
-                    {
-                        status += $"\r\n    SMBv1 Client is enabled!";
                     }
                     break;
                 case BlEvents.CheckingHeartbleedCompleted:
@@ -199,6 +202,12 @@ namespace SecuriKey
                     if (!BL.Instance.IEChecker.IsDefaultBrowser)
                     {
                         status += $"\r\n    Internet Explorer is default browser!";
+                    }
+                    break;
+                case BlEvents.CheckingSpoolerCompleted:
+                    if (!BL.Instance.SpoolerChecker.UsesSpooler)
+                    {
+                        status += $"\r\n    Print Spooler is enabled!";
                     }
                     break;
                 case BlEvents.CheckingWslCompleted:

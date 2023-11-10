@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using BusinessLogic.Scanning.POCOs;
+using Microsoft.Win32;
 
 namespace BusinessLogic.Scanning
 {

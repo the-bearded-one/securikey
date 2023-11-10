@@ -1,5 +1,5 @@
 using BusinessLogic;
-using BusinessLogic.Scanning;
+using BusinessLogic.Scanning.Interfaces;
 using BusinessLogic.Scanning.POCOs;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
@@ -7,13 +7,22 @@ using WUApiLib;
 
 public class WindowsVersionChecker : IChecker
 {
+    public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
+    public List<SecurityCheck> SecurityResults { get; private set; } = new List<SecurityCheck>();
     public bool IsInternetAccessAuthorized { get; set; } = false;
     public bool IsUpdateAvailable { get; set; } = false;
     public Dictionary<string, string> VersionInfo = new Dictionary<string, string>();
     public List<string> AvailableUpdates = new List<string>();
-    public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
-    public bool RequiresElevatedPrivilege { get; } = false;
+    
+    public SecurityCheck SecurityCheck { get; private set; }
 
+    public const String ID = "SK-31";
+
+    public WindowsVersionChecker()
+    {
+        SecurityCheck = SecurityCheck.GetInstanceById(ID);
+        SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.NotRun;
+    }
     public void Scan()
     {
         ScanResults.Clear();
@@ -58,24 +67,19 @@ public class WindowsVersionChecker : IChecker
         // if internet access is authorized, check if a windows update is available
         if (IsInternetAccessAuthorized) CheckForWindowsUpdate();
 
-        if (AvailableUpdates.Count > 0)
+        if (SecurityCheck.Outcome != SecurityCheck.OutcomeTypes.Error)
         {
-            ScanResult result = new ScanResult();
-            result.ScanType = "Windows Version";
-            result.Severity = Severity.High;
-            result.ShortDescription = "Windows has newer version";
-            result.DetailedDescription = $"Keeping Windows up to date is crucial because it ensures the security of your system by patching vulnerabilities, safeguards your personal data, enhances system stability and performance, maintains compatibility with software and hardware, and provides access to new features, all while reducing the risk of cyberattacks, data breaches, and system failures.";
-            ScanResults.Add(result);
+            if (AvailableUpdates.Count > 0)
+            {
+                SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.ActionRecommended;
+            }
+            else
+            {
+                SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Pass;
+            }
         }
-        else
-        {
-            ScanResult result = new ScanResult();
-            result.ScanType = "Windows Version";
-            result.Severity = Severity.Ok;
-            result.ShortDescription = "You are protected with the newest Windows version";
-            result.DetailedDescription = $"Keeping Windows up to date is crucial because it ensures the security of your system by patching vulnerabilities, safeguards your personal data, enhances system stability and performance, maintains compatibility with software and hardware, and provides access to new features, all while reducing the risk of cyberattacks, data breaches, and system failures.";
-            ScanResults.Add(result);
-        }
+
+        SecurityResults.Add(SecurityCheck);
 
         EventAggregator.Instance.FireEvent(BlEvents.CheckingWindowsVersionCompleted);
     }
@@ -114,6 +118,8 @@ public class WindowsVersionChecker : IChecker
         }
         catch (Exception ex)
         {
+            SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Error;
+            SecurityCheck.ErrorMessage = ex.Message;
             Console.WriteLine("An error occurred: " + ex.Message);
         }
     }

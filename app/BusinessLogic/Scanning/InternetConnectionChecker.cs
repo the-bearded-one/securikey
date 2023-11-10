@@ -1,4 +1,4 @@
-using BusinessLogic.Scanning;
+using BusinessLogic.Scanning.Interfaces;
 using System.Runtime.InteropServices;
 
 namespace BusinessLogic
@@ -10,7 +10,7 @@ namespace BusinessLogic
 
         public bool IsConnected { get; private set; } = false;
         public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
-        public bool RequiresElevatedPrivilege { get; } = false;
+        public List<SecurityCheck> SecurityResults { get; private set; } = new List<SecurityCheck>();
 
         public void Scan()
         {

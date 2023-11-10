@@ -1,14 +1,24 @@
 using System;
 using System.DirectoryServices;
+using BusinessLogic.Scanning.Interfaces;
 
 namespace BusinessLogic.Scanning
 {
     public class NoPasswordExpiryChecker : IChecker
     {
         public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
+        public List<SecurityCheck> SecurityResults { get; private set; } = new List<SecurityCheck>();
 
         public bool IsPasswordVulnerable { get; private set; } = false;
-        public bool RequiresElevatedPrivilege { get; } = false;
+
+        public const String ID = "SK-12";
+        public SecurityCheck SecurityCheck { get; private set; }
+
+        public NoPasswordExpiryChecker()
+        {
+            SecurityCheck = SecurityCheck.GetInstanceById(ID);
+            SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.NotRun;
+        }
 
         public void Scan()
         {
@@ -16,20 +26,19 @@ namespace BusinessLogic.Scanning
 
             IsPasswordVulnerable = CheckPasswordExpiry();
 
-            ScanResult result = new ScanResult();
-            result.ScanType = "Secure Defaults";
-            result.DetailedDescription = $"Having a non-expiring password is a security risk because it increases the likelihood of unauthorized access over time. It gives attackers an indefinite window to crack the password, and it negates the benefits of regular password changes as a preventive measure against potential compromises.";
-            if (IsPasswordVulnerable)
+            if (SecurityCheck.Outcome != SecurityCheck.OutcomeTypes.Error)
             {
-                result.Severity = Severity.Medium;
-                result.ShortDescription = $"Non-expiring password is enabled!";
+                if (IsPasswordVulnerable)
+                {
+                    SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.ActionRecommended;
+                }
+                else
+                {
+                    SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Pass;
+                }
             }
-            else
-            {
-                result.Severity = Severity.Ok;
-                result.ShortDescription = $"Password is not set to be non-expiring";
-            }
-            ScanResults.Add(result);
+
+            SecurityResults.Add(SecurityCheck);
 
             EventAggregator.Instance.FireEvent(BlEvents.CheckingPasswordExpiryCompleted);
 
@@ -55,6 +64,8 @@ namespace BusinessLogic.Scanning
             }
             catch (Exception ex)
             {
+                SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Error;
+                SecurityCheck.ErrorMessage = ex.Message;
                 Console.WriteLine($"An error occurred: {ex.Message}");
             }
             return true;

@@ -1,4 +1,5 @@
-﻿using BusinessLogic.Scanning.POCOs;
+﻿using BusinessLogic.Scanning.Interfaces;
+using BusinessLogic.Scanning.POCOs;
 using System.Runtime.InteropServices;
 
 namespace BusinessLogic.Scanning
@@ -9,8 +10,17 @@ namespace BusinessLogic.Scanning
         static extern uint GetFirmwareEnvironmentVariable(string lpName, ref Guid lpGuid, IntPtr pBuffer, uint nSize);
 
         public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
+        public List<SecurityCheck> SecurityResults { get; private set; } = new List<SecurityCheck>();
+
         public bool IsSecureBootEnabled { get; private set; } = false;
-        public bool RequiresElevatedPrivilege { get; } = false;
+        public SecurityCheck SecurityCheck { get; private set; }
+
+        public const String ID = "SK-16"; // 16
+        public SecureBootChecker()
+        {
+            SecurityCheck = SecurityCheck.GetInstanceById(ID);
+            SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.NotRun;
+        }
 
         public void Scan()
         {
@@ -18,6 +28,27 @@ namespace BusinessLogic.Scanning
 
             EventAggregator.Instance.FireEvent(BlEvents.CheckingSecureBootEnabled);
 
+            ProbeSecureBoot();
+
+            if (SecurityCheck.Outcome != SecurityCheck.OutcomeTypes.Error)
+            {
+                if (IsSecureBootEnabled)
+                {
+                    SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Pass;
+                }
+                else
+                {
+                    SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.ActionRecommended;
+                }
+            }
+
+            SecurityResults.Add(SecurityCheck);
+
+            EventAggregator.Instance.FireEvent(BlEvents.CheckingSecureBootEnabledCompleted);
+        }
+
+        private void ProbeSecureBoot()
+        {
             Guid EFI_GLOBAL_VARIABLE = new Guid("8BE4DF61-93CA-11d2-AA0D-00E098032B8C");
 
             try
@@ -30,31 +61,20 @@ namespace BusinessLogic.Scanning
                 {
                     IsSecureBootEnabled = false;
 
-                    ScanResult result = new ScanResult();
-                    result.ScanType = "Secure Boot";
-                    result.Severity = Severity.High;
-                    result.ShortDescription = "You system is not protected by Secure Boot";
-                    result.DetailedDescription = $"Secure Boot is an important security feature designed to enhance the integrity and security of the boot process on modern computer systems, particularly those running operating systems like Windows 8 and later";
-                    ScanResults.Add(result);
                 }
                 else
                 {
                     IsSecureBootEnabled = true;
 
-                    ScanResult result = new ScanResult();
-                    result.ScanType = "Secure Boot";
-                    result.Severity = Severity.Ok;
-                    result.ShortDescription = "You system is protected by Secure Boot";
-                    result.DetailedDescription = $"Secure Boot is an important security feature designed to enhance the integrity and security of the boot process on modern computer systems, particularly those running operating systems like Windows 8 and later";
-                    ScanResults.Add(result);
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine($"An error occurred: {e.Message}");
+                SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Error;
+                SecurityCheck.ErrorMessage = ex.Message;
+                Console.WriteLine($"An error occurred: {ex.Message}");
             }
 
-            EventAggregator.Instance.FireEvent(BlEvents.CheckingSecureBootEnabledCompleted);
         }
 
     }

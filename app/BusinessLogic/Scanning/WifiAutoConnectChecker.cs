@@ -4,16 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using BusinessLogic.Scanning.Interfaces;
 
 namespace BusinessLogic.Scanning
 {
     public class WifiAutoConnectChecker : IChecker
     {
         public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
+        public List<SecurityCheck> SecurityResults { get; private set; } = new List<SecurityCheck>();
 
         public bool DoesWifiAutoConnect { get; private set; } = false;
-        public bool RequiresElevatedPrivilege { get; } = false;
+        
+        public const String ID = "SK-21";
+        public SecurityCheck SecurityCheck { get; private set; }
 
+        public WifiAutoConnectChecker()
+        {
+            SecurityCheck = SecurityCheck.GetInstanceById(ID);
+            SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.NotRun;
+        }
         public void Scan()
         {
             ScanResults.Clear();
@@ -22,64 +31,71 @@ namespace BusinessLogic.Scanning
 
             CheckWifiConfig();
 
-            ScanResult result = new ScanResult();
-            result.ScanType = "Wifi Auto Connect";
-            result.DetailedDescription = $"Automatically connecting to open Wi-Fi networks exposes the system to various security risks, including man-in-the-middle attacks and data interception. Since these networks lack encryption and authentication, attackers can easily eavesdrop on your internet traffic or redirect you to malicious websites, thereby compromising your data and system integrity.";
-
-            if (DoesWifiAutoConnect)
+            if (SecurityCheck.Outcome != SecurityCheck.OutcomeTypes.Error)
             {
-                result.Severity = Severity.High;
-                result.ShortDescription = "Your system auto-connects to open, public wifi networks";
+                if (DoesWifiAutoConnect)
+                {
+                    SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.ActionRecommended;
+                }
+                else
+                {
+                    SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Pass;
+                }
             }
-            else
-            {
-                result.Severity = Severity.Ok;
-                result.ShortDescription = "Your system does not auto-connects to open, public wifi networks";
-            }
-            ScanResults.Add(result);
 
+            SecurityResults.Add(SecurityCheck);
 
             EventAggregator.Instance.FireEvent(BlEvents.CheckingAutoConnectOpenWifiCompleted);
         }
 
         private void CheckWifiConfig()
         {
-            string wifiProfilePath = @"C:\ProgramData\Microsoft\Wlansvc\Profiles\Interfaces\";
 
-            if (Directory.Exists(wifiProfilePath))
+            try
             {
-                string[] subDirectories = Directory.GetDirectories(wifiProfilePath);
+                string wifiProfilePath = @"C:\ProgramData\Microsoft\Wlansvc\Profiles\Interfaces\";
 
-                foreach (string dir in subDirectories)
+                if (Directory.Exists(wifiProfilePath))
                 {
-                    string[] xmlFiles = Directory.GetFiles(dir, "*.xml");
+                    string[] subDirectories = Directory.GetDirectories(wifiProfilePath);
 
-                    foreach (string xmlFile in xmlFiles)
+                    foreach (string dir in subDirectories)
                     {
-                        XmlDocument xmlDoc = new XmlDocument();
-                        xmlDoc.Load(xmlFile);
+                        string[] xmlFiles = Directory.GetFiles(dir, "*.xml");
 
-                        XmlNodeList autoConnectList = xmlDoc.GetElementsByTagName("autoConnect");
-                        XmlNodeList authenticationList = xmlDoc.GetElementsByTagName("authentication");
-                        XmlNodeList encryptionList = xmlDoc.GetElementsByTagName("encryption");
-
-                        if (autoConnectList.Count > 0 && authenticationList.Count > 0 && encryptionList.Count > 0)
+                        foreach (string xmlFile in xmlFiles)
                         {
-                            string autoConnectValue = autoConnectList[0].InnerText;
-                            string authenticationValue = authenticationList[0].InnerText;
-                            string encryptionValue = encryptionList[0].InnerText;
+                            XmlDocument xmlDoc = new XmlDocument();
+                            xmlDoc.Load(xmlFile);
 
-                            if (autoConnectValue.ToLower() == "true" && authenticationValue.ToLower() == "open" && encryptionValue.ToLower() == "none")
+                            XmlNodeList autoConnectList = xmlDoc.GetElementsByTagName("autoConnect");
+                            XmlNodeList authenticationList = xmlDoc.GetElementsByTagName("authentication");
+                            XmlNodeList encryptionList = xmlDoc.GetElementsByTagName("encryption");
+
+                            if (autoConnectList.Count > 0 && authenticationList.Count > 0 && encryptionList.Count > 0)
                             {
-                                DoesWifiAutoConnect = true;
+                                string autoConnectValue = autoConnectList[0].InnerText;
+                                string authenticationValue = authenticationList[0].InnerText;
+                                string encryptionValue = encryptionList[0].InnerText;
+
+                                if (autoConnectValue.ToLower() == "true" && authenticationValue.ToLower() == "open" && encryptionValue.ToLower() == "none")
+                                {
+                                    DoesWifiAutoConnect = true;
+                                }
                             }
                         }
                     }
                 }
+                else
+                {
+                    Console.WriteLine("Wi-Fi profile directory not found.");
+                }
+
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("Wi-Fi profile directory not found.");
+                SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Error;
+                SecurityCheck.ErrorMessage = ex.Message;
             }
         }
 

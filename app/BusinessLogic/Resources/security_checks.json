@@ -1,0 +1,697 @@
+[
+  {
+    "ID": "SK-01",
+    "GPT": "Why is it importan for SMB to have an appropriate PowerShell execution policy configured?",
+    "Name": "PowerShell Execution Policy",
+    "Category": "Policy Setting",
+    "Relevance": "Setting an appropriate PowerShell execution policy helps protect SMB computers from untrusted scripts. By controlling the execution of scripts, SMBs can prevent unauthorized code from running, which could be used for malicious purposes such as data theft or system damage.",
+    "Severity": {
+      "Rating": "High",
+      "Justification": "PowerShell can execute powerful commands and scripts. An inappropriate execution policy can leave systems vulnerable to attacks, especially if malicious scripts are executed unintentionally."
+    },
+    "SimpleAnalogy": "Having a proper PowerShell execution policy is like having a strict guest list for a party; it ensures only trusted and known guests (scripts) are allowed in, keeping potential troublemakers out.",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": false,
+      "RequiresOnlineConnectivity": false
+    },
+    "CompliantMessage": "PowerShell execution policy is appropriately configured.",
+    "ActionRequiredMessage": "PowerShell execution policy is not properly set. Review and configure the execution policy to ensure script security.",
+    "Remediation": "Configure the PowerShell execution policy to a more restrictive mode like AllSigned or Restricted to prevent unauthorized script execution."
+  },
+
+  {
+    "ID": "SK-02",
+    "GPT": "Why is it important for SMB to disable Windows Scripting Host if they don't have a need for it?",
+    "Name": "Windows Scripting Host (WSH)",
+    "Category": "",
+    "Relevance": "",
+    "Severity": {
+      "Rating": "",
+      "Justification": ""
+    },
+    "SimpleAnalogy": "",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": false,
+      "RequiresOnlineConnectivity": false
+    },
+    "CompliantMessage": "",
+    "ActionRequiredMessage": "",
+    "Remediation": ""
+  },
+
+  {
+    "ID": "SK-03",
+    "GPT": "Why is it important for SMB to have UAC enabled on their systems?",
+    "Name": "User Access Control (UAC)",
+    "Category": "Access Control",
+    "Relevance": "Enabling UAC is crucial for SMBs as it acts as a barrier against unauthorized changes to the system, ensuring that any significant alterations are made with the user's knowledge and consent.",
+    "Severity": {
+      "Rating": "High",
+      "Justification": "UAC is a primary defense mechanism against many types of malware and unauthorized system changes, making it a high-priority setting."
+    },
+    "SimpleAnalogy": "UAC is like a security checkpoint in an office building, ensuring that only authorized personnel can make significant changes.",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": false,
+      "RequiresOnlineConnectivity": false
+    },
+    "CompliantMessage": "User Access Control is enabled.",
+    "ActionRequiredMessage": "User Access Control is disabled. Enabling it is recommended to enhance security.",
+    "Remediation": "Enable User Access Control through the Control Panel or Group Policy."
+  },
+
+  {
+    "ID": "SK-04",
+    "GPT": "Why is it important for SMB to have the windows guest account enabled?",
+    "Name": "Windows Guest Account",
+    "Category": "Account Management",
+    "Relevance": "Enabling the guest account on Windows allows SMBs to provide limited access to their systems for temporary or untrusted users, reducing the risk of unauthorized access to sensitive data.",
+    "Severity": {
+      "Rating": "Low",
+      "Justification": "While useful for certain scenarios, the guest account is not a critical security feature for most SMBs."
+    },
+    "SimpleAnalogy": "Having a guest account is like providing a visitor badge in an office; it offers limited access while keeping sensitive areas secure.",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": false,
+      "RequiresOnlineConnectivity": false
+    },
+    "CompliantMessage": "Windows guest account is enabled.",
+    "ActionRequiredMessage": "Windows guest account is disabled. Consider enabling it for limited access purposes.",
+    "Remediation": "Enable the guest account through User Accounts settings or Group Policy."
+  },
+
+  {
+    "ID": "SK-05",
+    "GPT": "Why is it important for SMB to have the machines configured where normal users have elevated/admin privileges?",
+    "Name": "User has Elevated Privileges",
+    "Category": "Privilege Management",
+    "Relevance": "It's generally advised for SMBs to restrict normal users from having elevated privileges to prevent unauthorized system changes and reduce the risk of malware execution.",
+    "Severity": {
+      "Rating": "Critical",
+      "Justification": "Granting regular users elevated privileges poses a significant security risk and can lead to serious system breaches."
+    },
+    "SimpleAnalogy": "Allowing all users elevated privileges is like giving every employee a master key to the entire office, increasing the risk of unauthorized access.",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": true,
+      "RequiresOnlineConnectivity": false
+    },
+    "CompliantMessage": "Normal users do not have elevated privileges.",
+    "ActionRequiredMessage": "Normal users have elevated privileges. It's recommended to restrict these privileges.",
+    "Remediation": "Configure user accounts to operate with standard privileges and elevate on a per-need basis."
+  },
+
+  {
+    "ID": "SK-06",
+    "GPT": "Why is it important for SMB to disable Print Spooler if printing is not needed. Couldn't this lead to issues like PrintNightmare?",
+    "Name": "Spooler Enabled",
+    "Category": "",
+    "Relevance": "",
+    "Severity": {
+      "Rating": "",
+      "Justification": ""
+    },
+    "SimpleAnalogy": "",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": true,
+      "RequiresOnlineConnectivity": false
+    },
+    "CompliantMessage": "",
+    "ActionRequiredMessage": "",
+    "Remediation": ""
+  },
+
+  {
+    "ID": "SK-07",
+    "GPT": "Why is it important for SMB to have BitLocker enabled?",
+    "Name": "BitLocker Enabled",
+    "Category": "Data Encryption",
+    "Relevance": "Enabling BitLocker is vital for SMBs to secure sensitive data on their drives, protecting against unauthorized access, especially in case of device theft or loss.",
+    "Severity": {
+      "Rating": "High",
+      "Justification": "Data breaches can be catastrophic for SMBs. BitLocker provides a strong layer of defense by encrypting hard drives."
+    },
+    "SimpleAnalogy": "Using BitLocker is like having a secure vault for your data; it ensures your information is safe even if the hardware is compromised.",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": true,
+      "RequiresOnlineConnectivity": false
+    },
+    "CompliantMessage": "BitLocker is enabled.",
+    "ActionRequiredMessage": "BitLocker is not enabled. Enable BitLocker to secure your data.",
+    "Remediation": "Enable BitLocker through the Control Panel or Group Policy to encrypt the system drives."
+  },
+
+  {
+    "ID": "SK-08",
+    "GPT": "Why is it important for SMB to not have AutoRun enabled on removable media?",
+    "Name": "AutoRun Enabled",
+    "Category": "Media Control",
+    "Relevance": "Disabling AutoRun on removable media is crucial for SMBs to prevent the automatic execution of potentially malicious software, which can be a common attack vector.",
+    "Severity": {
+      "Rating": "Medium",
+      "Justification": "AutoRun can be exploited for malware delivery, but its risk depends on the SMB's use of removable media and existing security measures."
+    },
+    "SimpleAnalogy": "Disabling AutoRun is like having a policy to check packages before opening them, ensuring nothing harmful is automatically let in.",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": false,
+      "RequiresOnlineConnectivity": false
+    },
+    "CompliantMessage": "AutoRun for removable media is disabled.",
+    "ActionRequiredMessage": "AutoRun for removable media is enabled. Disabling it is recommended.",
+    "Remediation": "Disable AutoRun for removable media through Group Policy or registry settings."
+  },
+
+  {
+    "ID": "SK-09",
+    "GPT": "Why is it important for SMB to encrypt their pagefile?",
+    "Name": "Encrypted PageFile",
+    "Category": "Data Protection",
+    "Relevance": "Encrypting the pagefile is important for SMBs to prevent sensitive information from being recovered from it, as it can contain remnants of documents and other data.",
+    "Severity": {
+      "Rating": "Medium",
+      "Justification": "While not typically a direct target, an unencrypted pagefile can be a secondary vector for data leakage."
+    },
+    "SimpleAnalogy": "Encrypting the pagefile is like shredding sensitive documents instead of just throwing them away, preventing information retrieval.",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": false,
+      "RequiresOnlineConnectivity": false
+    },
+    "CompliantMessage": "Pagefile is encrypted.",
+    "ActionRequiredMessage": "Pagefile is not encrypted. Encryption is recommended to protect data.",
+    "Remediation": "Encrypt the pagefile by configuring system settings or using third-party tools."
+  },
+
+  {
+    "ID": "SK-10",
+    "GPT": "Why is it important for SMB to not have an obsolete/vulnerable version of OpenSSL on their machine?",
+    "Name": "Vulnerable OpenSSL (Heartbleed)",
+    "Category": "Software Vulnerability",
+    "Relevance": "For SMBs, having an up-to-date version of OpenSSL is crucial to protect against known vulnerabilities like Heartbleed, which can expose sensitive data to attackers.",
+    "Severity": {
+      "Rating": "Critical",
+      "Justification": "Vulnerable versions of OpenSSL can lead to severe security breaches, making timely updates essential."
+    },
+    "SimpleAnalogy": "Using an updated version of OpenSSL is like changing the locks after a widespread key theft; it's essential for maintaining security.",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": false,
+      "RequiresOnlineConnectivity": false
+    },
+    "CompliantMessage": "OpenSSL is updated and not vulnerable to known exploits.",
+    "ActionRequiredMessage": "Obsolete or vulnerable version of OpenSSL detected. Update immediately.",
+    "Remediation": "Update OpenSSL to the latest version to address known vulnerabilities."
+  },
+
+  {
+    "ID": "SK-11",
+    "GPT": "Why is it important for SMB to not have Internet Explorer set as the default browser? (I think it's no longer supported or updated)",
+    "Name": "Internet Explorer Default",
+    "Category": "Web Browser Security",
+    "Relevance": "For SMBs, avoiding Internet Explorer as the default browser is key due to its lack of updates and support, making it more vulnerable to security threats compared to modern browsers.",
+    "Severity": {
+      "Rating": "High",
+      "Justification": "Using an unsupported browser poses significant security risks due to unpatched vulnerabilities."
+    },
+    "SimpleAnalogy": "Using a modern browser instead of Internet Explorer is like choosing a modern, secure car over an outdated model without safety features.",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": false,
+      "RequiresOnlineConnectivity": false
+    },
+    "CompliantMessage": "Internet Explorer is not set as the default browser.",
+    "ActionRequiredMessage": "Internet Explorer is set as the default browser. Switch to a modern, supported browser.",
+    "Remediation": "Change the default web browser to a modern and regularly updated browser."
+  },
+
+  {
+    "ID": "SK-12",
+    "GPT": "Why is it important for SMB to enforce password expiry on their machines",
+    "Name": "Password Expiry",
+    "Category": "Authentication Policy",
+    "Relevance": "Enforcing password expiry is important for SMBs as it compels users to change passwords regularly, reducing the risk of prolonged unauthorized access from compromised credentials.",
+    "Severity": {
+      "Rating": "Medium",
+      "Justification": "Regular password changes can improve security, but they need to be balanced with user convenience and the effectiveness of other security measures."
+    },
+    "SimpleAnalogy": "Password expiry is like periodically changing locks; it's a proactive step to ensure continued security.",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": false,
+      "RequiresOnlineConnectivity": false
+    },
+    "CompliantMessage": "Password expiry policy is enforced.",
+    "ActionRequiredMessage": "No password expiry policy in place. Implementing a password expiry policy is recommended.",
+    "Remediation": "Set up a password expiry policy through Group Policy."
+  },
+
+  {
+    "ID": "SK-13",
+    "GPT": "Why is it important for SMB not to have NTLMv1 enabled",
+    "Name": "NTLMv1",
+    "Category": "Protocol Security",
+    "Relevance": "Disabling NTLMv1 for SMBs is crucial as it is an outdated and insecure authentication protocol, susceptible to various types of cyber attacks.",
+    "Severity": {
+      "Rating": "High",
+      "Justification": "The vulnerabilities inherent in NTLMv1 can be exploited for significant security breaches."
+    },
+    "SimpleAnalogy": "Using a newer authentication protocol instead of NTLMv1 is like opting for a modern, encrypted communication system over an old, easily intercepted radio channel.",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": false,
+      "RequiresOnlineConnectivity": false
+    },
+    "CompliantMessage": "NTLMv1 is disabled.",
+    "ActionRequiredMessage": "NTLMv1 is enabled and poses a security risk. It should be disabled.",
+    "Remediation": "Disable NTLMv1 through Group Policy or Windows Registry settings."
+  },
+
+  {
+    "ID": "SK-14",
+    "GPT": "Why is it important for SMB to require password complexity on its users",
+    "Name": "Password Complexity",
+    "Category": "Authentication Security",
+    "Relevance": "Requiring password complexity is crucial for SMBs to reduce the risk of unauthorized access through easily guessable passwords, enhancing overall security.",
+    "Severity": {
+      "Rating": "High",
+      "Justification": "Weak passwords are a common entry point for attackers. Complex passwords significantly reduce this risk."
+    },
+    "SimpleAnalogy": "Password complexity is like a combination lock; more complex combinations are harder to guess and break into.",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": false,
+      "RequiresOnlineConnectivity": false
+    },
+    "CompliantMessage": "Password complexity requirements are enforced.",
+    "ActionRequiredMessage": "Password complexity requirements are not enforced. Strengthen password policies."
+  },
+
+  {
+    "ID": "SK-15",
+    "GPT": "Why is it important for SMB to disable RDP if they don't need it?",
+    "Name": "RDP Checker",
+    "Category": "Remote Access Control",
+    "Relevance": "Disabling RDP when not needed reduces the risk of unauthorized remote access and potential exploitation through vulnerabilities in the service.",
+    "Severity": {
+      "Rating": "Medium",
+      "Justification": "While RDP is a vector for attacks, its risk level depends on network exposure and existing security measures."
+    },
+    "SimpleAnalogy": "Not using RDP is like closing a rarely used, but potentially vulnerable, back door to your house.",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": false,
+      "RequiresOnlineConnectivity": false
+    },
+    "CompliantMessage": "Remote Desktop Protocol (RDP) is disabled.",
+    "ActionRequiredMessage": "RDP is enabled. Disable it if not needed to reduce security risks."
+  },
+
+  {
+    "ID": "SK-16",
+    "GPT": "Why is it important for SMB to use SecureBoot on their machines",
+    "Name": "SecureBoot Enabled",
+    "Category": "Boot Security",
+    "Relevance": "Using SecureBoot helps SMBs prevent unauthorized low-level threats by ensuring that only trusted software is loaded during the system startup.",
+    "Severity": {
+      "Rating": "High",
+      "Justification": "SecureBoot is a fundamental security measure that protects against a range of boot-level threats."
+    },
+    "SimpleAnalogy": "SecureBoot is like a security guard at the door, ensuring only verified and trusted guests can enter a party.",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": false,
+      "RequiresOnlineConnectivity": false
+    },
+    "CompliantMessage": "SecureBoot is enabled, providing enhanced startup security.",
+    "ActionRequiredMessage": "SecureBoot is not enabled. Enable it to improve boot-level security."
+  },
+
+  {
+    "ID": "SK-17",
+    "GPT": "Why is it important for SMB to ensure SMBv1 client is not enabled on their machines?",
+    "Name": "SMBv1 Client Enabled",
+    "Category": "Protocol Security",
+    "Relevance": "Disabling SMBv1 client is crucial for SMBs due to its known vulnerabilities and the availability of more secure versions of the SMB protocol.",
+    "Severity": {
+      "Rating": "High",
+      "Justification": "SMBv1 is outdated and has been the target of major cyberattacks, making its disablement a high-priority security action."
+    },
+    "SimpleAnalogy": "Not using SMBv1 is like replacing an old lock with a modern, more secure one to prevent break-ins.",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": false,
+      "RequiresOnlineConnectivity": false
+    },
+    "CompliantMessage": "SMBv1 client is disabled.",
+    "ActionRequiredMessage": "SMBv1 client is enabled. Disable it to avoid known vulnerabilities."
+  },
+
+  {
+    "ID": "SK-18",
+    "GPT": "Why is it important for SMB to ensure SMBv1 server is not enabled on their machines?",
+    "Name": "SMBv1 Server Enabled",
+    "Category": "Network Protocol",
+    "Relevance": "Ensuring SMBv1 server is disabled is vital for SMBs to protect against vulnerabilities associated with this outdated protocol, which has been exploited in widespread attacks.",
+    "Severity": {
+      "Rating": "High",
+      "Justification": "Given the known security flaws and the availability of more secure alternatives, disabling SMBv1 server is a critical security measure."
+    },
+    "SimpleAnalogy": "Avoiding SMBv1 server is like discontinuing the use of an old, easily hackable communication system in favor of newer, secure channels.",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": false,
+      "RequiresOnlineConnectivity": false
+    },
+    "CompliantMessage": "SMBv1 server is disabled.",
+    "ActionRequiredMessage": "SMBv1 server is enabled. Disable it to enhance network security."
+  },
+
+  {
+    "ID": "SK-19",
+    "GPT": "Why is it important for SMB to not use unsigned drivers if possible?",
+    "Name": "Unsigned Drivers #1",
+    "Category": "Driver Integrity",
+    "Relevance": "Avoiding the use of unsigned drivers is important for SMBs as they can pose security risks, potentially allowing malicious code to run at a low level within the system.",
+    "Severity": {
+      "Rating": "Medium",
+      "Justification": "Unsigned drivers can be a security risk, but the threat level may vary based on the driver's source and usage within the SMB."
+    },
+    "SimpleAnalogy": "Using signed drivers is like verifying the identity of a contractor before letting them work on your house's foundation.",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": false,
+      "RequiresOnlineConnectivity": false
+    },
+    "CompliantMessage": "Only signed drivers are in use.",
+    "ActionRequiredMessage": "Unsigned drivers detected. Consider replacing them with signed versions."
+  },
+
+  {
+    "ID": "SK-20",
+    "GPT": "Why is it important for SMB to not use unsigned drivers if possible?",
+    "Name": "Unsigned Drivers #1",
+    "Category": "Driver Integrity",
+    "Relevance": "Avoiding the use of unsigned drivers is important for SMBs as they can pose security risks, potentially allowing malicious code to run at a low level within the system.",
+    "Severity": {
+      "Rating": "Medium",
+      "Justification": "Unsigned drivers can be a security risk, but the threat level may vary based on the driver's source and usage within the SMB."
+    },
+    "SimpleAnalogy": "Using signed drivers is like verifying the identity of a contractor before letting them work on your house's foundation.",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": false,
+      "RequiresOnlineConnectivity": false
+    },
+    "CompliantMessage": "Only signed drivers are in use.",
+    "ActionRequiredMessage": "Unsigned drivers detected. Consider replacing them with signed versions."
+  },
+
+  {
+    "ID": "SK-21",
+    "Name": "Auto-connects to Open WiFi",
+    "Category": "Network Security",
+    "Relevance": "Disabling auto-connect to open WiFi networks is crucial for SMBs to protect against potential network threats and data interception on unsecured networks.",
+    "Severity": {
+      "Rating": "Medium",
+      "Justification": "Open WiFi networks can be a security risk, but the level of threat depends on user awareness and existing security measures."
+    },
+    "SimpleAnalogy": "Not auto-connecting to open WiFi is like avoiding unverified public water sources; it's safer to use known, secure networks.",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": false,
+      "RequiresOnlineConnectivity": false
+    },
+    "CompliantMessage": "Auto-connect to open WiFi is disabled.",
+    "ActionRequiredMessage": "Auto-connect to open WiFi is enabled. Disable it to enhance network security."
+  },
+
+  {
+    "ID": "SK-22",
+    "Name": "Windows Subsystem for Linux (WSL)",
+    "Category": "System Feature",
+    "Relevance": "For SMBs, monitoring the use of WSL is important to prevent potential security risks associated with running different operating system environments.",
+    "Severity": {
+      "Rating": "Low",
+      "Justification": "WSL presents a moderate risk, primarily in environments where its usage is not controlled or monitored."
+    },
+    "SimpleAnalogy": "Using WSL is like having a secondary operating system; it's useful but needs monitoring to prevent misuse.",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": false,
+      "RequiresOnlineConnectivity": false
+    },
+    "CompliantMessage": "WSL usage is monitored and controlled.",
+    "ActionRequiredMessage": "WSL is active. Ensure its use is monitored for security."
+  },
+
+  {
+    "ID": "SK-23",
+    "Name": "Windows Update Enabled",
+    "Category": "System Maintenance",
+    "Relevance": "Keeping Windows Update enabled is essential for SMBs to ensure that systems are up-to-date with the latest security patches and feature improvements.",
+    "Severity": {
+      "Rating": "High",
+      "Justification": "Regular updates are a key defense against vulnerabilities and threats, making them a high priority."
+    },
+    "SimpleAnalogy": "Windows Update is like regular maintenance of a vehicle, necessary to keep it running safely and efficiently.",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": false,
+      "RequiresOnlineConnectivity": false
+    },
+    "CompliantMessage": "Windows Update is enabled, ensuring up-to-date security and features.",
+    "ActionRequiredMessage": "Windows Update is disabled. Enable it to maintain system security."
+  },
+
+  {
+    "ID": "SK-24",
+    "Name": "Antivirus Installed",
+    "Category": "Malware Protection",
+    "Relevance": "Installing antivirus software is a fundamental security measure for SMBs to protect against various malware threats and cyber attacks.",
+    "Severity": {
+      "Rating": "High",
+      "Justification": "Antivirus software is a primary line of defense against a wide range of threats, making it essential for system security."
+    },
+    "SimpleAnalogy": "Having an antivirus is like having a security guard for your computer, constantly on the lookout for potential threats.",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": false,
+      "RequiresOnlineConnectivity": false
+    },
+    "CompliantMessage": "Antivirus software is installed and active.",
+    "ActionRequiredMessage": "No antivirus software detected. Install antivirus software for protection against malware."
+  },
+
+  {
+    "ID": "SK-25",
+    "Name": "Firewall Installed",
+    "Category": "Network Protection",
+    "Relevance": "Installing and configuring a firewall is vital for SMBs to safeguard their networks against unauthorized access and various cyber threats.",
+    "Severity": {
+      "Rating": "High",
+      "Justification": "A firewall serves as a crucial barrier to protect network integrity and data, warranting a high severity rating."
+    },
+    "SimpleAnalogy": "A firewall is like a perimeter fence around a property, controlling and monitoring access to ensure safety.",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": false,
+      "RequiresOnlineConnectivity": false
+    },
+    "CompliantMessage": "A firewall is installed and configured.",
+    "ActionRequiredMessage": "Firewall is not installed or properly configured. Install and configure a firewall for network security."
+  },
+
+  {
+    "ID": "SK-26",
+    "Name": "Antispyware Installed",
+    "Category": "Spyware Protection",
+    "Relevance": "Installing antispyware is essential for SMBs to defend against spyware threats that can compromise sensitive business information and user privacy.",
+    "Severity": {
+      "Rating": "High",
+      "Justification": "Spyware can lead to significant data breaches and privacy violations, making antispyware protection a high priority."
+    },
+    "SimpleAnalogy": "Having antispyware is like having a surveillance detection system, ensuring that no unwanted spying tools are operating in your business environment.",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": false,
+      "RequiresOnlineConnectivity": false
+    },
+    "CompliantMessage": "Antispyware software is installed and operational.",
+    "ActionRequiredMessage": "No antispyware software detected. Install antispyware for enhanced privacy and data protection."
+  },
+
+  {
+    "ID": "SK-27",
+    "Name": "Firewall Active",
+    "Category": "Network Protection",
+    "Relevance": "Ensuring the firewall is active is critical for SMBs to continuously protect their networks from unauthorized access and various cyber threats.",
+    "Severity": {
+      "Rating": "High",
+      "Justification": "An active firewall is fundamental for network security, preventing unauthorized access and attacks."
+    },
+    "SimpleAnalogy": "An active firewall is like having a vigilant guard at the gate, constantly monitoring and controlling who enters and leaves.",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": false,
+      "RequiresOnlineConnectivity": false
+    },
+    "CompliantMessage": "Firewall is actively protecting the network.",
+    "ActionRequiredMessage": "Firewall is not active. Activate the firewall for continuous network protection."
+  },
+
+  {
+    "ID": "SK-28",
+    "Name": "TLS Check",
+    "Category": "Communication Security",
+    "Relevance": "Ensuring TLS (Transport Layer Security) is enabled and properly configured is vital for SMBs to secure communications and protect data in transit from eavesdropping.",
+    "Severity": {
+      "Rating": "High",
+      "Justification": "The use of TLS is crucial for safeguarding data integrity and privacy during transmission, particularly in internet communications."
+    },
+    "SimpleAnalogy": "TLS is like a secure, encrypted envelope for sending mail, ensuring that only the intended recipient can read it.",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": false,
+      "RequiresOnlineConnectivity": true
+    },
+    "CompliantMessage": "TLS is properly configured and in use.",
+    "ActionRequiredMessage": "TLS configuration issues detected. Ensure TLS is properly configured for secure communications."
+  },
+
+  {
+    "ID": "SK-29",
+    "Name": "Remote Registry Service",
+    "Category": "Remote Access Control",
+    "Relevance": "Disabling the Remote Registry Service is crucial for SMBs to prevent unauthorized remote access and modifications to the system registry, a core component of Windows.",
+    "Severity": {
+      "Rating": "High",
+      "Justification": "Remote access to the registry can pose significant security risks if exploited by attackers."
+    },
+    "SimpleAnalogy": "Disabling the Remote Registry Service is like locking the control room of a building, preventing unauthorized adjustments to critical systems.",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": false,
+      "RequiresOnlineConnectivity": true
+    },
+    "CompliantMessage": "Remote Registry Service is disabled.",
+    "ActionRequiredMessage": "Remote Registry Service is enabled. Disable it to prevent unauthorized remote access."
+  },
+
+  {
+    "ID": "SK-30",
+    "Name": "Telnet Service",
+    "Category": "Protocol Security",
+    "Relevance": "Disabling Telnet is important for SMBs due to its lack of security features, making it susceptible to eavesdropping and unauthorized access.",
+    "Severity": {
+      "Rating": "High",
+      "Justification": "Telnet transmits data in clear text, posing a significant security risk, especially for sensitive information."
+    },
+    "SimpleAnalogy": "Using Telnet is like having a conversation on an open radio channel where anyone can listen in.",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": false,
+      "RequiresOnlineConnectivity": true
+    },
+    "CompliantMessage": "Telnet service is disabled, preventing insecure communications.",
+    "ActionRequiredMessage": "Telnet service is enabled. Disable it for enhanced security."
+  },
+
+  {
+    "ID": "SK-31",
+    "Name": "Windows Version Update",
+    "Category": "System Maintenance",
+    "Relevance": "Regularly updating the Windows version is essential for SMBs to access the latest security features, performance improvements, and to mitigate vulnerabilities.",
+    "Severity": {
+      "Rating": "High",
+      "Justification": "Staying current with Windows updates is a crucial aspect of maintaining system security and functionality."
+    },
+    "SimpleAnalogy": "Updating Windows is like servicing your car; it ensures everything runs smoothly and safely with the latest improvements.",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": false,
+      "RequiresOnlineConnectivity": true
+    },
+    "CompliantMessage": "Windows is up-to-date with the latest version.",
+    "ActionRequiredMessage": "Windows is not up-to-date. Update to the latest version for optimal security and performance."
+  }
+
+
+
+]
+
+
+/*
+    {
+    "ID": "SK-04",
+    "Name": "",
+    "Category": "",
+    "Relevance": "",
+    "Severity": {
+      "Rating": "",
+      "Justification": ""
+    },
+    "SimpleAnalogy": "",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": false,
+      "RequiresOnlineConnectivity": false
+    },
+    "CompliantMessage": "",
+    "ActionRequiredMessage": "",
+    "Remediation": ""
+  }
+  */
+
+
+
+
+// from a cybersecurity perspective, can you tell me why it's important to have your powershell execution policy set at an appropriate level
+
+
+// SK02
+// from an SMB cybersecurity perspective, can you tell me why it's important to have your windows scripting host disabled if you don't need it
+// If you had to rate this setting on a scale of low, medium, high, or critical, how would you score the importance of having windows scripting host disabled if its unneeded
+// Can you give me a very brief analogy that a non-technically savvy person could understand about why its important to have this setting at an appropriate level
+
+// SK03
+// from an SMB cybersecurity perspective, can you tell me why it's important to have UAC enabled in windows
+// from an SMB cybersecurity perspective, If you had to rate this setting on a scale of low, medium, high, or critical, how would you score the importance of UAC being enabled
+// Can you give me a very brief analogy that a non-technically savvy person could understand about why its important to have this setting at an appropriate level for an SMB

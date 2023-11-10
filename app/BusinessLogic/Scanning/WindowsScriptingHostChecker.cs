@@ -1,3 +1,4 @@
+using BusinessLogic.Scanning.Interfaces;
 using BusinessLogic.Scanning.POCOs;
 using Microsoft.Win32;
 
@@ -6,8 +7,17 @@ namespace BusinessLogic.Scanning
     public class WindowsScriptingHostChecker : IChecker
     {
         public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
+        public List<SecurityCheck> SecurityResults { get; private set; } = new List<SecurityCheck>();
         public bool IsWshEnabled { get; private set; } = false;
-        public bool RequiresElevatedPrivilege { get; } = false;
+
+        public SecurityCheck SecurityCheck { get; private set; }
+
+        public const String ID = "SK-02";
+        public WindowsScriptingHostChecker()
+        {
+            SecurityCheck = SecurityCheck.GetInstanceById(ID);
+            SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.NotRun;
+        }
 
         public void Scan()
         {
@@ -15,51 +25,61 @@ namespace BusinessLogic.Scanning
 
             EventAggregator.Instance.FireEvent(BlEvents.CheckingWindowsScriptingHost);
 
-            // Define the registry key path and value name
-            string keyPath = @"Software\Microsoft\Windows Script Host\Settings";
-            string valueName = "Enabled";
+            ProbeWindowsScriptingHost();
 
-            // Open the registry key
-            RegistryKey registryKey = Registry.CurrentUser.OpenSubKey(keyPath);
-
-            // Check if the key exists
-            if (registryKey != null)
+            if ( IsWshEnabled )
             {
-                // Try to get the value
-                object value = registryKey.GetValue(valueName);
+                SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.ActionRecommended;
+            }
+            else
+            {
+                SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Pass;
+            }
 
-                // Check if the value exists and is set to 0 (indicating WSH is disabled)
-                if (value != null && value is int && (int)value == 0)
+
+            SecurityResults.Add(SecurityCheck);
+            EventAggregator.Instance.FireEvent(BlEvents.CheckingWindowsScriptingHostCompleted);
+        }
+
+        private void ProbeWindowsScriptingHost()
+        {
+
+            try
+            {
+
+                // Define the registry key path and value name
+                string keyPath = @"Software\Microsoft\Windows Script Host\Settings";
+                string valueName = "Enabled";
+
+                // Open the registry key
+                RegistryKey registryKey = Registry.CurrentUser.OpenSubKey(keyPath);
+
+                // Check if the key exists
+                if (registryKey != null)
                 {
-                    IsWshEnabled = false;
+                    // Try to get the value
+                    object value = registryKey.GetValue(valueName);
 
-                    ScanResult result = new ScanResult();
-                    result.ScanType = "Windows Script Host";
-                    result.Severity = Severity.Ok;
-                    result.ShortDescription = "Improved system security by disabling Windows Script Host";
-                    result.DetailedDescription = $"Windows Script Host (WSH) can pose security risks when used improperly or when scripts are executed without adequate security measures in place. WSH is allows users to run scripts written in scripting languages like VBScript and JScript.";
-                    ScanResults.Add(result);
+                    // Check if the value exists and is set to 0 (indicating WSH is disabled)
+                    if (value != null && value is int && (int)value == 0)
+                    {
+                        IsWshEnabled = false;
+                    }
+                    else
+                    {
+                        IsWshEnabled = true;
+                    }
                 }
                 else
                 {
                     IsWshEnabled = true;
-
-                    ScanResult result = new ScanResult();
-                    result.ScanType = "Windows Script Host";
-                    result.Severity = Severity.Medium;
-                    result.ShortDescription = "Windows Script Host is Enabled";
-                    result.DetailedDescription = $"Windows Script Host (WSH) can pose security risks when used improperly or when scripts are executed without adequate security measures in place. WSH is allows users to run scripts written in scripting languages like VBScript and JScript.";
-                    ScanResults.Add(result);
                 }
-            }
-            else
+            } catch (Exception ex)
             {
-                IsWshEnabled = true;
+                SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Error;
+                SecurityCheck.ErrorMessage = ex.Message;
             }
-
-            EventAggregator.Instance.FireEvent(BlEvents.CheckingWindowsScriptingHostCompleted);
         }
-
 
     }
 }

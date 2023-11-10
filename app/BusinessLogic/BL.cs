@@ -1,5 +1,6 @@
 ﻿using BusinessLogic.Reports;
 using BusinessLogic.Scanning;
+using BusinessLogic.Scanning.Interfaces;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics;
@@ -29,9 +30,7 @@ namespace BusinessLogic
             // Create a list of scanners
             checkers.Add(this.CveChecker);
             checkers.Add(this.InternetConnectionChecker);
-            checkers.Add(this.SecurityProductChecker);
             checkers.Add(this.WindowsVersionChecker);
-            checkers.Add(this.AppScanner);
             checkers.Add(this.WindowsScriptingHostChecker);
             checkers.Add(this.RdpChecker);
             checkers.Add(this.SecureBootChecker);
@@ -43,7 +42,8 @@ namespace BusinessLogic
             checkers.Add(this.NtlmChecker);
             checkers.Add(this.EncryptedPageFileChecker);
             checkers.Add(this.AutoRunEnabledChecker);
-            checkers.Add(this.SmbChecker);
+            checkers.Add(this.SmbClientChecker);
+            checkers.Add(this.SmbServerChecker);
             checkers.Add(this.HeartbleedChecker);
             checkers.Add(this.NoPasswordExpiryChecker);
             checkers.Add(this.IEChecker);
@@ -53,6 +53,15 @@ namespace BusinessLogic
             checkers.Add(this.AdminChecker);
             checkers.Add(this.PasswordComplexityChecker);
             checkers.Add(this.WifiAutoConnectChecker);
+            checkers.Add(this.WindowsGuestAccountChecker);
+            checkers.Add(this.AntivirusInstalledChecker);
+            checkers.Add(this.FirewallInstalledChecker);
+            checkers.Add(this.AntispywareInstalledChecker);
+            checkers.Add(this.TlsChecker);
+            checkers.Add(this.RemoteRegistryChecker);
+            checkers.Add(this.TelnetChecker);
+            checkers.Add(this.SpoolerChecker);
+
 
             // subscribe to events
             backgroundWorker.DoWork += OnBackgroundWorkerDoWork;
@@ -84,9 +93,7 @@ namespace BusinessLogic
         public EventAggregator EventAggregator { get => EventAggregator.Instance; }
         public CveChecker CveChecker { get; private set; } = new CveChecker();
         public InternetConnectionChecker InternetConnectionChecker { get; private set; } = new InternetConnectionChecker();
-        public SecurityProductChecker SecurityProductChecker { get; private set; } = new SecurityProductChecker();
         public WindowsVersionChecker WindowsVersionChecker { get; private set; } = new WindowsVersionChecker();
-        public AppScanner AppScanner { get; private set; } = new AppScanner();
         public WindowsScriptingHostChecker WindowsScriptingHostChecker { get; private set; } = new WindowsScriptingHostChecker();
         public RdpChecker RdpChecker { get; private set; } = new RdpChecker();
         public SecureBootChecker SecureBootChecker { get; private set; } = new SecureBootChecker();
@@ -98,18 +105,31 @@ namespace BusinessLogic
         public NtlmChecker NtlmChecker { get; private set; } = new NtlmChecker();
         public EncryptedPageFileChecker EncryptedPageFileChecker { get; private set; } = new EncryptedPageFileChecker();
         public AutoRunEnabledChecker AutoRunEnabledChecker { get; private set; } = new AutoRunEnabledChecker();
-        public SmbChecker SmbChecker { get; private set; } = new SmbChecker();
+        public SmbClientChecker SmbClientChecker { get; private set; } = new SmbClientChecker();
+        public SmbServerChecker SmbServerChecker { get; private set; } = new SmbServerChecker();
         public HeartbleedChecker HeartbleedChecker { get; private set; } = new HeartbleedChecker();
         public NoPasswordExpiryChecker NoPasswordExpiryChecker  { get; private set; } = new NoPasswordExpiryChecker();
         public IEChecker IEChecker  { get; private set; } = new IEChecker();
         public WindowsSubsystemLinuxChecker WindowsSubsystemLinuxChecker { get; private set; } = new WindowsSubsystemLinuxChecker();
         public UnsignedDriverUnelevatedChecker UnsignedDriverUnelevatedChecker { get; private set; } = new UnsignedDriverUnelevatedChecker();
         public UnsignedDriverElevatedChecker UnsignedDriverElevatedChecker { get; private set; } = new UnsignedDriverElevatedChecker();
-        public AdminChecker AdminChecker { get; private set; } = new AdminChecker();
+        public UserElevatedPrivilegesChecker AdminChecker { get; private set; } = new UserElevatedPrivilegesChecker();
         public PasswordComplexityChecker PasswordComplexityChecker{ get; private set; } = new PasswordComplexityChecker();
         public WifiAutoConnectChecker WifiAutoConnectChecker { get; private set; } = new WifiAutoConnectChecker();
+        public WindowsGuestAccountChecker WindowsGuestAccountChecker { get; private set; } = new WindowsGuestAccountChecker();
+        public AntivirusInstalledChecker AntivirusInstalledChecker { get; private set; } = new AntivirusInstalledChecker();
+        public FirewallInstalledChecker FirewallInstalledChecker { get; private set; } = new FirewallInstalledChecker();        
+        public AntispywareInstalledChecker AntispywareInstalledChecker  { get; private set; } = new AntispywareInstalledChecker();
+        public RemoteRegistryChecker RemoteRegistryChecker { get; private set; } = new RemoteRegistryChecker();
+        public TlsChecker TlsChecker { get; private set; } = new TlsChecker();
+        public TelnetChecker TelnetChecker { get; private set; } = new TelnetChecker();
+        public SpoolerChecker SpoolerChecker { get; private set; } = new SpoolerChecker();
+
+
+
         public int ScanPercentCompleted { get => (int)((double)scanChecksCompleted / (double)checkers.Count * 100D); }
         public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
+        public List<SecurityCheck> ScanResults2 { get; private set; } = new List<SecurityCheck>();
 
 
         #endregion

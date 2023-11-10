@@ -1458,4 +1458,7 @@
         iqIoiqIoiqIoisL8z//8f/vz8tfC/UAoAAAAAElFTkSuQmCC
 </value>
   </data>
+  <data name="security_checks" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>security_checks.json;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

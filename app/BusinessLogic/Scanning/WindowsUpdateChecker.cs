@@ -1,4 +1,5 @@
-﻿using BusinessLogic.Scanning.POCOs;
+﻿using BusinessLogic.Scanning.Interfaces;
+using BusinessLogic.Scanning.POCOs;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,15 @@ namespace BusinessLogic.Scanning
     {
         public bool AreRegularUpdatesEnabled { get; private set; } = false;
         public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
-        public bool RequiresElevatedPrivilege { get; } = false;
+        public List<SecurityCheck> SecurityResults { get; private set; } = new List<SecurityCheck>();
+        public SecurityCheck SecurityCheck { get; private set; }
+
+        public const String ID = "SK-23";
+        public WindowsUpdateChecker()
+        {
+            SecurityCheck = SecurityCheck.GetInstanceById(ID);
+            SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.NotRun;
+        }
 
         public void Scan()
         {
@@ -21,6 +30,26 @@ namespace BusinessLogic.Scanning
 
             EventAggregator.Instance.FireEvent(BlEvents.CheckingRegularUpdates);
 
+            ProbeWindowsUpdate();
+
+            if (SecurityCheck.Outcome != SecurityCheck.OutcomeTypes.Error)
+            {
+                if (AreRegularUpdatesEnabled)
+                {
+                    SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Pass;
+                }
+                else
+                {
+                    SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.ActionRecommended;
+                }
+            }
+            SecurityResults.Add(SecurityCheck);
+            EventAggregator.Instance.FireEvent(BlEvents.CheckingRegularUpdatesCompleted);
+
+        }
+
+        private void ProbeWindowsUpdate()
+        {
             try
             {
                 // Open the registry key for reading
@@ -38,6 +67,7 @@ namespace BusinessLogic.Scanning
                                 case 2:
                                 case 3:
                                 case 4:
+                                    AreRegularUpdatesEnabled = true;
                                     {
                                         ScanResult result = new ScanResult();
                                         result.ScanType = "Windows Update";
@@ -49,6 +79,7 @@ namespace BusinessLogic.Scanning
                                     Console.WriteLine("Windows Auto Update is enabled.");
                                     break;
                                 default:
+                                    AreRegularUpdatesEnabled = false;
                                     {
                                         ScanResult result = new ScanResult();
                                         result.ScanType = "Windows Update";
@@ -63,21 +94,23 @@ namespace BusinessLogic.Scanning
                         }
                         else
                         {
+                            SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Error;
                             Console.WriteLine("Windows Auto Update setting could not be determined.");
                         }
                     }
                     else
                     {
+                        SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Error;
                         Console.WriteLine("Windows Auto Update setting could not be determined.");
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine($"An error occurred: {e.Message}");
+                SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Error;
+                SecurityCheck.ErrorMessage = ex.Message;
+                Console.WriteLine($"An error occurred: {ex.Message}");
             }
-
-            EventAggregator.Instance.FireEvent(BlEvents.CheckingRegularUpdatesCompleted);
 
         }
     }
