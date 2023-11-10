@@ -107,22 +107,22 @@
   {
     "ID": "SK-06",
     "Name": "Spooler Enabled",
-    "Category": "",
-    "Relevance": "",
+    "Category": "Service Management",
+    "Relevance": "Disabling the Print Spooler service is crucial for SMBs that do not need printing capabilities. This prevents vulnerabilities like 'PrintNightmare', where attackers could potentially exploit the Print Spooler to execute malicious code.",
     "Severity": {
-      "Rating": "",
-      "Justification": ""
+      "Rating": "High",
+      "Justification": "Given the potential for severe exploits like 'PrintNightmare', which can lead to remote code execution, this setting is a high security priority."
     },
-    "SimpleAnalogy": "",
+    "SimpleAnalogy": "Disabling the Print Spooler when not needed is like locking unused doors in a building; it prevents potential unauthorized entry points.",
     "Windows": {
       "Win10": true,
       "Win11": true,
       "RequiresElevatedPrivileges": true,
       "RequiresOnlineConnectivity": false
     },
-    "CompliantMessage": "",
-    "ActionRequiredMessage": "",
-    "Remediation": ""
+    "CompliantMessage": "Print Spooler is disabled, mitigating the risk of related vulnerabilities.",
+    "ActionRequiredMessage": "Print Spooler is enabled. Disable it if printing is not required to avoid potential vulnerabilities.",
+    "Remediation": "Disable the Print Spooler service through the Services management console or Group Policy."
   },
 
   {
@@ -631,47 +631,4 @@
     "CompliantMessage": "Windows is up-to-date with the latest version.",
     "ActionRequiredMessage": "Windows is not up-to-date. Update to the latest version for optimal security and performance."
   }
-
-
-
 ]
-
-
-/*
-    {
-    "ID": "SK-04",
-    "Name": "",
-    "Category": "",
-    "Relevance": "",
-    "Severity": {
-      "Rating": "",
-      "Justification": ""
-    },
-    "SimpleAnalogy": "",
-    "Windows": {
-      "Win10": true,
-      "Win11": true,
-      "RequiresElevatedPrivileges": false,
-      "RequiresOnlineConnectivity": false
-    },
-    "CompliantMessage": "",
-    "ActionRequiredMessage": "",
-    "Remediation": ""
-  }
-  */
-
-
-
-
-// from a cybersecurity perspective, can you tell me why it's important to have your powershell execution policy set at an appropriate level
-
-
-// SK02
-// from an SMB cybersecurity perspective, can you tell me why it's important to have your windows scripting host disabled if you don't need it
-// If you had to rate this setting on a scale of low, medium, high, or critical, how would you score the importance of having windows scripting host disabled if its unneeded
-// Can you give me a very brief analogy that a non-technically savvy person could understand about why its important to have this setting at an appropriate level
-
-// SK03
-// from an SMB cybersecurity perspective, can you tell me why it's important to have UAC enabled in windows
-// from an SMB cybersecurity perspective, If you had to rate this setting on a scale of low, medium, high, or critical, how would you score the importance of UAC being enabled
-// Can you give me a very brief analogy that a non-technically savvy person could understand about why its important to have this setting at an appropriate level for an SMB
