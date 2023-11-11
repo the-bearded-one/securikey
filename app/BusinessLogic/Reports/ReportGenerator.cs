@@ -13,13 +13,13 @@ namespace BusinessLogic.Reports
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
         }
 
-        public bool CreatePdf(string filePath, List<ScanResult> scanResults, string password)
+        public bool CreatePdf(string filePath, List<ScanResult> scanResults, List<SecurityCheck> securityChecks, string password)
         {
             bool isSuccess = false;
             try
             {
                 // create scan report from scan results
-                ScanReport report = new ScanReport(scanResults);
+                ScanReport report = new ScanReport(scanResults, securityChecks);
 
                 // save off pdf to stream
                 using (Stream pdfStream = new MemoryStream())

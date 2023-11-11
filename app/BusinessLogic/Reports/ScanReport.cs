@@ -5,21 +5,29 @@ using QuestPDF.Infrastructure;
 using System.Data.Common;
 using System.Drawing;
 using System.Reflection;
+using static SkiaSharp.HarfBuzz.SKShaper;
 
 namespace BusinessLogic.Reports
 {
     public class ScanReport : IDocument
     {
+        private const string criticalColor = "#FA2521";
+        private const string highColor = "#D18224";
+        private const string mediumColor = "#87859C";
+        private const string lowColor = "#3D8361";
+
         private const string _highColor = "#FA2521";
         private const string _medColor = "#D18224";
         private const string _lowColor = "#87859C";
         private const string _okColor = "#3D8361";
 
         private List<ScanResult> scanResults;
+        private List<SecurityCheck> securityChecks;
 
-        public ScanReport(List<ScanResult> scanResults) 
+        public ScanReport(List<ScanResult> scanResults, List<SecurityCheck> securityChecks) 
         {
             this.scanResults = scanResults;
+            this.securityChecks = securityChecks;
         }
 
         public DocumentMetadata GetMetadata() => DocumentMetadata.Default;
@@ -57,6 +65,7 @@ namespace BusinessLogic.Reports
                         text.Span($"{DateTime.Now.ToString("HH:mm:ss")}");
                     });
 
+                    System.Console.WriteLine(System.Net.Dns.GetHostEntry("localhost").HostName);
                     column.Item().Text(text =>
                     {
                         text.Span("Machine Name: ").SemiBold();
@@ -110,22 +119,24 @@ namespace BusinessLogic.Reports
                     return container.BorderBottom(1).BorderColor(Colors.Grey.Lighten2).PaddingVertical(5);
                 }
 
-                var highNb = scanResults.Count(r => r.Severity == Severity.High);
-                var medNb = scanResults.Count(r => r.Severity == Severity.Medium);
-                var lowNb = scanResults.Count(r => r.Severity == Severity.Low);
-                var okNb = scanResults.Count(r => r.Severity == Severity.Ok);
+                // only count the severities where possible action could be required
+                var criticalCount = securityChecks.Count(c => c.Outcome == SecurityCheck.OutcomeTypes.ActionRecommended && c.Severity.Rating == Severities.CRITICAL);
+                var highCount = securityChecks.Count(c => c.Outcome == SecurityCheck.OutcomeTypes.ActionRecommended && c.Severity.Rating == Severities.HIGH);
+                var mediumCount = securityChecks.Count(c => c.Outcome == SecurityCheck.OutcomeTypes.ActionRecommended && c.Severity.Rating == Severities.MEDIUM);
+                var lowCount = securityChecks.Count(c => c.Outcome == SecurityCheck.OutcomeTypes.ActionRecommended && c.Severity.Rating == Severities.LOW);
+                
+                table.Cell().Element(CellStyle).Text("Critical").FontColor(_highColor).Bold();
+                table.Cell().Element(CellStyle).Text(criticalCount.ToString()).FontColor(Colors.Black).NormalWeight();
 
-                table.Cell().Element(CellStyle).Text("High").FontColor(_highColor).Bold();
-                table.Cell().Element(CellStyle).Text(highNb.ToString()).FontColor(Colors.Black).NormalWeight();
+                table.Cell().Element(CellStyle).Text("High").FontColor(_medColor).Bold();
+                table.Cell().Element(CellStyle).Text(highCount.ToString()).FontColor(Colors.Black).NormalWeight();
 
-                table.Cell().Element(CellStyle).Text("Medium").FontColor(_medColor).Bold();
-                table.Cell().Element(CellStyle).Text(medNb.ToString()).FontColor(Colors.Black).NormalWeight();
+                table.Cell().Element(CellStyle).Text("Medium").FontColor(_lowColor).Bold();
+                table.Cell().Element(CellStyle).Text(mediumCount.ToString()).FontColor(Colors.Black).NormalWeight();
 
-                table.Cell().Element(CellStyle).Text("Low").FontColor(_lowColor).Bold();
-                table.Cell().Element(CellStyle).Text(lowNb.ToString()).FontColor(Colors.Black).NormalWeight();
-
-                table.Cell().Element(CellStyle).Text("OK").FontColor(_okColor).Bold();
-                table.Cell().Element(CellStyle).Text(okNb.ToString()).FontColor(Colors.Black).NormalWeight();
+                table.Cell().Element(CellStyle).Text("Low").FontColor(_okColor).Bold();
+                table.Cell().Element(CellStyle).Text(lowCount.ToString()).FontColor(Colors.Black).NormalWeight();
+                
             });
         }
 
@@ -133,7 +144,7 @@ namespace BusinessLogic.Reports
         {
             container.Column(column =>
             {
-                column.Item().AlignRight().Text($"Total Scan Checks Performed: {scanResults.Count.ToString()}").FontSize(14);
+                column.Item().AlignRight().Text($"Total Scan Checks Performed: {securityChecks.Count.ToString()}").FontSize(14);
             });
         }
 
@@ -154,48 +165,70 @@ namespace BusinessLogic.Reports
         {
             container.Column(column =>
             {
-                foreach (var result in scanResults)
-                {
-                    /* create a header */
 
+                column.Item().Text(text =>
+                {
+
+                    text
+                        .Span($"SecuriKey recommends you review the following items to ensure your cyber hygiene.")
+                        .Bold()
+                        .FontColor(Colors.Black);
+
+                });
+
+                foreach (var result in securityChecks.Where(w => w.Outcome == SecurityCheck.OutcomeTypes.ActionRecommended))
+                {
                     // determine severity color
-                    var severityColor = _okColor;
-                    switch (result.Severity)
+                    string severityColor = string.Empty;
+                    switch (result.Severity.Rating)
                     {
-                        case Severity.High:
-                            severityColor = _highColor;
+                        case Severities.CRITICAL:
+                            severityColor = criticalColor;
                             break;
-                        case Severity.Medium:
-                            severityColor = _medColor;
+                        case Severities.HIGH:
+                            severityColor = highColor;
                             break;
-                        case Severity.Low:
-                            severityColor = _lowColor;
+                        case Severities.MEDIUM:
+                            severityColor = mediumColor;
                             break;
-                        default:
-                            severityColor = _okColor;
+                        case Severities.LOW:
+                            severityColor = lowColor;
                             break;
                     }
 
+                    
                     column.Item().Text(text =>
                     {
-                        // Header
+                     
                         text
-                            .Span($"{result.Severity.ToString().ToUpper()}")
+                            .Span($"{result.Severity.Rating.ToString().ToUpper()}")
                             .Bold()
                             .FontColor(severityColor);
                         text
-                            .Span($"    {result.ScanType}    ")
+                            .Span($"   {result.Name}   ")
                             .Bold()
                             .FontColor(Colors.Black);
                         text
-                            .Line($"-    {result.ShortDescription}")
+                            .Line($"-  {result.Relevance}") // This ensures a new line starts after this
                             .NormalWeight()
                             .FontColor(Colors.BlueGrey.Medium);
 
-                        // Details
+                        // SecuriKey's recommendation
                         text
-                            .Line(result.DetailedDescription).NormalWeight().FontColor(Colors.Grey.Medium);
+                            .Line($"SecuriKey's recommendation: {result.ActionRequiredMessage}   ") // Starts on a new line
+                            .FontColor(Colors.Green.Darken4);
+
+                        // In simpler terms
+                        text
+                            .Line("In simpler terms, " + result.SimpleAnalogy) // Starts on a new line
+                            .NormalWeight()
+                            .FontColor(Colors.Grey.Medium);
+
                     });
+
+                    column.Spacing(20);
+
+
                 }
             });
         }

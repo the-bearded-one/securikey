@@ -47,8 +47,8 @@ public class SecurityCheck
     [JsonProperty("CompliantMessage")]
     public string CompliantMessage { get; set; }
 
-    [JsonProperty("NonCompliantMessage")]
-    public string NonCompliantMessage { get; set; }
+    [JsonProperty("ActionRequiredMessage")]
+    public string ActionRequiredMessage { get; set; }
 
     public class SeverityInfo
     {
@@ -81,10 +81,6 @@ public class SecurityCheck
         var allItems = JsonConvert.DeserializeObject<List<SecurityCheck>>(jsonData);
         var item = allItems.Find(x => x.ID == id);
         return item;
-        //var jsonData = File.ReadAllText(jsonFilePath);
-        /*
 
-        // Find the first item that matches the given ID
-        */
     }
 }

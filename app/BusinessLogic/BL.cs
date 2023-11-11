@@ -129,7 +129,7 @@ namespace BusinessLogic
 
         public int ScanPercentCompleted { get => (int)((double)scanChecksCompleted / (double)checkers.Count * 100D); }
         public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
-        public List<SecurityCheck> ScanResults2 { get; private set; } = new List<SecurityCheck>();
+        public List<SecurityCheck> SecurityChecks { get; private set; } = new List<SecurityCheck>();
 
 
         #endregion
@@ -173,7 +173,15 @@ namespace BusinessLogic
                 ScanResults.AddRange(checker.ScanResults);
             }
 
-            // finallry, sort the scan results by severity
+            // now compile a universal list of security checks
+            foreach (IChecker checker in checkers)
+            {
+                SecurityChecks.AddRange(checker.SecurityResults);
+            }
+
+            // finally, sort the scan results by severity
+            SecurityChecks.Sort(new SeverityComparer());
+
             ScanResults.Sort((a, b) =>
             {
                 return b.Severity.CompareTo(a.Severity);
@@ -205,7 +213,7 @@ namespace BusinessLogic
 
         public void GenerateReport(string filePath, string password, bool shallOpenAfterSaving)
         {
-            bool isSuccess = reportGenerator.CreatePdf(filePath, ScanResults, password);
+            bool isSuccess = reportGenerator.CreatePdf(filePath, ScanResults, SecurityChecks,  password);
 
             try
             {

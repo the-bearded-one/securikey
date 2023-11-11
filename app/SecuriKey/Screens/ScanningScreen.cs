@@ -25,18 +25,20 @@ namespace SecuriKey.Screens
             InitializeComponent();
 
             // create initial list of digital security
-            wordsOfEncourangement.Add("hang tight");
-            wordsOfEncourangement.Add("you are on your way to a more secure future");
-            wordsOfEncourangement.Add("thank you for staying ahead of threats");
-            wordsOfEncourangement.Add("you are taking control of your security");
-            wordsOfEncourangement.Add("guard your online presence");
-            wordsOfEncourangement.Add("protect your data");
+            wordsOfEncourangement.Add("No changes are being made to your system");
+            wordsOfEncourangement.Add("Small businesses make up over 40% of the victims in cyber attacks");
+            wordsOfEncourangement.Add("The average cost of a cyber attack on a small business is around $200,000");
+            wordsOfEncourangement.Add("Approximately 43% of small business owners have no cybersecurity plan in place");
+            wordsOfEncourangement.Add("60% of small companies go out of business within six months of a cyber attack");
+            wordsOfEncourangement.Add("In 2020, around 57% of SMBs reported phishing and social engineering attacks");
+            /*
             wordsOfEncourangement.Add("don't forget to take further action");
             wordsOfEncourangement.Add("stay proactive with your digital security");
             wordsOfEncourangement.Add("it is a good habit to scan regularly");
             wordsOfEncourangement.Add("digital security - you can do it!");
             wordsOfEncourangement.Add("protect the things you care about");
             wordsOfEncourangement.Add("empower yourself through digital security");
+            */
 
             SuspendLayout();
 
@@ -44,7 +46,7 @@ namespace SecuriKey.Screens
             UpdateWordsOfEncouragement();
 
             // create timer for on screen animations
-            animationTimer.Interval = 300;
+            animationTimer.Interval = 400;
             animationTimer.Elapsed += OnAnimationTimerTick;
             animationTimer.Start();
 
