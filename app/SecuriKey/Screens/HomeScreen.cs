@@ -55,12 +55,17 @@ namespace SecuriKey.Screens
 
         private void OnAboutButtonClick(object sender, EventArgs e)
         {
-            NavigationRequest?.Invoke(this, new NavigationEventArgs(new  AboutScreen()));
+            NavigationRequest?.Invoke(this, new NavigationEventArgs(new AboutScreen()));
         }
 
         public UserControl AsUserControl()
         {
             return this;
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

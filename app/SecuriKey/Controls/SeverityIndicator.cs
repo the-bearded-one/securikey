@@ -22,10 +22,11 @@ namespace SecuriKey.Controls
 
         public int BorderRadius { get; set; } = 15;
         public Severity Severity { get; set; } = Severity.Low;
-        public Color OkColor { get; set; } = Color.FromArgb(61, 131, 97);
-        public Color HighColor { get; set; } = Color.FromArgb(168, 37, 33);
-        public Color MediumColor { get; set; } = Color.FromArgb(209, 130, 36);
-        public Color LowColor { get; set; } = Color.FromArgb(135, 133, 156);
+        public Color OkColor { get; set; } = Color.FromArgb(128, 128, 128);
+        public Color CriticalColor { get; set; } = Color.FromArgb(255, 0, 0);
+        public Color HighColor { get; set; } = Color.FromArgb(255, 165, 0);
+        public Color MediumColor { get; set; } = Color.FromArgb(255, 255, 0);
+        public Color LowColor { get; set; } = Color.FromArgb(0, 128, 0);
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -36,6 +37,7 @@ namespace SecuriKey.Controls
             if (this.Severity == Severity.Low) fillColor = LowColor;
             else if (this.Severity == Severity.Medium) fillColor = MediumColor;
             else if (this.Severity == Severity.High) fillColor = HighColor;
+            else if (this.Severity == Severity.Critical) fillColor = CriticalColor;
 
             var fontSize = GetMaxFontSize(this.Severity.ToString(), this.Font);
             

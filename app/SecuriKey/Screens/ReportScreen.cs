@@ -27,12 +27,14 @@ namespace SecuriKey.Screens
             reportButton.Click += OnReportButtonClick;
             newScanButton.Click += OnNewScanButtonClick; ;
 
-            foreach (ScanResult result in BL.Instance.ScanResults)
+            // only show the results where we have a recommended action
+            foreach (SecurityCheck result in BL.Instance.SecurityChecks.Where(w => w.Outcome == SecurityCheck.OutcomeTypes.ActionRecommended))
             {
                 var resultCtl = new Controls.ResultItem(result);
                 resultCtl.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
                 resultsPanel.Controls.Add(resultCtl);
             }
+
 
         }
 

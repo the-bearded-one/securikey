@@ -28,6 +28,28 @@ namespace SecuriKey.Controls
             this.Details = result.DetailedDescription;
         }
 
+        public ResultItem(SecurityCheck result) : this()
+        {
+            switch(result.Severity.Rating)
+            {
+                case Severities.CRITICAL:
+                    this.Severity = Severity.Critical;
+                    break;
+                case Severities.HIGH:
+                    this.Severity = Severity.High;
+                    break;
+                case Severities.MEDIUM:
+                    this.Severity = Severity.Medium;
+                    break;
+                case Severities.LOW:
+                    this.Severity = Severity.Low;
+                    break;
+            }
+            this.ScanType = result.Name;
+            this.ShortDescription = result.Relevance;
+            this.Details = result.Severity.Justification;
+        }
+
         public ResultItem()
         {
             InitializeComponent();

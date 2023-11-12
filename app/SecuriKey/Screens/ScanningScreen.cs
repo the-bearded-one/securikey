@@ -25,10 +25,10 @@ namespace SecuriKey.Screens
             InitializeComponent();
 
             // create initial list of digital security
-            wordsOfEncourangement.Add("No changes are being made to your system");
+            //wordsOfEncourangement.Add("No changes are being made to your system");
             wordsOfEncourangement.Add("Small businesses make up over 40% of the victims in cyber attacks");
             wordsOfEncourangement.Add("The average cost of a cyber attack on a small business is around $200,000");
-            wordsOfEncourangement.Add("Approximately 43% of small business owners have no cybersecurity plan in place");
+            wordsOfEncourangement.Add("Approximately 43% of small business owners have no cybersecurity plan");
             wordsOfEncourangement.Add("60% of small companies go out of business within six months of a cyber attack");
             wordsOfEncourangement.Add("In 2020, around 57% of SMBs reported phishing and social engineering attacks");
             /*
