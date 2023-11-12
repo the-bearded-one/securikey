@@ -75,6 +75,9 @@
         CheckingAutoConnectOpenWifi,
         CheckingAutoConnectOpenWifiCompleted,
         CheckingWindowsGuestAccountEnabled,
-        CheckingWindowsGuestAccountEnabledCompleted
+        CheckingWindowsGuestAccountEnabledCompleted,
+        CheckingSandbox,
+        CheckingSandboxCompleted,
+
     }
 }

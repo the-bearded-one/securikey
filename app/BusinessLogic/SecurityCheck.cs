@@ -80,6 +80,7 @@ public class SecurityCheck
         var jsonData = Shared.ReadAllTextFromFileAsBytes(Resources.security_checks);
         var allItems = JsonConvert.DeserializeObject<List<SecurityCheck>>(jsonData);
         var item = allItems.Find(x => x.ID == id);
+        item.Outcome = SecurityCheck.OutcomeTypes.NotRun;
         return item;
 
     }

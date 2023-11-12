@@ -61,7 +61,14 @@ namespace BusinessLogic
             checkers.Add(this.RemoteRegistryChecker);
             checkers.Add(this.TelnetChecker);
             checkers.Add(this.SpoolerChecker);
-
+            checkers.Add(this.RemoteManagementChecker);
+            checkers.Add(this.FaxChecker);
+            checkers.Add(this.SandboxChecker);
+            checkers.Add(this.ExpiredCertificateChecker);            
+            checkers.Add(this.LlmnrChecker);
+            checkers.Add(this.NetBiosChecker);
+            checkers.Add(this.UsbAuditingChecker);
+            checkers.Add(this.NetworkDiscoveryChecker);
 
             // subscribe to events
             backgroundWorker.DoWork += OnBackgroundWorkerDoWork;
@@ -124,12 +131,21 @@ namespace BusinessLogic
         public TlsChecker TlsChecker { get; private set; } = new TlsChecker();
         public TelnetChecker TelnetChecker { get; private set; } = new TelnetChecker();
         public SpoolerChecker SpoolerChecker { get; private set; } = new SpoolerChecker();
+        public RemoteManagementChecker RemoteManagementChecker { get; private set; } = new RemoteManagementChecker();
+        public FaxChecker FaxChecker { get; private set; } = new FaxChecker();
+        public SandboxChecker SandboxChecker { get; private set; } = new SandboxChecker();
+        public ExpiredCertificateChecker ExpiredCertificateChecker { get; private set; } = new ExpiredCertificateChecker();
+        public LlmnrChecker LlmnrChecker { get; private set; } = new LlmnrChecker();
+        public NetBiosChecker NetBiosChecker { get; private set; } = new NetBiosChecker();
+        public UsbAuditingChecker UsbAuditingChecker { get; private set; } = new UsbAuditingChecker();
+        public NetworkDiscoveryChecker NetworkDiscoveryChecker { get; private set; } = new NetworkDiscoveryChecker();
 
 
 
         public int ScanPercentCompleted { get => (int)((double)scanChecksCompleted / (double)checkers.Count * 100D); }
         public List<ScanResult> ScanResults { get; private set; } = new List<ScanResult>();
         public List<SecurityCheck> SecurityChecks { get; private set; } = new List<SecurityCheck>();
+
 
 
         #endregion

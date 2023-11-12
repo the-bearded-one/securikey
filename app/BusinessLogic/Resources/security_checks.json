@@ -630,5 +630,166 @@
     },
     "CompliantMessage": "Windows is up-to-date with the latest version.",
     "ActionRequiredMessage": "Windows is not up-to-date. Update to the latest version for optimal security and performance."
+  },
+
+  {
+    "ID": "SK-32",
+    "Name": "Windows Remote Management",
+    "Category": "Remote Access Control",
+    "Relevance": "Managing Windows Remote Management (WinRM) is crucial for SMBs as it involves controlling remote access to their systems. Proper configuration and use of WinRM can enhance security, but if misconfigured or unnecessarily enabled, it can pose significant security risks.",
+    "Severity": {
+      "Rating": "High",
+      "Justification": "Given that WinRM can be used for remote system management, its misuse or misconfiguration can lead to serious security breaches, including unauthorized access and control over critical systems."
+    },
+    "SimpleAnalogy": "WinRM is like a remote control for a computer. In the right hands, it's a powerful tool, but if it falls into the wrong hands, it can be used to manipulate and damage the system.",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": false,
+      "RequiresOnlineConnectivity": true
+    },
+    "CompliantMessage": "Windows Remote Management is properly configured and secured.",
+    "ActionRequiredMessage": "Windows Remote Management settings need review. Ensure it is properly configured and secured, or disable if not required."
+  },
+
+  {
+    "ID": "SK-33",
+    "Name": "Windows Fax",
+    "Category": "Service Management",
+    "Relevance": "Managing the Windows Fax service is relevant for SMBs to ensure unnecessary services are disabled, reducing potential attack vectors and improving system performance.",
+    "Severity": {
+      "Rating": "Low",
+      "Justification": "The Windows Fax service generally poses a low security risk but disabling unused services is a good practice for minimizing potential vulnerabilities."
+    },
+    "SimpleAnalogy": "Having the Windows Fax service enabled is like keeping old, unused equipment in an office; it takes up space and could potentially be misused if not monitored.",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": false,
+      "RequiresOnlineConnectivity": true
+    },
+    "CompliantMessage": "Windows Fax service is appropriately managed or disabled.",
+    "ActionRequiredMessage": "Windows Fax service is enabled but not in use. Consider disabling it to optimize system performance and security."
+  },
+
+  {
+    "ID": "SK-34",
+    "Name": "Windows Sandbox",
+    "Category": "Security Feature",
+    "Relevance": "Windows Sandbox is relevant for SMBs as a security tool for safely running untrusted applications in an isolated environment, reducing the risk of malware and other threats.",
+    "Severity": {
+      "Rating": "Medium",
+      "Justification": "While not critical for all SMBs, Windows Sandbox can significantly enhance security when dealing with potentially harmful software."
+    },
+    "SimpleAnalogy": "Using Windows Sandbox is like having a testing ground or a safe space where you can experiment without risking harm to the main environment.",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": false,
+      "RequiresOnlineConnectivity": false
+    },
+    "CompliantMessage": "Windows Sandbox is available and properly configured for secure use.",
+    "ActionRequiredMessage": "Consider utilizing Windows Sandbox for safely running untrusted or test applications."
+  },
+
+  {
+    "ID": "SK-35",
+    "Name": "Expired Certificates in Store",
+    "Category": "Certificate Management",
+    "Relevance": "Regularly checking for and managing expired certificates is vital for SMBs to maintain secure communication and trust in their digital environment. Expired certificates can lead to security warnings, loss of trust, and potential vulnerabilities.",
+    "Severity": {
+      "Rating": "Medium",
+      "Justification": "While expired certificates themselves do not pose an immediate threat, they can lead to security gaps and erode trust in a business's digital operations."
+    },
+    "SimpleAnalogy": "Having expired certificates is like having expired identification documents; they no longer serve their purpose and can cause trust issues.",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": false,
+      "RequiresOnlineConnectivity": false
+    },
+    "CompliantMessage": "No expired certificates found in the certificate store.",
+    "ActionRequiredMessage": "Expired certificates detected in the certificate store. Review and update or remove them to maintain security and trust."
+  },
+
+  {
+    "ID": "SK-36",
+    "Name": "NetBIOS",
+    "Category": "Network Protocol",
+    "Relevance": "Managing NetBIOS is important for SMBs as it can pose security risks if not properly configured or if used unnecessarily. NetBIOS can be exploited for information gathering and network attacks.",
+    "Severity": {
+      "Rating": "Medium",
+      "Justification": "NetBIOS is an older protocol with known vulnerabilities. While not critical, it's important for SMBs to manage its use to prevent potential security risks."
+    },
+    "SimpleAnalogy": "Using NetBIOS without need is like keeping an old, less secure door lock when newer, more secure options are available.",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": false,
+      "RequiresOnlineConnectivity": false
+    },
+    "CompliantMessage": "NetBIOS is properly managed or disabled, reducing potential security risks.",
+    "ActionRequiredMessage": "NetBIOS is active. Consider disabling or properly configuring it to enhance network security."
+  },
+
+  {
+    "ID": "SK-37",
+    "Name": "LLMNR",
+    "Category": "Network Protocol",
+    "Relevance": "Disabling the Link-Local Multicast Name Resolution (LLMNR) can enhance network security for SMBs. LLMNR can be exploited in man-in-the-middle attacks, potentially leading to credential theft or network compromise.",
+    "Severity": {
+      "Rating": "Medium",
+      "Justification": "While LLMNR serves a useful purpose in certain scenarios, its vulnerability to network attacks makes its management a medium security concern."
+    },
+    "SimpleAnalogy": "Using LLMNR is akin to using a loudspeaker for internal communications; it might be convenient, but it can easily be overheard and exploited.",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": false,
+      "RequiresOnlineConnectivity": false
+    },
+    "CompliantMessage": "LLMNR is disabled or properly secured.",
+    "ActionRequiredMessage": "LLMNR is active. Consider disabling it to prevent potential network vulnerabilities."
+  },
+
+  {
+    "ID": "SK-38",
+    "Name": "USB Auditing",
+    "Category": "Peripheral Management",
+    "Relevance": "USB Auditing is critical for SMBs to track and monitor the use of USB devices within their network. This helps in preventing data breaches and unauthorized data transfer, as USB devices can be a common vector for malware and data theft.",
+    "Severity": {
+      "Rating": "High",
+      "Justification": "The ease of use and portability of USB devices make them a significant security concern, warranting close monitoring and control."
+    },
+    "SimpleAnalogy": "USB Auditing is like having a security camera at the entrances of a building; it helps in keeping track of who comes in and out with what items.",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": false,
+      "RequiresOnlineConnectivity": false
+    },
+    "CompliantMessage": "USB device usage is being audited and monitored effectively.",
+    "ActionRequiredMessage": "USB device usage is not being audited. Implement USB auditing to monitor and control peripheral device use."
+  },
+
+  {
+    "ID": "SK-39",
+    "Name": "Network Discovery",
+    "Category": "Network Configuration",
+    "Relevance": "Managing Network Discovery is significant for SMBs as it controls the visibility of their computers on a network. While useful for collaboration and resource sharing, improper configuration can expose systems to unwanted network scans and potential vulnerabilities.",
+    "Severity": {
+      "Rating": "Medium",
+      "Justification": "The risk level depends on the network environment and usage. In a secure, internal network, the risks are lower, but on public or unsecured networks, the risks are higher."
+    },
+    "SimpleAnalogy": "Having Network Discovery enabled without need is like openly broadcasting your location in an unfamiliar neighborhood; it might be useful at times but can also attract unwanted attention.",
+    "Windows": {
+      "Win10": true,
+      "Win11": true,
+      "RequiresElevatedPrivileges": false,
+      "RequiresOnlineConnectivity": false
+    },
+    "CompliantMessage": "Network Discovery is appropriately configured for the current network environment.",
+    "ActionRequiredMessage": "Network Discovery settings require review. Ensure it is configured to balance functionality and security based on network needs."
   }
+
 ]

@@ -194,6 +194,9 @@ namespace BusinessLogic.Reports
                         case Severities.LOW:
                             severityColor = lowColor;
                             break;
+                        default:
+                            severityColor = string.Empty;
+                            break;
                     }
 
                     

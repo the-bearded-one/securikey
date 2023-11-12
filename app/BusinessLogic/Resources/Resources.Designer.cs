@@ -63,16 +63,6 @@ namespace BusinessLogic.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        public static byte[] applications {
-            get {
-                object obj = ResourceManager.GetObject("applications", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
         public static byte[] cves_severity_high {
             get {
                 object obj = ResourceManager.GetObject("cves_severity_high", resourceCulture);

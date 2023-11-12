@@ -14,7 +14,8 @@ namespace UnitTests
         public void CreateScanReportNoPassword()
         {
             var scanResults = CreateScanResults();
-            var sr = new ScanReport(scanResults);
+            var securityChecks = CreateSecurityChecks();
+            var sr = new ScanReport(scanResults, securityChecks);
             var currentDir = Directory.GetCurrentDirectory();
             var pdfPath = currentDir + "\\test.pdf";
             sr.GeneratePdf(pdfPath);
@@ -27,15 +28,31 @@ namespace UnitTests
         public void CreateScanReportWithPassword()
         {
             var scanResults = CreateScanResults();
+            var securityChecks = CreateSecurityChecks();
             var currentDir = Directory.GetCurrentDirectory();
             var pdfPath = currentDir + "\\test.pdf";
 
 
             ReportGenerator rg = new ReportGenerator();
-            rg.CreatePdf(pdfPath, scanResults, "password");
+            rg.CreatePdf(pdfPath, scanResults, securityChecks, "password");
 
             // open pdf to view
             Process.Start("explorer.exe", pdfPath);
+        }
+        
+        private List<SecurityCheck> CreateSecurityChecks()
+        {
+            List<SecurityCheck> results = new List<SecurityCheck>();
+
+            SecurityCheck check1 = SecurityCheck.GetInstanceById("SK-01");
+            SecurityCheck check2 = SecurityCheck.GetInstanceById("SK-02");
+            SecurityCheck check3 = SecurityCheck.GetInstanceById("SK-03");
+
+            results.Add(check1);
+            results.Add(check2);
+            results.Add(check3);
+            return results;
+
         }
 
         private List<ScanResult> CreateScanResults()
