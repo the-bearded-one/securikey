@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static SkiaSharp.HarfBuzz.SKShaper;
 
 namespace SecuriKey.Controls
 {
@@ -20,17 +21,13 @@ namespace SecuriKey.Controls
         Color idleColor = Color.FromArgb(0, 0, 0);
 
         #region Constructors
-        public ResultItem(ScanResult result) : this()
-        {
-            this.Severity = result.Severity;
-            this.ScanType = result.ScanType;
-            this.ShortDescription = result.ShortDescription;
-            this.Details = result.DetailedDescription;
-        }
+
 
         public ResultItem(SecurityCheck result) : this()
         {
-            switch(result.Severity.Rating)
+            this.GptPrompt = result.AiAssistantPrompt;
+            this.RiskName = result.Name;
+            switch (result.Severity.Rating)
             {
                 case Severities.CRITICAL:
                     this.Severity = Severity.Critical;
@@ -47,6 +44,10 @@ namespace SecuriKey.Controls
             }
             this.ScanType = result.Name;
             this.ShortDescription = result.Relevance;
+            if ( this.ShortDescription.Length > 150 )
+            {
+                this.ShortDescription = ((this.ShortDescription, 150) + "...").Substring(0, 150);
+            }
             this.Details = result.Severity.Justification;
         }
 
@@ -60,11 +61,19 @@ namespace SecuriKey.Controls
             // remember idel background color
             idleColor = this.BackColor;
 
+            GptPrompt = String.Empty;
+            ID = String.Empty;
+            RiskName = String.Empty;
+
             // bubble up mouse events to this control
             scanTypeLabel.Click += OnResultItemClick;
             shortDescriptionLabel.Click += OnResultItemClick;
             severityIndicator.Click += OnResultItemClick;
+
+            shortDescriptionLabel.MouseLeave += OnResultItemMouseLeave;
+            severityIndicator.MouseLeave += OnResultItemMouseLeave;
             detailsTextbox.MouseLeave += OnResultItemMouseLeave;
+            aiHelpButton.MouseLeave += OnResultItemMouseLeave;
         }
         #endregion
 
@@ -90,6 +99,12 @@ namespace SecuriKey.Controls
             get => detailsTextbox.Text;
             set => detailsTextbox.Text = value;
         }
+
+        public String GptPrompt { get; private set; }
+        public String ID { get; private set; }
+        
+        public String RiskName { get; private set; }
+
         #endregion
 
         #region Event Handlers

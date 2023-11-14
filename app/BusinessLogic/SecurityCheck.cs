@@ -50,6 +50,9 @@ public class SecurityCheck
     [JsonProperty("ActionRequiredMessage")]
     public string ActionRequiredMessage { get; set; }
 
+    [JsonProperty("AiAssistantPrompt")]
+    public string AiAssistantPrompt { get; set; }
+
     public class SeverityInfo
     {
         [JsonProperty("Rating")]

@@ -1,4 +1,6 @@
-﻿namespace SecuriKey.Controls
+﻿using SecuriKey.Screens;
+
+namespace SecuriKey.Controls
 {
     partial class ResultItem
     {
@@ -32,6 +34,7 @@
             scanTypeLabel = new Label();
             severityIndicator = new SeverityIndicator();
             detailsTextbox = new TextBox();
+            aiHelpButton = new RoundedButton();
             SuspendLayout();
             // 
             // shortDescriptionLabel
@@ -65,8 +68,9 @@
             severityIndicator.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             severityIndicator.BackColor = Color.Transparent;
             severityIndicator.BorderRadius = 8;
+            severityIndicator.CriticalColor = Color.FromArgb(255, 0, 0);
             severityIndicator.HighColor = Color.FromArgb(168, 37, 33);
-            severityIndicator.Location = new Point(526, 6);
+            severityIndicator.Location = new Point(555, 9);
             severityIndicator.LowColor = Color.FromArgb(135, 133, 156);
             severityIndicator.MediumColor = Color.FromArgb(209, 130, 36);
             severityIndicator.Name = "severityIndicator";
@@ -86,9 +90,26 @@
             detailsTextbox.Multiline = true;
             detailsTextbox.Name = "detailsTextbox";
             detailsTextbox.ReadOnly = true;
-            detailsTextbox.Size = new Size(640, 83);
+            detailsTextbox.Size = new Size(763, 83);
             detailsTextbox.TabIndex = 3;
             detailsTextbox.Text = "details textbox";
+            // 
+            // aiHelpButton
+            // 
+            aiHelpButton.Anchor = AnchorStyles.Right;
+            aiHelpButton.BackColor = Color.Transparent;
+            aiHelpButton.BorderColor = Color.FromArgb(0, 66, 114);
+            aiHelpButton.BorderRadius = 5;
+            aiHelpButton.BorderThickness = 4F;
+            aiHelpButton.ButtonText = "AI Help";
+            aiHelpButton.ForeColor = Color.Black;
+            aiHelpButton.Location = new Point(663, 7);
+            aiHelpButton.Name = "aiHelpButton";
+            aiHelpButton.PressedColor = Color.FromArgb(0, 96, 166);
+            aiHelpButton.Size = new Size(94, 30);
+            aiHelpButton.TabIndex = 4;
+            aiHelpButton.UnpressedColor = Color.Silver;
+            aiHelpButton.Click += AiHelpButtonClick;
             // 
             // ResultItem
             // 
@@ -99,9 +120,10 @@
             Controls.Add(severityIndicator);
             Controls.Add(scanTypeLabel);
             Controls.Add(shortDescriptionLabel);
+            Controls.Add(aiHelpButton);
             Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             Name = "ResultItem";
-            Size = new Size(638, 38);
+            Size = new Size(761, 38);
             Click += OnResultItemClick;
             MouseDown += OnResultItemMouseDown;
             MouseEnter += OnResultItemMouseEnter;
@@ -111,11 +133,25 @@
             PerformLayout();
         }
 
+        // Event handler for the button click
+        private void AiHelpButtonClick(object sender, EventArgs e)
+        {
+            // pass the ID and prompt to the assistant for the GPT API call
+            AiAssistant aiAssistantForm = new AiAssistant
+            {
+                RiskName = this.RiskName,
+                ID = this.ID,
+                GptPrompt = this.GptPrompt
+            };
+            aiAssistantForm.ShowDialog();
+        }
+
         #endregion
 
         private Label shortDescriptionLabel;
         private Label scanTypeLabel;
         private SeverityIndicator severityIndicator;
         private TextBox detailsTextbox;
+        private RoundedButton aiHelpButton;
     }
 }

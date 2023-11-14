@@ -17,7 +17,8 @@
     },
     "CompliantMessage": "PowerShell execution policy is appropriately configured.",
     "ActionRequiredMessage": "PowerShell execution policy is not properly set. Review and configure the execution policy to ensure script security.",
-    "Remediation": "Configure the PowerShell execution policy to a more restrictive mode like AllSigned or Restricted to prevent unauthorized script execution."
+    "Remediation": "Configure the PowerShell execution policy to a more restrictive mode like AllSigned or Restricted to prevent unauthorized script execution.",
+    "AiAssistantPrompt": "How can I configure the PowerShell execution policy on my Windows 10 or Windows 11 computer to a more secure setting, such as AllSigned or Restricted, in a way that's easy for someone without technical expertise to understand and follow?"
   },
 
   {
@@ -38,7 +39,8 @@
     },
     "CompliantMessage": "Windows Scripting Host is disabled.",
     "ActionRequiredMessage": "Windows Scripting Host is enabled. Consider disabling it if not in use.",
-    "Remediation": "Disable Windows Scripting Host through group policy or registry settings."
+    "Remediation": "Disable Windows Scripting Host through group policy or registry settings.",
+    "AiAssistantPrompt": "How can I disable the Windows Scripting Host on a Windows 10 or Windows 11 computer in a simple and understandable way, suitable for someone without technical expertise?"
   },
 
   {
@@ -59,7 +61,8 @@
     },
     "CompliantMessage": "User Access Control is enabled.",
     "ActionRequiredMessage": "User Access Control is disabled. Enabling it is recommended to enhance security.",
-    "Remediation": "Enable User Access Control through the Control Panel or Group Policy."
+    "Remediation": "Enable User Access Control through the Control Panel or Group Policy.",
+    "AiAssistantPrompt": "How can I enable User Access Control (UAC) on Windows 10 or Windows 11 in an easy-to-understand manner for non-technical individuals?"
   },
 
   {
@@ -80,7 +83,8 @@
     },
     "CompliantMessage": "Windows guest account is disabled, reducing potential unauthorized access risks.",
     "ActionRequiredMessage": "Windows guest account is enabled. It is recommended to disable it to enhance security.",
-    "Remediation": "Disable the Windows guest account through Local Users and Groups, Group Policy, or PowerShell."
+    "Remediation": "Disable the Windows guest account through Local Users and Groups, Group Policy, or PowerShell.",
+    "AiAssistantPrompt": "What are the steps to disable the Windows Guest Account on Windows 10 or 11 for a non-technical person to easily understand and follow?"
   },
 
   {
@@ -101,7 +105,8 @@
     },
     "CompliantMessage": "Normal users do not have elevated privileges.",
     "ActionRequiredMessage": "Normal users have elevated privileges. It's recommended to restrict these privileges.",
-    "Remediation": "Configure user accounts to operate with standard privileges and elevate on a per-need basis."
+    "Remediation": "Configure user accounts to operate with standard privileges and elevate on a per-need basis.",
+    "AiAssistantPrompt": "How can I configure user accounts on Windows 10 or Windows 11 to operate with standard privileges, elevating them only when necessary, in a simple way for non-technical users?"
   },
 
   {
@@ -122,7 +127,8 @@
     },
     "CompliantMessage": "Print Spooler is disabled, mitigating the risk of related vulnerabilities.",
     "ActionRequiredMessage": "Print Spooler is enabled. Disable it if printing is not required to avoid potential vulnerabilities.",
-    "Remediation": "Disable the Print Spooler service through the Services management console or Group Policy."
+    "Remediation": "Disable the Print Spooler service through the Services management console or Group Policy.",
+    "AiAssistantPrompt": "What are the easy steps for a non-technical person to disable the Print Spooler service on Windows 10 or Windows 11 to mitigate risks like 'PrintNightmare'?"
   },
 
   {
@@ -143,7 +149,8 @@
     },
     "CompliantMessage": "BitLocker is enabled.",
     "ActionRequiredMessage": "BitLocker is not enabled. Enable BitLocker to secure your data.",
-    "Remediation": "Enable BitLocker through the Control Panel or Group Policy to encrypt the system drives."
+    "Remediation": "Enable BitLocker through the Control Panel or Group Policy to encrypt the system drives.",
+    "AiAssistantPrompt": "Can you provide a straightforward guide for enabling BitLocker on Windows 10 or Windows 11, suitable for someone without technical background?"
   },
 
   {
@@ -164,7 +171,8 @@
     },
     "CompliantMessage": "AutoRun for removable media is disabled.",
     "ActionRequiredMessage": "AutoRun for removable media is enabled. Disabling it is recommended.",
-    "Remediation": "Disable AutoRun for removable media through Group Policy or registry settings."
+    "Remediation": "Disable AutoRun for removable media through Group Policy or registry settings.",
+    "AiAssistantPrompt": "How can a non-technical individual disable AutoRun for removable media on Windows 10 and Windows 11 to enhance security?"
   },
 
   {
@@ -185,7 +193,8 @@
     },
     "CompliantMessage": "Pagefile is encrypted.",
     "ActionRequiredMessage": "Pagefile is not encrypted. Encryption is recommended to protect data.",
-    "Remediation": "Encrypt the pagefile by configuring system settings or using third-party tools."
+    "Remediation": "Encrypt the pagefile by configuring system settings or using third-party tools.",
+    "AiAssistantPrompt": "What are the steps for encrypting the pagefile in Windows 10 or Windows 11 in a way that's easy for someone without a technical background to follow?"
   },
 
   {
@@ -206,7 +215,8 @@
     },
     "CompliantMessage": "OpenSSL is updated and not vulnerable to known exploits.",
     "ActionRequiredMessage": "Obsolete or vulnerable version of OpenSSL detected. Update immediately.",
-    "Remediation": "Update OpenSSL to the latest version to address known vulnerabilities."
+    "Remediation": "Update OpenSSL to the latest version to address known vulnerabilities.",
+    "AiAssistantPrompt": "Can you provide a simple guide on updating OpenSSL on Windows 10 or Windows 11 to protect against vulnerabilities like Heartbleed, suitable for non-technical users?"
   },
 
   {
@@ -227,7 +237,8 @@
     },
     "CompliantMessage": "Internet Explorer is not set as the default browser.",
     "ActionRequiredMessage": "Internet Explorer is set as the default browser. Switch to a modern, supported browser.",
-    "Remediation": "Change the default web browser to a modern and regularly updated browser."
+    "Remediation": "Change the default web browser to a modern and regularly updated browser.",
+    "AiAssistantPrompt": "How can a non-technical person change the default web browser from Internet Explorer to a more modern browser on Windows 10 or Windows 11?"
   },
 
   {
@@ -248,7 +259,8 @@
     },
     "CompliantMessage": "Password expiry policy is enforced.",
     "ActionRequiredMessage": "No password expiry policy in place. Implementing a password expiry policy is recommended.",
-    "Remediation": "Set up a password expiry policy through Group Policy."
+    "Remediation": "Set up a password expiry policy through Group Policy.",
+    "AiAssistantPrompt": "What are the easy-to-understand steps to set up a password expiry policy on Windows 10 or Windows 11 for enhancing security?"
   },
 
   {
@@ -269,7 +281,8 @@
     },
     "CompliantMessage": "NTLMv1 is disabled.",
     "ActionRequiredMessage": "NTLMv1 is enabled and poses a security risk. It should be disabled.",
-    "Remediation": "Disable NTLMv1 through Group Policy or Windows Registry settings."
+    "Remediation": "Disable NTLMv1 through Group Policy or Windows Registry settings.",
+    "AiAssistantPrompt": "How can NTLMv1 be disabled in Windows 10 or Windows 11 in a straightforward way for someone who isn't tech-savvy?"
   },
 
   {
@@ -289,7 +302,8 @@
       "RequiresOnlineConnectivity": false
     },
     "CompliantMessage": "Password complexity requirements are enforced.",
-    "ActionRequiredMessage": "Password complexity requirements are not enforced. Strengthen password policies."
+    "ActionRequiredMessage": "Password complexity requirements are not enforced. Strengthen password policies.",
+    "AiAssistantPrompt": "What is a simple way for a non-technical user to enforce password complexity requirements on Windows 10 and Windows 11?"
   },
 
   {
@@ -309,7 +323,8 @@
       "RequiresOnlineConnectivity": false
     },
     "CompliantMessage": "Remote Desktop Protocol (RDP) is disabled.",
-    "ActionRequiredMessage": "RDP is enabled. Disable it if not needed to reduce security risks."
+    "ActionRequiredMessage": "RDP is enabled. Disable it if not needed to reduce security risks.",
+    "AiAssistantPrompt": "How can Remote Desktop Protocol (RDP) be disabled on Windows 10 or Windows 11 for someone without technical skills?"
   },
 
   {
@@ -329,7 +344,8 @@
       "RequiresOnlineConnectivity": false
     },
     "CompliantMessage": "SecureBoot is enabled, providing enhanced startup security.",
-    "ActionRequiredMessage": "SecureBoot is not enabled. Enable it to improve boot-level security."
+    "ActionRequiredMessage": "SecureBoot is not enabled. Enable it to improve boot-level security.",
+    "AiAssistantPrompt": "Could you explain in simple terms how to enable SecureBoot on Windows 10 or Windows 11 for enhanced startup security?"
   },
 
   {
@@ -349,7 +365,8 @@
       "RequiresOnlineConnectivity": false
     },
     "CompliantMessage": "SMBv1 client is disabled.",
-    "ActionRequiredMessage": "SMBv1 client is enabled. Disable it to avoid known vulnerabilities."
+    "ActionRequiredMessage": "SMBv1 client is enabled. Disable it to avoid known vulnerabilities.",
+    "AiAssistantPrompt": "What are the easy steps to disable the SMBv1 client on Windows 10 or Windows 11 to avoid known vulnerabilities, suitable for non-technical individuals?"
   },
 
   {
@@ -369,7 +386,8 @@
       "RequiresOnlineConnectivity": false
     },
     "CompliantMessage": "SMBv1 server is disabled.",
-    "ActionRequiredMessage": "SMBv1 server is enabled. Disable it to enhance network security."
+    "ActionRequiredMessage": "SMBv1 server is enabled. Disable it to enhance network security.",
+    "AiAssistantPrompt": "How can someone with no technical background disable the SMBv1 server on Windows 10 or Windows 11 to enhance network security?"
   },
 
   {
@@ -389,7 +407,8 @@
       "RequiresOnlineConnectivity": false
     },
     "CompliantMessage": "Only signed drivers are in use.",
-    "ActionRequiredMessage": "Unsigned drivers detected. Consider replacing them with signed versions."
+    "ActionRequiredMessage": "Unsigned drivers detected. Consider replacing them with signed versions.",
+    "AiAssistantPrompt": "What is a straightforward method for a non-technical user to ensure only signed drivers are used on Windows 10 and Windows 11?"
   },
 
   {
@@ -409,7 +428,9 @@
       "RequiresOnlineConnectivity": false
     },
     "CompliantMessage": "Only signed drivers are in use.",
-    "ActionRequiredMessage": "Unsigned drivers detected. Consider replacing them with signed versions."
+    "ActionRequiredMessage": "Unsigned drivers detected. Consider replacing them with signed versions.",
+    "Remediation": "Ensure all drivers are signed by verifying their signatures in the Device Manager and replacing any unsigned drivers with their signed versions.",
+    "AiAssistantPrompt": "How can a non-technical user check for and replace unsigned drivers with signed versions on Windows 10 or Windows 11?"
   },
 
   {
@@ -429,7 +450,9 @@
       "RequiresOnlineConnectivity": false
     },
     "CompliantMessage": "Auto-connect to open WiFi is disabled.",
-    "ActionRequiredMessage": "Auto-connect to open WiFi is enabled. Disable it to enhance network security."
+    "ActionRequiredMessage": "Auto-connect to open WiFi is enabled. Disable it to enhance network security.",
+    "Remediation": "Disable the auto-connect feature for open WiFi networks in the network settings to enhance wireless network security.",
+    "AiAssistantPrompt": "What are the steps for a non-technical person to disable auto-connect to open WiFi networks on Windows 10 or Windows 11?"
   },
 
   {
@@ -449,7 +472,9 @@
       "RequiresOnlineConnectivity": false
     },
     "CompliantMessage": "WSL usage is monitored and controlled.",
-    "ActionRequiredMessage": "WSL is active. Ensure its use is monitored for security."
+    "ActionRequiredMessage": "WSL is active. Ensure its use is monitored for security.",
+    "Remediation": "Monitor and control the use of Windows Subsystem for Linux (WSL) by configuring system settings and ensuring it's used only when necessary.",
+    "AiAssistantPrompt": "Can you provide a simple guide for monitoring and controlling the use of Windows Subsystem for Linux (WSL) on Windows 10 or Windows 11?"
   },
 
   {
@@ -469,7 +494,9 @@
       "RequiresOnlineConnectivity": false
     },
     "CompliantMessage": "Windows Update is enabled, ensuring up-to-date security and features.",
-    "ActionRequiredMessage": "Windows Update is disabled. Enable it to maintain system security."
+    "ActionRequiredMessage": "Windows Update is disabled. Enable it to maintain system security.",
+    "Remediation": "Enable and configure Windows Update through the Control Panel to ensure the system regularly receives security patches and updates.",
+    "AiAssistantPrompt": "How can someone easily enable and configure Windows Update on Windows 10 or Windows 11 for regular security patches and updates?"
   },
 
   {
@@ -489,7 +516,9 @@
       "RequiresOnlineConnectivity": false
     },
     "CompliantMessage": "Antivirus software is installed and active.",
-    "ActionRequiredMessage": "No antivirus software detected. Install antivirus software for protection against malware."
+    "ActionRequiredMessage": "No antivirus software detected. Install antivirus software for protection against malware.",
+    "Remediation": "Install and maintain a reliable antivirus software to actively protect against various malware threats.",
+    "AiAssistantPrompt": "How can a non-technical person easily install and maintain antivirus software on Windows 10 or Windows 11?"
   },
 
   {
@@ -509,7 +538,9 @@
       "RequiresOnlineConnectivity": false
     },
     "CompliantMessage": "A firewall is installed and configured.",
-    "ActionRequiredMessage": "Firewall is not installed or properly configured. Install and configure a firewall for network security."
+    "ActionRequiredMessage": "Firewall is not installed or properly configured. Install and configure a firewall for network security.",
+    "Remediation": "Install a robust firewall and ensure it is properly configured for optimal network protection.",
+    "AiAssistantPrompt": "What are the simple steps for a non-technical user to install and configure a firewall on Windows 10 or Windows 11?"
   },
 
   {
@@ -529,7 +560,9 @@
       "RequiresOnlineConnectivity": false
     },
     "CompliantMessage": "Antispyware software is installed and operational.",
-    "ActionRequiredMessage": "No antispyware software detected. Install antispyware for enhanced privacy and data protection."
+    "ActionRequiredMessage": "No antispyware software detected. Install antispyware for enhanced privacy and data protection.",
+    "Remediation": "Install comprehensive antispyware software to safeguard against spyware threats compromising business information and privacy.",
+    "AiAssistantPrompt": "Could you provide an easy guide for installing and using antispyware software on Windows 10 or Windows 11?"
   },
 
   {
@@ -549,7 +582,9 @@
       "RequiresOnlineConnectivity": false
     },
     "CompliantMessage": "Firewall is actively protecting the network.",
-    "ActionRequiredMessage": "Firewall is not active. Activate the firewall for continuous network protection."
+    "ActionRequiredMessage": "Firewall is not active. Activate the firewall for continuous network protection.",
+    "Remediation": "Activate and regularly monitor the firewall to ensure continuous network protection.",
+    "AiAssistantPrompt": "How can someone with no technical expertise activate and maintain the firewall on Windows 10 or Windows 11?"
   },
 
   {
@@ -569,7 +604,9 @@
       "RequiresOnlineConnectivity": true
     },
     "CompliantMessage": "TLS is properly configured and in use.",
-    "ActionRequiredMessage": "TLS configuration issues detected. Ensure TLS is properly configured for secure communications."
+    "ActionRequiredMessage": "TLS configuration issues detected. Ensure TLS is properly configured for secure communications.",
+    "Remediation": "Ensure TLS is enabled and correctly configured to protect data during transmission, especially in internet communications.",
+    "AiAssistantPrompt": "What is a simple way for a non-technical individual to check and configure TLS settings for secure communications on Windows 10 or Windows 11?"
   },
 
   {
@@ -588,8 +625,8 @@
       "RequiresElevatedPrivileges": false,
       "RequiresOnlineConnectivity": true
     },
-    "CompliantMessage": "Remote Registry Service is disabled.",
-    "ActionRequiredMessage": "Remote Registry Service is enabled. Disable it to prevent unauthorized remote access."
+    "Remediation": "Disable the Remote Registry Service through the Services management console to prevent unauthorized access and modifications.",
+    "AiAssistantPrompt": "What are the steps to disable the Remote Registry Service on Windows 10 or Windows 11 for non-technical users?"
   },
 
   {
@@ -609,7 +646,9 @@
       "RequiresOnlineConnectivity": true
     },
     "CompliantMessage": "Telnet service is disabled, preventing insecure communications.",
-    "ActionRequiredMessage": "Telnet service is enabled. Disable it for enhanced security."
+    "ActionRequiredMessage": "Telnet service is enabled. Disable it for enhanced security.",
+    "Remediation": "Disable the Telnet service through the Services management console or Windows Features to prevent insecure communications.",
+    "AiAssistantPrompt": "How can someone without technical skills disable the Telnet service on Windows 10 or Windows 11?"
   },
 
   {
@@ -629,7 +668,9 @@
       "RequiresOnlineConnectivity": true
     },
     "CompliantMessage": "Windows is up-to-date with the latest version.",
-    "ActionRequiredMessage": "Windows is not up-to-date. Update to the latest version for optimal security and performance."
+    "ActionRequiredMessage": "Windows is not up-to-date. Update to the latest version for optimal security and performance.",
+    "Remediation": "Regularly update Windows through the Windows Update settings to access the latest security features and improvements.",
+    "AiAssistantPrompt": "Could you provide a simple explanation on how to update Windows to the latest version on Windows 10 or Windows 11?"
   },
 
   {
@@ -649,7 +690,9 @@
       "RequiresOnlineConnectivity": true
     },
     "CompliantMessage": "Windows Remote Management is properly configured and secured.",
-    "ActionRequiredMessage": "Windows Remote Management settings need review. Ensure it is properly configured and secured, or disable if not required."
+    "ActionRequiredMessage": "Windows Remote Management settings need review. Ensure it is properly configured and secured, or disable if not required.",
+    "Remediation": "Properly configure or disable Windows Remote Management (WinRM) through system settings or Group Policy.",
+    "AiAssistantPrompt": "What are the easy steps for configuring or disabling Windows Remote Management on Windows 10 or Windows 11?"
   },
 
   {
@@ -669,7 +712,9 @@
       "RequiresOnlineConnectivity": true
     },
     "CompliantMessage": "Windows Fax service is appropriately managed or disabled.",
-    "ActionRequiredMessage": "Windows Fax service is enabled but not in use. Consider disabling it to optimize system performance and security."
+    "ActionRequiredMessage": "Windows Fax service is enabled but not in use. Consider disabling it to optimize system performance and security.",
+    "Remediation": "Disable the Windows Fax service through the Services management console if it is not in use, to optimize system performance.",
+    "AiAssistantPrompt": "How can a non-technical person disable the Windows Fax service on Windows 10 or Windows 11?"
   },
 
   {
@@ -689,7 +734,9 @@
       "RequiresOnlineConnectivity": false
     },
     "CompliantMessage": "Windows Sandbox is available and properly configured for secure use.",
-    "ActionRequiredMessage": "Consider utilizing Windows Sandbox for safely running untrusted or test applications."
+    "ActionRequiredMessage": "Consider utilizing Windows Sandbox for safely running untrusted or test applications.",
+    "Remediation": "Enable and use Windows Sandbox through the Windows Features for safely running untrusted applications.",
+    "AiAssistantPrompt": "Can you provide an easy guide for enabling and using Windows Sandbox on Windows 10 or Windows 11?"
   },
 
   {
@@ -729,7 +776,9 @@
       "RequiresOnlineConnectivity": false
     },
     "CompliantMessage": "NetBIOS is properly managed or disabled, reducing potential security risks.",
-    "ActionRequiredMessage": "NetBIOS is active. Consider disabling or properly configuring it to enhance network security."
+    "ActionRequiredMessage": "NetBIOS is active. Consider disabling or properly configuring it to enhance network security.",
+    "Remediation": "Regularly review and remove expired certificates from the certificate store to maintain security and trust.",
+    "AiAssistantPrompt": "What is a straightforward method for a non-technical user to manage and remove expired certificates in Windows 10 or Windows 11?"
   },
 
   {
@@ -749,7 +798,9 @@
       "RequiresOnlineConnectivity": false
     },
     "CompliantMessage": "LLMNR is disabled or properly secured.",
-    "ActionRequiredMessage": "LLMNR is active. Consider disabling it to prevent potential network vulnerabilities."
+    "ActionRequiredMessage": "LLMNR is active. Consider disabling it to prevent potential network vulnerabilities.",
+    "Remediation": "Disable LLMNR through network settings to reduce the risk of man-in-the-middle attacks and improve network security.",
+    "AiAssistantPrompt": "What are the simple steps to disable Link-Local Multicast Name Resolution (LLMNR) on Windows 10 or Windows 11 for enhancing network security, suitable for non-technical users?"
   },
 
   {
@@ -769,7 +820,9 @@
       "RequiresOnlineConnectivity": false
     },
     "CompliantMessage": "USB device usage is being audited and monitored effectively.",
-    "ActionRequiredMessage": "USB device usage is not being audited. Implement USB auditing to monitor and control peripheral device use."
+    "ActionRequiredMessage": "USB device usage is not being audited. Implement USB auditing to monitor and control peripheral device use.",
+    "Remediation": "Implement USB auditing to monitor and control the use of USB devices, preventing unauthorized data transfer and malware risks.",
+    "AiAssistantPrompt": "How can a non-technical person set up USB auditing on Windows 10 or Windows 11 to monitor and control the use of USB devices?"
   },
 
   {
@@ -789,7 +842,9 @@
       "RequiresOnlineConnectivity": false
     },
     "CompliantMessage": "Network Discovery is appropriately configured for the current network environment.",
-    "ActionRequiredMessage": "Network Discovery settings require review. Ensure it is configured to balance functionality and security based on network needs."
+    "ActionRequiredMessage": "Network Discovery settings require review. Ensure it is configured to balance functionality and security based on network needs.",
+    "Remediation": "Configure Network Discovery settings to control system visibility on the network and enhance security, especially in public or unsecured networks.",
+    "AiAssistantPrompt": "What is an easy way for someone without technical knowledge to configure Network Discovery settings on Windows 10 or Windows 11 for better network security?"
   }
 
 ]

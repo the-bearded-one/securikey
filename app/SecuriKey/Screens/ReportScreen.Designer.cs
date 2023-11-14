@@ -103,9 +103,9 @@
             openReportCheckBox.Checked = true;
             openReportCheckBox.CheckState = CheckState.Checked;
             openReportCheckBox.ForeColor = Color.White;
-            openReportCheckBox.Location = new Point(233, 530);
+            openReportCheckBox.Location = new Point(233, 535);
             openReportCheckBox.Name = "openReportCheckBox";
-            openReportCheckBox.Size = new Size(198, 24);
+            openReportCheckBox.Size = new Size(160, 19);
             openReportCheckBox.TabIndex = 5;
             openReportCheckBox.Text = "Open Report After Saving";
             openReportCheckBox.UseVisualStyleBackColor = true;

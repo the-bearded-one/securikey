@@ -25,7 +25,7 @@ namespace SecuriKey.Screens
             InitializeComponent();
 
             reportButton.Click += OnReportButtonClick;
-            newScanButton.Click += OnNewScanButtonClick; ;
+            newScanButton.Click += OnNewScanButtonClick;
 
             // only show the results where we have a recommended action
             foreach (SecurityCheck result in BL.Instance.SecurityChecks.Where(w => w.Outcome == SecurityCheck.OutcomeTypes.ActionRecommended))
