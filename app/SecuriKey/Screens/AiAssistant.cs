@@ -29,6 +29,25 @@ namespace SecuriKey.Screens
 
         private async void AiAssistant_Load(object sender, EventArgs e)
         {
+            Random random = new Random();
+            int randomNumber = random.Next(1, 5);
+
+            switch(randomNumber)
+            {
+                case 1:
+                    aiAssistantImage.Image = Resources.Resources.assistant01;
+                    break;
+                case 2:
+                    aiAssistantImage.Image = Resources.Resources.assistant02;
+                    break;
+                case 3:
+                    aiAssistantImage.Image = Resources.Resources.assistant03;
+                    break;
+                case 4:
+                    aiAssistantImage.Image = Resources.Resources.assistant04;
+                    break;
+            }
+
 
             if (BL.Instance.GptAnswers.ContainsKey(ID))
             {

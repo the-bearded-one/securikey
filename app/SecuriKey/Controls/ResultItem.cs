@@ -44,9 +44,9 @@ namespace SecuriKey.Controls
             }
             this.ScanType = result.Name;
             this.ShortDescription = result.Relevance;
-            if ( this.ShortDescription.Length > 150 )
+            if ( this.ShortDescription.Length > 180 )
             {
-                this.ShortDescription = ((this.ShortDescription, 150) + "...").Substring(0, 150);
+                this.ShortDescription = this.ShortDescription.Substring(0, 180) + "...";
             }
             this.Details = result.Severity.Justification;
         }
