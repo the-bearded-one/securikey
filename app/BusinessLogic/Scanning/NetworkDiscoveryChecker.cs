@@ -60,11 +60,18 @@ namespace BusinessLogic.Scanning
                 {
                     foreach (ManagementObject queryObj in searcher.Get())
                     {
-                        if (queryObj["NetworkDiscoveryEnabled"] != null &&
-                            bool.TryParse(queryObj["NetworkDiscoveryEnabled"].ToString(), out bool isNetworkDiscoveryEnabled) &&
-                            isNetworkDiscoveryEnabled)
+                        try
                         {
-                            UsingNetworkDiscovery = true;
+                            if (queryObj["NetworkDiscoveryEnabled"] != null &&
+                                bool.TryParse(queryObj["NetworkDiscoveryEnabled"].ToString(), out bool isNetworkDiscoveryEnabled) &&
+                                isNetworkDiscoveryEnabled)
+                            {
+                                UsingNetworkDiscovery = true;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"Network Discovery Exception: {queryObj.ToString()} {ex.ToString()}");
                         }
                     }
                 }
