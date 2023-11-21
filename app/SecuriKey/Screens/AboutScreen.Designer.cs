@@ -29,29 +29,15 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutScreen));
-            urlLabel = new Label();
             backgroundPictureBox = new PictureBox();
-            githubLabel = new Label();
             infoLabel = new Controls.MultiLineLabel();
             subtitleLabel = new Label();
             titlePictureBox = new PictureBox();
             backScanButton = new Controls.RoundedButton();
+            websiteLinkLabel = new LinkLabel();
             ((System.ComponentModel.ISupportInitialize)backgroundPictureBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)titlePictureBox).BeginInit();
             SuspendLayout();
-            // 
-            // urlLabel
-            // 
-            urlLabel.Anchor = AnchorStyles.None;
-            urlLabel.BackColor = Color.Transparent;
-            urlLabel.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            urlLabel.ForeColor = Color.White;
-            urlLabel.Location = new Point(28, 458);
-            urlLabel.Name = "urlLabel";
-            urlLabel.Size = new Size(753, 28);
-            urlLabel.TabIndex = 2;
-            urlLabel.Text = "tinyurl.com/securikey-mics";
-            urlLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // backgroundPictureBox
             // 
@@ -63,19 +49,6 @@
             backgroundPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
             backgroundPictureBox.TabIndex = 3;
             backgroundPictureBox.TabStop = false;
-            // 
-            // githubLabel
-            // 
-            githubLabel.Anchor = AnchorStyles.None;
-            githubLabel.BackColor = Color.Transparent;
-            githubLabel.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            githubLabel.ForeColor = Color.White;
-            githubLabel.Location = new Point(28, 482);
-            githubLabel.Name = "githubLabel";
-            githubLabel.Size = new Size(753, 28);
-            githubLabel.TabIndex = 4;
-            githubLabel.Text = "https://github.com/the-bearded-one/securikey";
-            githubLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // infoLabel
             // 
@@ -133,16 +106,29 @@
             backScanButton.UnpressedColor = Color.Black;
             backScanButton.Click += OnBackScanButtonClick;
             // 
+            // websiteLinkLabel
+            // 
+            websiteLinkLabel.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            websiteLinkLabel.BackColor = Color.Transparent;
+            websiteLinkLabel.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            websiteLinkLabel.Location = new Point(0, 458);
+            websiteLinkLabel.Name = "websiteLinkLabel";
+            websiteLinkLabel.Size = new Size(797, 23);
+            websiteLinkLabel.TabIndex = 9;
+            websiteLinkLabel.TabStop = true;
+            websiteLinkLabel.Text = "https://www.securikey.io";
+            websiteLinkLabel.TextAlign = ContentAlignment.MiddleCenter;
+            websiteLinkLabel.LinkClicked += OnWebsiteLinkLabelLinkClicked;
+            // 
             // AboutScreen
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.Black;
+            Controls.Add(websiteLinkLabel);
             Controls.Add(backScanButton);
             Controls.Add(titlePictureBox);
             Controls.Add(subtitleLabel);
             Controls.Add(infoLabel);
-            Controls.Add(githubLabel);
-            Controls.Add(urlLabel);
             Controls.Add(backgroundPictureBox);
             Margin = new Padding(3, 4, 3, 4);
             Name = "AboutScreen";
@@ -156,12 +142,13 @@
 
         private ProgressBar progressBar;
         private Label progressLabel;
-        private Label urlLabel;
         private PictureBox backgroundPictureBox;
-        private Label githubLabel;
         private Controls.MultiLineLabel infoLabel;
         private Label subtitleLabel;
         private PictureBox titlePictureBox;
         private Controls.RoundedButton backScanButton;
+        private Label githubLabel;
+        private Label urlLabel;
+        private LinkLabel websiteLinkLabel;
     }
 }

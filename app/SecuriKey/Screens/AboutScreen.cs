@@ -1,4 +1,5 @@
 ﻿using BusinessLogic;
+using OpenAI.Files;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -68,6 +69,12 @@ namespace SecuriKey.Screens
         private void OnBackScanButtonClick(object sender, EventArgs e)
         {
             NavigationRequest?.Invoke(this, new NavigationEventArgs(new HomeScreen()));
+        }
+
+        private void OnWebsiteLinkLabelLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            // launch securikey websiite using default browser
+            Process.Start("explorer.exe", "https://www.securikey.io");
         }
 
         public UserControl AsUserControl()
