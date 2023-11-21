@@ -150,7 +150,7 @@ namespace BusinessLogic.Reports
 
         void ComposeIntro(IContainer container)
         {
-            container.PaddingHorizontal(100).Background(Colors.Grey.Lighten3).Padding(10).Column(column =>
+            container.PaddingHorizontal(10).Background(Colors.Grey.Lighten3).Padding(10).Column(column =>
             {
                 column.Spacing(5);
                 column.Item().Text("Disclaimer").FontSize(12).Bold();
