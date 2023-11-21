@@ -35,21 +35,15 @@ namespace SecuriKey.Screens
 
             ResumeLayout();
 
-            offlineScanButton.Click += OnOfflineScanButtonClick;
-            onlineScanButton.Click += OnOnlineScanButtonClick;
+            scanButton.Click += OnScanButtonClick;
         }
 
         public event EventHandler<NavigationEventArgs> NavigationRequest;
 
-        private void OnOfflineScanButtonClick(object? sender, EventArgs e)
-        {
-            BL.Instance.IsInternetConnectionAuthorized = false;
-            BL.Instance.StartSystemScan();
-        }
 
-        private void OnOnlineScanButtonClick(object? sender, EventArgs e)
+        private void OnScanButtonClick(object? sender, EventArgs e)
         {
-            BL.Instance.IsInternetConnectionAuthorized = true;
+            BL.Instance.IsInternetConnectionAuthorized = allowInternetConnectionCheckbox.Checked;
             BL.Instance.StartSystemScan();
         }
 
@@ -61,11 +55,6 @@ namespace SecuriKey.Screens
         public UserControl AsUserControl()
         {
             return this;
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -28,54 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            offlineScanButton = new Controls.RoundedButton();
-            onlineScanButton = new Controls.RoundedButton();
+            scanButton = new Controls.RoundedButton();
             aboutButton = new Controls.RoundedButton();
             logoPictureBox = new PictureBox();
             backgroundPictureBox = new PictureBox();
             label1 = new Label();
             label2 = new Label();
-            checkBox1 = new CheckBox();
+            allowInternetConnectionCheckbox = new CheckBox();
             label3 = new Label();
             ((System.ComponentModel.ISupportInitialize)logoPictureBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)backgroundPictureBox).BeginInit();
             SuspendLayout();
             // 
-            // offlineScanButton
+            // scanButton
             // 
-            offlineScanButton.Anchor = AnchorStyles.None;
-            offlineScanButton.BackColor = Color.Transparent;
-            offlineScanButton.BorderColor = Color.Green;
-            offlineScanButton.BorderRadius = 40;
-            offlineScanButton.BorderThickness = 5F;
-            offlineScanButton.ButtonText = "Scan Now";
-            offlineScanButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            offlineScanButton.ForeColor = Color.White;
-            offlineScanButton.Location = new Point(445, 581);
-            offlineScanButton.Margin = new Padding(3, 4, 3, 4);
-            offlineScanButton.Name = "offlineScanButton";
-            offlineScanButton.PressedColor = Color.FromArgb(0, 96, 166);
-            offlineScanButton.Size = new Size(300, 85);
-            offlineScanButton.TabIndex = 2;
-            offlineScanButton.UnpressedColor = Color.Black;
-            // 
-            // onlineScanButton
-            // 
-            onlineScanButton.Anchor = AnchorStyles.None;
-            onlineScanButton.BackColor = Color.Transparent;
-            onlineScanButton.BorderColor = Color.FromArgb(0, 66, 114);
-            onlineScanButton.BorderRadius = 40;
-            onlineScanButton.BorderThickness = 5F;
-            onlineScanButton.ButtonText = "Scan Online";
-            onlineScanButton.ForeColor = Color.White;
-            onlineScanButton.Location = new Point(21, 694);
-            onlineScanButton.Margin = new Padding(3, 4, 3, 4);
-            onlineScanButton.Name = "onlineScanButton";
-            onlineScanButton.PressedColor = Color.FromArgb(0, 96, 166);
-            onlineScanButton.Size = new Size(300, 85);
-            onlineScanButton.TabIndex = 3;
-            onlineScanButton.UnpressedColor = Color.Black;
-            onlineScanButton.Visible = false;
+            scanButton.Anchor = AnchorStyles.None;
+            scanButton.BackColor = Color.Transparent;
+            scanButton.BorderColor = Color.Green;
+            scanButton.BorderRadius = 40;
+            scanButton.BorderThickness = 5F;
+            scanButton.ButtonText = "Scan Now";
+            scanButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            scanButton.ForeColor = Color.White;
+            scanButton.Location = new Point(445, 581);
+            scanButton.Margin = new Padding(3, 4, 3, 4);
+            scanButton.Name = "scanButton";
+            scanButton.PressedColor = Color.FromArgb(0, 96, 166);
+            scanButton.Size = new Size(300, 85);
+            scanButton.TabIndex = 2;
+            scanButton.UnpressedColor = Color.Black;
             // 
             // aboutButton
             // 
@@ -146,17 +127,19 @@
             label2.Text = "v1.0 BETA  ";
             label2.TextAlign = ContentAlignment.TopRight;
             // 
-            // checkBox1
+            // allowInternetConnectionCheckbox
             // 
-            checkBox1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            checkBox1.BackColor = Color.Black;
-            checkBox1.ForeColor = Color.White;
-            checkBox1.Location = new Point(21, 806);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(252, 19);
-            checkBox1.TabIndex = 8;
-            checkBox1.Text = "Allow SecuriKey to use Internet connection";
-            checkBox1.UseVisualStyleBackColor = false;
+            allowInternetConnectionCheckbox.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            allowInternetConnectionCheckbox.BackColor = Color.Black;
+            allowInternetConnectionCheckbox.Checked = true;
+            allowInternetConnectionCheckbox.CheckState = CheckState.Checked;
+            allowInternetConnectionCheckbox.ForeColor = Color.White;
+            allowInternetConnectionCheckbox.Location = new Point(21, 806);
+            allowInternetConnectionCheckbox.Name = "allowInternetConnectionCheckbox";
+            allowInternetConnectionCheckbox.Size = new Size(252, 19);
+            allowInternetConnectionCheckbox.TabIndex = 8;
+            allowInternetConnectionCheckbox.Text = "Allow SecuriKey to use Internet connection";
+            allowInternetConnectionCheckbox.UseVisualStyleBackColor = false;
             // 
             // label3
             // 
@@ -170,19 +153,17 @@
             label3.Size = new Size(450, 31);
             label3.TabIndex = 9;
             label3.Text = "Assess your PC against 39 attack vectors!";
-            label3.Click += label3_Click;
             // 
             // HomeScreen
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackgroundImageLayout = ImageLayout.Stretch;
             Controls.Add(label3);
-            Controls.Add(checkBox1);
+            Controls.Add(allowInternetConnectionCheckbox);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(aboutButton);
-            Controls.Add(onlineScanButton);
-            Controls.Add(offlineScanButton);
+            Controls.Add(scanButton);
             Controls.Add(logoPictureBox);
             Controls.Add(backgroundPictureBox);
             ForeColor = SystemColors.ControlText;
@@ -196,13 +177,13 @@
 
         #endregion
         private Controls.RoundedButton offlineScanButton;
-        private Controls.RoundedButton onlineScanButton;
+        private Controls.RoundedButton scanButton;
         private Controls.RoundedButton aboutButton;
         private PictureBox logoPictureBox;
         private PictureBox backgroundPictureBox;
         private Label label1;
         private Label label2;
-        private CheckBox checkBox1;
+        private CheckBox allowInternetConnectionCheckbox;
         private Label label3;
     }
 }
