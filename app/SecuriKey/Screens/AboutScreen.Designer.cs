@@ -111,7 +111,7 @@
             websiteLinkLabel.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             websiteLinkLabel.BackColor = Color.Transparent;
             websiteLinkLabel.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            websiteLinkLabel.Location = new Point(0, 458);
+            websiteLinkLabel.Location = new Point(0, 430);
             websiteLinkLabel.Name = "websiteLinkLabel";
             websiteLinkLabel.Size = new Size(797, 23);
             websiteLinkLabel.TabIndex = 9;
