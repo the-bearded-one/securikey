@@ -140,6 +140,7 @@
             allowInternetConnectionCheckbox.TabIndex = 8;
             allowInternetConnectionCheckbox.Text = "Allow SecuriKey to use Internet connection";
             allowInternetConnectionCheckbox.UseVisualStyleBackColor = false;
+            allowInternetConnectionCheckbox.CheckedChanged += OnAllowInternetConnectionCheckboxCheckedChanged;
             // 
             // label3
             // 

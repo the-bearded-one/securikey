@@ -33,6 +33,7 @@ namespace SecuriKey.Screens
                 if (ctrl != this.backgroundPictureBox) ctrl.Parent = this.backgroundPictureBox;
             }
 
+            allowInternetConnectionCheckbox.Checked = BL.Instance.IsInternetConnectionAuthorized; //default to current BL settings
             ResumeLayout();
 
             scanButton.Click += OnScanButtonClick;
@@ -43,13 +44,17 @@ namespace SecuriKey.Screens
 
         private void OnScanButtonClick(object? sender, EventArgs e)
         {
-            BL.Instance.IsInternetConnectionAuthorized = allowInternetConnectionCheckbox.Checked;
             BL.Instance.StartSystemScan();
         }
 
         private void OnAboutButtonClick(object sender, EventArgs e)
         {
             NavigationRequest?.Invoke(this, new NavigationEventArgs(new AboutScreen()));
+        }
+
+        private void OnAllowInternetConnectionCheckboxCheckedChanged(object sender, EventArgs e)
+        {
+            BL.Instance.IsInternetConnectionAuthorized = allowInternetConnectionCheckbox.Checked;
         }
 
         public UserControl AsUserControl()

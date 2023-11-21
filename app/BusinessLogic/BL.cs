@@ -13,7 +13,7 @@ namespace BusinessLogic
     public class BL
     {
         static private BL _instance = null;
-        private bool isInternetConnectionAuthorized = false;
+        private bool isInternetConnectionAuthorized = true;
         private BackgroundWorker backgroundWorker = new BackgroundWorker();
         private List<IChecker> checkers = new List<IChecker>();
         private ReportGenerator reportGenerator = new ReportGenerator();
