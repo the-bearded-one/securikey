@@ -1,5 +1,6 @@
 ﻿using BusinessLogic;
 using Microsoft.VisualBasic.Devices;
+using SecuriKey.Screens;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,6 +9,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
 using static SkiaSharp.HarfBuzz.SKShaper;
 
@@ -44,11 +46,18 @@ namespace SecuriKey.Controls
             }
             this.ScanType = result.Name;
             this.ShortDescription = result.Relevance;
-            if ( this.ShortDescription.Length > 180 )
+            if (this.ShortDescription.Length > 180)
             {
                 this.ShortDescription = this.ShortDescription.Substring(0, 180) + "...";
             }
             this.Details = result.Severity.Justification;
+
+            // hide ai button if online is not authorized
+            if (!BL.Instance.IsInternetConnectionAuthorized)
+            {
+                aiHelpButton.Visible = false;
+                severityIndicator.Location = aiHelpButton.Location;
+            }
         }
 
         public ResultItem()
@@ -69,6 +78,7 @@ namespace SecuriKey.Controls
             scanTypeLabel.Click += OnResultItemClick;
             shortDescriptionLabel.Click += OnResultItemClick;
             severityIndicator.Click += OnResultItemClick;
+            arrowPictureBox.Click += OnResultItemClick;
 
             shortDescriptionLabel.MouseLeave += OnResultItemMouseLeave;
             severityIndicator.MouseLeave += OnResultItemMouseLeave;
@@ -102,7 +112,7 @@ namespace SecuriKey.Controls
 
         public String GptPrompt { get; private set; }
         public String ID { get; private set; }
-        
+
         public String RiskName { get; private set; }
 
         #endregion
@@ -112,8 +122,16 @@ namespace SecuriKey.Controls
         {
             IsSquashed = !IsSquashed;
 
-            if (IsSquashed) this.Height = squashedHeight;
-            else this.Height = detailsTextbox.Bottom + 1;
+            if (IsSquashed)
+            {
+                CollapseControl();
+                this.arrowPictureBox.Image = Resources.Resources.upArrow;
+            }
+            else
+            {
+                ExpandControl();
+                this.arrowPictureBox.Image = Resources.Resources.downArrow;
+            }
             Invalidate();
         }
 
@@ -153,6 +171,55 @@ namespace SecuriKey.Controls
                 this.BackColor = idleColor;
             }
             this.Invalidate();
+        }
+
+        private void OnAiHelpButtonClick(object sender, EventArgs e)
+        {
+            // pass the ID and prompt to the assistant for the GPT API call
+            AiAssistant aiAssistantForm = new AiAssistant
+            {
+                RiskName = this.RiskName,
+                ID = this.ID,
+                GptPrompt = this.GptPrompt
+            };
+            aiAssistantForm.StartPosition = FormStartPosition.CenterParent;
+            aiAssistantForm.ShowDialog(this);
+        }
+        #endregion
+
+        #region private methods
+        private void ExpandControl()
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action(() => { ExpandControl(); }));
+            }
+            else
+            {
+                while (this.Height < detailsTextbox.Bottom + 1)
+                {
+                    this.Height += 6;
+                    Thread.Sleep(10);
+                }
+                this.Height = detailsTextbox.Bottom + 1;
+            }
+        }
+
+        private void CollapseControl()
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action(() => { CollapseControl(); }));
+            }
+            else
+            {
+                while (this.Height > squashedHeight)
+                {
+                    this.Height -= 6;
+                    Thread.Sleep(10);
+                }
+                this.Height = squashedHeight;
+            }
         }
         #endregion
     }

@@ -35,6 +35,8 @@ namespace SecuriKey.Controls
             severityIndicator = new SeverityIndicator();
             detailsTextbox = new TextBox();
             aiHelpButton = new RoundedButton();
+            arrowPictureBox = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)arrowPictureBox).BeginInit();
             SuspendLayout();
             // 
             // shortDescriptionLabel
@@ -43,7 +45,7 @@ namespace SecuriKey.Controls
             shortDescriptionLabel.BackColor = Color.Transparent;
             shortDescriptionLabel.Font = new Font("Arial", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             shortDescriptionLabel.ForeColor = Color.White;
-            shortDescriptionLabel.Location = new Point(232, 11);
+            shortDescriptionLabel.Location = new Point(263, 11);
             shortDescriptionLabel.Name = "shortDescriptionLabel";
             shortDescriptionLabel.Size = new Size(129, 18);
             shortDescriptionLabel.TabIndex = 0;
@@ -56,7 +58,7 @@ namespace SecuriKey.Controls
             scanTypeLabel.BackColor = Color.Transparent;
             scanTypeLabel.Font = new Font("Arial", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             scanTypeLabel.ForeColor = Color.White;
-            scanTypeLabel.Location = new Point(16, 11);
+            scanTypeLabel.Location = new Point(30, 11);
             scanTypeLabel.Name = "scanTypeLabel";
             scanTypeLabel.Size = new Size(75, 18);
             scanTypeLabel.TabIndex = 1;
@@ -69,14 +71,15 @@ namespace SecuriKey.Controls
             severityIndicator.BackColor = Color.Transparent;
             severityIndicator.BorderRadius = 8;
             severityIndicator.CriticalColor = Color.FromArgb(255, 0, 0);
+            severityIndicator.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             severityIndicator.HighColor = Color.FromArgb(168, 37, 33);
-            severityIndicator.Location = new Point(555, 9);
+            severityIndicator.Location = new Point(577, 6);
             severityIndicator.LowColor = Color.FromArgb(135, 133, 156);
             severityIndicator.MediumColor = Color.FromArgb(209, 130, 36);
             severityIndicator.Name = "severityIndicator";
             severityIndicator.OkColor = Color.FromArgb(61, 131, 97);
             severityIndicator.Severity = BusinessLogic.Severity.Low;
-            severityIndicator.Size = new Size(102, 26);
+            severityIndicator.Size = new Size(83, 26);
             severityIndicator.TabIndex = 2;
             // 
             // detailsTextbox
@@ -96,26 +99,39 @@ namespace SecuriKey.Controls
             // 
             // aiHelpButton
             // 
-            aiHelpButton.Anchor = AnchorStyles.Right;
+            aiHelpButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             aiHelpButton.BackColor = Color.Transparent;
-            aiHelpButton.BorderColor = Color.FromArgb(0, 66, 114);
-            aiHelpButton.BorderRadius = 5;
+            aiHelpButton.BorderColor = Color.FromArgb(30, 48, 243);
+            aiHelpButton.BorderRadius = 8;
             aiHelpButton.BorderThickness = 4F;
             aiHelpButton.ButtonText = "AI Help";
-            aiHelpButton.ForeColor = Color.Black;
-            aiHelpButton.Location = new Point(663, 7);
+            aiHelpButton.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            aiHelpButton.ForeColor = Color.White;
+            aiHelpButton.Location = new Point(669, 6);
+            aiHelpButton.Margin = new Padding(5, 3, 5, 3);
             aiHelpButton.Name = "aiHelpButton";
             aiHelpButton.PressedColor = Color.FromArgb(0, 96, 166);
-            aiHelpButton.Size = new Size(94, 30);
+            aiHelpButton.Size = new Size(83, 26);
             aiHelpButton.TabIndex = 4;
-            aiHelpButton.UnpressedColor = Color.Silver;
-            aiHelpButton.Click += AiHelpButtonClick;
+            aiHelpButton.UnpressedColor = Color.FromArgb(30, 48, 243);
+            aiHelpButton.Click += OnAiHelpButtonClick;
+            // 
+            // arrowPictureBox
+            // 
+            arrowPictureBox.Image = Resources.Resources.upArrow;
+            arrowPictureBox.Location = new Point(6, 13);
+            arrowPictureBox.Name = "arrowPictureBox";
+            arrowPictureBox.Size = new Size(13, 13);
+            arrowPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            arrowPictureBox.TabIndex = 5;
+            arrowPictureBox.TabStop = false;
             // 
             // ResultItem
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.Black;
             BorderStyle = BorderStyle.FixedSingle;
+            Controls.Add(arrowPictureBox);
             Controls.Add(detailsTextbox);
             Controls.Add(severityIndicator);
             Controls.Add(scanTypeLabel);
@@ -129,21 +145,9 @@ namespace SecuriKey.Controls
             MouseEnter += OnResultItemMouseEnter;
             MouseLeave += OnResultItemMouseLeave;
             MouseUp += OnResultItemMouseUp;
+            ((System.ComponentModel.ISupportInitialize)arrowPictureBox).EndInit();
             ResumeLayout(false);
             PerformLayout();
-        }
-
-        // Event handler for the button click
-        private void AiHelpButtonClick(object sender, EventArgs e)
-        {
-            // pass the ID and prompt to the assistant for the GPT API call
-            AiAssistant aiAssistantForm = new AiAssistant
-            {
-                RiskName = this.RiskName,
-                ID = this.ID,
-                GptPrompt = this.GptPrompt
-            };
-            aiAssistantForm.ShowDialog();
         }
 
         #endregion
@@ -153,5 +157,6 @@ namespace SecuriKey.Controls
         private SeverityIndicator severityIndicator;
         private TextBox detailsTextbox;
         private RoundedButton aiHelpButton;
+        private PictureBox arrowPictureBox;
     }
 }

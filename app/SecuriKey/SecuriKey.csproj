@@ -13,7 +13,13 @@
 
   <ItemGroup>
     <None Remove="Resources\AboutSecuriKeyTitle.png" />
+    <None Remove="Resources\assistant01.png" />
+    <None Remove="Resources\assistant02.png" />
+    <None Remove="Resources\assistant03.png" />
+    <None Remove="Resources\assistant04.png" />
     <None Remove="Resources\bg.png" />
+    <None Remove="Resources\bg2.png" />
+    <None Remove="Resources\downArrow.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,9 +28,15 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\AboutSecuriKeyTitle.png" />
+    <EmbeddedResource Include="Resources\assistant01.png" />
+    <EmbeddedResource Include="Resources\assistant02.png" />
+    <EmbeddedResource Include="Resources\assistant03.png" />
+    <EmbeddedResource Include="Resources\assistant04.png" />
     <EmbeddedResource Include="Resources\bg.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\bg2.png" />
+    <EmbeddedResource Include="Resources\downArrow.png" />
   </ItemGroup>
 
   <ItemGroup>
