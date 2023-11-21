@@ -182,8 +182,15 @@ namespace BusinessLogic
             // run all checks in parallel
             Parallel.ForEach(checkers, checker =>
             {
-                checker.Scan();
-                scanChecksCompleted++;
+                try
+                {
+                    checker.Scan();
+                    scanChecksCompleted++;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"ERROR Performing Check: {checker.ToString()} {ex.Message}");
+                }
             });
 
             // now compile a universal list of results
