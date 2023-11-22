@@ -30,13 +30,11 @@
         {
             scanButton = new Controls.RoundedButton();
             aboutButton = new Controls.RoundedButton();
-            logoPictureBox = new PictureBox();
             backgroundPictureBox = new PictureBox();
             label1 = new Label();
             label2 = new Label();
             allowInternetConnectionCheckbox = new CheckBox();
             label3 = new Label();
-            ((System.ComponentModel.ISupportInitialize)logoPictureBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)backgroundPictureBox).BeginInit();
             SuspendLayout();
             // 
@@ -50,7 +48,7 @@
             scanButton.ButtonText = "Scan Now";
             scanButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             scanButton.ForeColor = Color.White;
-            scanButton.Location = new Point(445, 581);
+            scanButton.Location = new Point(445, 565);
             scanButton.Margin = new Padding(3, 4, 3, 4);
             scanButton.Name = "scanButton";
             scanButton.PressedColor = Color.FromArgb(0, 96, 166);
@@ -67,7 +65,7 @@
             aboutButton.BorderThickness = 5F;
             aboutButton.ButtonText = "About";
             aboutButton.ForeColor = Color.White;
-            aboutButton.Location = new Point(445, 673);
+            aboutButton.Location = new Point(445, 658);
             aboutButton.Margin = new Padding(3, 4, 3, 4);
             aboutButton.Name = "aboutButton";
             aboutButton.PressedColor = Color.FromArgb(0, 96, 166);
@@ -75,20 +73,6 @@
             aboutButton.TabIndex = 4;
             aboutButton.UnpressedColor = Color.Black;
             aboutButton.Click += OnAboutButtonClick;
-            // 
-            // logoPictureBox
-            // 
-            logoPictureBox.Anchor = AnchorStyles.None;
-            logoPictureBox.BackColor = Color.Transparent;
-            logoPictureBox.BackgroundImageLayout = ImageLayout.None;
-            logoPictureBox.Image = Resources.Resources.SecuriKeyLogo;
-            logoPictureBox.Location = new Point(364, 35);
-            logoPictureBox.Name = "logoPictureBox";
-            logoPictureBox.Size = new Size(452, 461);
-            logoPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
-            logoPictureBox.TabIndex = 1;
-            logoPictureBox.TabStop = false;
-            logoPictureBox.Visible = false;
             // 
             // backgroundPictureBox
             // 
@@ -136,7 +120,7 @@
             allowInternetConnectionCheckbox.ForeColor = Color.White;
             allowInternetConnectionCheckbox.Location = new Point(21, 806);
             allowInternetConnectionCheckbox.Name = "allowInternetConnectionCheckbox";
-            allowInternetConnectionCheckbox.Size = new Size(252, 19);
+            allowInternetConnectionCheckbox.Size = new Size(252, 22);
             allowInternetConnectionCheckbox.TabIndex = 8;
             allowInternetConnectionCheckbox.Text = "Allow SecuriKey to use Internet connection";
             allowInternetConnectionCheckbox.UseVisualStyleBackColor = false;
@@ -165,12 +149,10 @@
             Controls.Add(label1);
             Controls.Add(aboutButton);
             Controls.Add(scanButton);
-            Controls.Add(logoPictureBox);
             Controls.Add(backgroundPictureBox);
             ForeColor = SystemColors.ControlText;
             Name = "HomeScreen";
             Size = new Size(1206, 838);
-            ((System.ComponentModel.ISupportInitialize)logoPictureBox).EndInit();
             ((System.ComponentModel.ISupportInitialize)backgroundPictureBox).EndInit();
             ResumeLayout(false);
             PerformLayout();

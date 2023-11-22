@@ -33,18 +33,15 @@ namespace SecuriKey
                 else if (displayScreen.Bounds.Width >= 1280)
                 {
                     this.Width = 1280;
-                    this.Height = 720;
-                }
-                else if (displayScreen.Bounds.Width >= 1024)
-                {
-                    this.Width = 1024;
                     this.Height = 768;
                 }
                 else
                 {
-                    this.Width = 800;
-                    this.Height = 600;
+                    this.Width = 1024;
+                    this.Height = 768;
                 }
+
+                this.MinimumSize = new System.Drawing.Size(1024, 768);
             }
 
             // listen to BL events and display the right screen accordingly
