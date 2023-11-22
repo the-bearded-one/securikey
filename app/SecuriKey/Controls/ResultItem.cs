@@ -46,10 +46,6 @@ namespace SecuriKey.Controls
             }
             this.ScanType = result.Name;
             this.ShortDescription = result.Relevance;
-            if (this.ShortDescription.Length > 180)
-            {
-                this.ShortDescription = this.ShortDescription.Substring(0, 180) + "...";
-            }
             this.Details = result.Severity.Justification;
 
             // hide ai button if online is not authorized
@@ -58,6 +54,8 @@ namespace SecuriKey.Controls
                 aiHelpButton.Visible = false;
                 severityIndicator.Location = aiHelpButton.Location;
             }
+
+            RescaleTextToFit();
         }
 
         public ResultItem()
@@ -84,6 +82,8 @@ namespace SecuriKey.Controls
             severityIndicator.MouseLeave += OnResultItemMouseLeave;
             detailsTextbox.MouseLeave += OnResultItemMouseLeave;
             aiHelpButton.MouseLeave += OnResultItemMouseLeave;
+
+            this.DoubleBuffered = true;
         }
         #endregion
 
@@ -99,11 +99,7 @@ namespace SecuriKey.Controls
             get => scanTypeLabel.Text;
             set => scanTypeLabel.Text = value;
         }
-        public string ShortDescription
-        {
-            get => shortDescriptionLabel.Text;
-            set => shortDescriptionLabel.Text = value;
-        }
+        public string ShortDescription = string.Empty;
         public string Details
         {
             get => detailsTextbox.Text;
@@ -185,6 +181,11 @@ namespace SecuriKey.Controls
             aiAssistantForm.StartPosition = FormStartPosition.CenterParent;
             aiAssistantForm.ShowDialog(this);
         }
+
+        private void OnResultItemResize(object sender, EventArgs e)
+        {
+            RescaleTextToFit();
+        }
         #endregion
 
         #region private methods
@@ -219,6 +220,25 @@ namespace SecuriKey.Controls
                     Thread.Sleep(10);
                 }
                 this.Height = squashedHeight;
+            }
+        }
+
+        private void RescaleTextToFit()
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action(() => { RescaleTextToFit(); }));
+            }
+            else
+            {
+                var resizedString = ShortDescription;
+                var allowedWidth = severityIndicator.Left - shortDescriptionLabel.Left;
+                shortDescriptionLabel.Text = resizedString;
+                while (shortDescriptionLabel.Width > allowedWidth)
+                {
+                    var newLength = shortDescriptionLabel.Text.Length - 12;
+                    shortDescriptionLabel.Text = $"{shortDescriptionLabel.Text.Substring(0, newLength)}...";
+                }
             }
         }
         #endregion

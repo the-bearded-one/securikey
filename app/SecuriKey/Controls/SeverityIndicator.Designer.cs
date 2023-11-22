@@ -34,6 +34,7 @@
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.Transparent;
+            DoubleBuffered = true;
             Name = "SeverityIndicator";
             Size = new Size(150, 52);
             ResumeLayout(false);

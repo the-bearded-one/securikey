@@ -54,13 +54,12 @@ namespace SecuriKey.Controls
             // 
             // scanTypeLabel
             // 
-            scanTypeLabel.AutoSize = true;
             scanTypeLabel.BackColor = Color.Transparent;
             scanTypeLabel.Font = new Font("Arial", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             scanTypeLabel.ForeColor = Color.White;
             scanTypeLabel.Location = new Point(30, 11);
             scanTypeLabel.Name = "scanTypeLabel";
-            scanTypeLabel.Size = new Size(75, 18);
+            scanTypeLabel.Size = new Size(227, 18);
             scanTypeLabel.TabIndex = 1;
             scanTypeLabel.Text = "scan type";
             scanTypeLabel.TextAlign = ContentAlignment.MiddleLeft;
@@ -145,6 +144,7 @@ namespace SecuriKey.Controls
             MouseEnter += OnResultItemMouseEnter;
             MouseLeave += OnResultItemMouseLeave;
             MouseUp += OnResultItemMouseUp;
+            Resize += OnResultItemResize;
             ((System.ComponentModel.ISupportInitialize)arrowPictureBox).EndInit();
             ResumeLayout(false);
             PerformLayout();

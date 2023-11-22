@@ -40,7 +40,7 @@ namespace SecuriKey.Controls
             else if (this.Severity == Severity.Critical) fillColor = CriticalColor;
 
             var fontSize = GetMaxFontSize(this.Severity.ToString(), this.Font);
-            
+
             using (var fillBrush = new SolidBrush(fillColor))
             using (var graphicsPath = new GraphicsPath())
             using (var font = new Font(this.Font.FontFamily, fontSize, FontStyle.Regular))

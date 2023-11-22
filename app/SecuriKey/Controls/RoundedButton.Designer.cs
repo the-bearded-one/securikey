@@ -49,6 +49,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Transparent;
             Controls.Add(textLabel);
+            DoubleBuffered = true;
             ForeColor = Color.White;
             Margin = new Padding(3, 4, 3, 4);
             Name = "RoundedButton";
