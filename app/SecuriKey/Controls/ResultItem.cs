@@ -231,16 +231,26 @@ namespace SecuriKey.Controls
             }
             else
             {
-                var resizedString = ShortDescription;
-                var allowedWidth = severityIndicator.Left - shortDescriptionLabel.Left;
-                shortDescriptionLabel.Text = resizedString;
-                while (shortDescriptionLabel.Width > allowedWidth)
+                if (this.Visible)
                 {
-                    var newLength = shortDescriptionLabel.Text.Length - 12;
-                    shortDescriptionLabel.Text = $"{shortDescriptionLabel.Text.Substring(0, newLength)}...";
+                    try
+                    {
+                        var resizedString = ShortDescription;
+                        var allowedWidth = severityIndicator.Left - shortDescriptionLabel.Left;
+                        shortDescriptionLabel.Text = resizedString;
+                        while (shortDescriptionLabel.Width > allowedWidth)
+                        {
+                            var newLength = shortDescriptionLabel.Text.Length - 12;
+                            shortDescriptionLabel.Text = $"{shortDescriptionLabel.Text.Substring(0, newLength)}...";
+                        }
+                    }
+                    catch
+                    {
+                        // do nothing. just don't crash
+                    }
                 }
             }
+            #endregion
         }
-        #endregion
     }
 }
