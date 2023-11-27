@@ -184,6 +184,7 @@ namespace BusinessLogic
             {
                 try
                 {
+                    Debug.WriteLine($"Running Checker Object: {checker.ToString()}");
                     checker.Scan();
                     scanChecksCompleted++;
                 }

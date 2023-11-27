@@ -29,21 +29,29 @@ namespace BusinessLogic.Scanning
 
             EventAggregator.Instance.FireEvent(BlEvents.CheckingAutoConnectOpenWifi);
 
-            CheckWifiConfig();
-
-            if (SecurityCheck.Outcome != SecurityCheck.OutcomeTypes.Error)
+            try
             {
-                if (DoesWifiAutoConnect)
-                {
-                    SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.ActionRecommended;
-                }
-                else
-                {
-                    SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Pass;
-                }
-            }
 
-            SecurityResults.Add(SecurityCheck);
+                CheckWifiConfig();
+
+                if (SecurityCheck.Outcome != SecurityCheck.OutcomeTypes.Error)
+                {
+                    if (DoesWifiAutoConnect)
+                    {
+                        SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.ActionRecommended;
+                    }
+                    else
+                    {
+                        SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Pass;
+                    }
+                }
+
+                SecurityResults.Add(SecurityCheck);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("ERROR: Exception while running WifiAutoChecker");
+            }
 
             EventAggregator.Instance.FireEvent(BlEvents.CheckingAutoConnectOpenWifiCompleted);
         }

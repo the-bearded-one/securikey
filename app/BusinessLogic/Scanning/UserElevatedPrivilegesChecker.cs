@@ -29,19 +29,28 @@ namespace BusinessLogic.Scanning
 
         public void Scan()
         {
+            SecurityResults.Clear();
             EventAggregator.Instance.FireEvent(BlEvents.CheckingElevatedUser);
-            IsElevatedUser = IsCurrentUserAdmin();
 
-            if ( IsElevatedUser )
+            try
             {
-                SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.ActionRecommended;
-            }
-            else
-            {
-                SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Pass;
-            }
+                IsElevatedUser = IsCurrentUserAdmin();
 
-            SecurityResults.Add(SecurityCheck);
+                if (IsElevatedUser)
+                {
+                    SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.ActionRecommended;
+                }
+                else
+                {
+                    SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Pass;
+                }
+
+                SecurityResults.Add(SecurityCheck);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("ERROR: Exception running User Elevation checker");
+            }
 
             EventAggregator.Instance.FireEvent(BlEvents.CheckingElevatedUserCompleted);
         }

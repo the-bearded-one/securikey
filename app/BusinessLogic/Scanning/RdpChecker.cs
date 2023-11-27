@@ -26,23 +26,31 @@ namespace BusinessLogic.Scanning
         {
             ScanResults.Clear();
 
-            EventAggregator.Instance.FireEvent(BlEvents.CheckingRdpEnabled);
-
-            ProbeRdp();
-
-            if (SecurityCheck.Outcome != SecurityCheck.OutcomeTypes.Error)
+            try
             {
-                if (IsRdpEnabled || IsRdpWeak)
-                {
-                    SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.ActionRecommended;
-                }
-                else
-                {
-                    SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Pass;
-                }
-            }
 
-            SecurityResults.Add(SecurityCheck);
+                EventAggregator.Instance.FireEvent(BlEvents.CheckingRdpEnabled);
+
+                ProbeRdp();
+
+                if (SecurityCheck.Outcome != SecurityCheck.OutcomeTypes.Error)
+                {
+                    if (IsRdpEnabled || IsRdpWeak)
+                    {
+                        SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.ActionRecommended;
+                    }
+                    else
+                    {
+                        SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Pass;
+                    }
+                }
+
+                SecurityResults.Add(SecurityCheck);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: Exception when running RDP Checker");
+            }
 
             EventAggregator.Instance.FireEvent(BlEvents.CheckingRdpEnabledCompleted);
         }

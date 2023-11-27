@@ -23,21 +23,28 @@ namespace BusinessLogic.Scanning
         {
             ScanResults.Clear();
 
-            EventAggregator.Instance.FireEvent(BlEvents.CheckingWindowsScriptingHost);
-
-            ProbeWindowsScriptingHost();
-
-            if ( IsWshEnabled )
+            try
             {
-                SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.ActionRecommended;
+                EventAggregator.Instance.FireEvent(BlEvents.CheckingWindowsScriptingHost);
+
+                ProbeWindowsScriptingHost();
+
+                if (IsWshEnabled)
+                {
+                    SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.ActionRecommended;
+                }
+                else
+                {
+                    SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Pass;
+                }
+
+
+                SecurityResults.Add(SecurityCheck);
             }
-            else
+            catch (Exception ex)
             {
-                SecurityCheck.Outcome = SecurityCheck.OutcomeTypes.Pass;
+                Console.WriteLine("ERROR: Exception running Windows Scripting Host Check");
             }
-
-
-            SecurityResults.Add(SecurityCheck);
             EventAggregator.Instance.FireEvent(BlEvents.CheckingWindowsScriptingHostCompleted);
         }
 
