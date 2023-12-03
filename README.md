@@ -1,4 +1,5 @@
-# securikey
+![SecuriKey](banner.png)
+
 MICS Fall Capstone Project
 
 Yan Han
