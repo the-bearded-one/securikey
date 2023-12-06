@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BusinessLogic;
+using System.Management;
 
 namespace SecuriKey.Screens
 {
@@ -60,9 +61,11 @@ namespace SecuriKey.Screens
             else
             {
                 var api = new OpenAIClient(new OpenAIAuthentication("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", ""));
+                string prompt = "You are a skilled cybersecurity specialist focused on hardening Windows machines. You are focused on helping to protect SMB from potential attack vectors. You are also highly skilled at conveying step-by-step instructions to the layman. Please provide remediation steps specific to windows " + GetWindowsVersion().ToString();
+                
                 var messages = new List<OpenAI.Chat.Message>
                 {
-                    new OpenAI.Chat.Message(Role.System, "You are a skilled cybersecurity specialist focused on hardening Windows 10 and Windows 11 machines. You are focused on helping to protect SMB from potential attack vectors. You are also highly skilled at conveying step-by-step instructions to the layman."),
+                    new OpenAI.Chat.Message(Role.System, prompt),
                     new OpenAI.Chat.Message(Role.User, GptPrompt)
                 };
 
@@ -93,6 +96,24 @@ namespace SecuriKey.Screens
 
 
 
+        }
+
+        public static int GetWindowsVersion()
+        {
+            var osVersion = Environment.OSVersion;
+            var versionInfo = osVersion.Version;
+
+            // Use WMI to get the product name, which includes the Windows version
+            var searcher = new ManagementObjectSearcher("SELECT Caption FROM Win32_OperatingSystem");
+            foreach (var os in searcher.Get())
+            {
+                var productName = os["Caption"].ToString();
+
+                if (productName.Contains("Windows 10")) return 10;
+                if (productName.Contains("Windows 11")) return 11;
+            }
+
+            return 0; // Return 0 if it's neither Windows 10 nor Windows 11
         }
 
         private void aiResponse_TextChanged(object sender, EventArgs e)
