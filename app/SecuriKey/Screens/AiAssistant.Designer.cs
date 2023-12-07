@@ -41,7 +41,7 @@
             // 
             aiAssistantImage.Anchor = AnchorStyles.Left;
             aiAssistantImage.Image = Resources.Resources.assistant01;
-            aiAssistantImage.Location = new Point(0, 4);
+            aiAssistantImage.Location = new Point(1, 0);
             aiAssistantImage.Name = "aiAssistantImage";
             aiAssistantImage.Size = new Size(516, 856);
             aiAssistantImage.TabIndex = 0;
@@ -74,16 +74,16 @@
             chatWindow.BackColor = Color.FromArgb(64, 64, 64);
             chatWindow.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             chatWindow.ForeColor = Color.White;
-            chatWindow.Location = new Point(531, 112);
+            chatWindow.Location = new Point(531, 102);
             chatWindow.Name = "chatWindow";
             chatWindow.ReadOnly = true;
-            chatWindow.Size = new Size(459, 647);
+            chatWindow.Size = new Size(459, 673);
             chatWindow.TabIndex = 3;
             chatWindow.Text = "";
             // 
             // inputTextBox
             // 
-            inputTextBox.Location = new Point(531, 776);
+            inputTextBox.Location = new Point(531, 781);
             inputTextBox.Multiline = true;
             inputTextBox.Name = "inputTextBox";
             inputTextBox.PlaceholderText = "<Ask your questions here>";
@@ -96,7 +96,7 @@
             sendButton.BackColor = Color.FromArgb(128, 128, 255);
             sendButton.FlatStyle = FlatStyle.Flat;
             sendButton.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            sendButton.Location = new Point(926, 776);
+            sendButton.Location = new Point(926, 781);
             sendButton.Name = "sendButton";
             sendButton.Size = new Size(64, 69);
             sendButton.TabIndex = 5;
@@ -117,10 +117,12 @@
             Controls.Add(introLabel);
             Controls.Add(aiAssistantImage);
             ForeColor = Color.Black;
+            KeyPreview = true;
             MaximumSize = new Size(1024, 896);
             MinimumSize = new Size(1024, 894);
             Name = "AiAssistant";
             Shown += OnAiAssistantShown;
+            KeyDown += AiAssistantKeyDown;
             ((System.ComponentModel.ISupportInitialize)aiAssistantImage).EndInit();
             ResumeLayout(false);
             PerformLayout();

@@ -101,10 +101,20 @@ namespace SecuriKey.Screens
         private async void OnSendButtonClick(object sender, EventArgs e)
         {
             SendQueryToOpenAi(inputTextBox.Text);
-            inputTextBox.Text = string.Empty;
+            inputTextBox.Clear();
         }
 
         private void OnInputTextBoxKeyDown(object sender, KeyEventArgs e)
+        {
+            // if user presses enter, send Open AI the query
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.Handled = true;
+                OnSendButtonClick(this, EventArgs.Empty);
+            }
+        }
+
+        private void AiAssistantKeyDown(object sender, KeyEventArgs e)
         {
             // if user presses enter, send Open AI the query
             if (e.KeyCode == Keys.Enter)

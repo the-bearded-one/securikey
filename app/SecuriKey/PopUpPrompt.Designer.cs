@@ -87,9 +87,10 @@
             inputTextBox.Location = new Point(125, 229);
             inputTextBox.Name = "inputTextBox";
             inputTextBox.PlaceholderText = "<input here>";
-            inputTextBox.Size = new Size(364, 27);
+            inputTextBox.Size = new Size(364, 23);
             inputTextBox.TabIndex = 2;
             inputTextBox.Text = " ";
+            inputTextBox.UseSystemPasswordChar = true;
             inputTextBox.KeyUp += OnInputKeyUp;
             // 
             // errorLabel
