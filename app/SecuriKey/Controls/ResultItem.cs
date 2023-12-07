@@ -175,8 +175,7 @@ namespace SecuriKey.Controls
             AiAssistant aiAssistantForm = new AiAssistant
             {
                 RiskName = this.RiskName,
-                ID = this.ID,
-                GptPrompt = this.GptPrompt
+                InitialGptPrompt = this.GptPrompt
             };
             aiAssistantForm.StartPosition = FormStartPosition.CenterParent;
             aiAssistantForm.ShowDialog(this);

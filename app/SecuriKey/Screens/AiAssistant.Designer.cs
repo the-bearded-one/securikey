@@ -29,9 +29,11 @@
         private void InitializeComponent()
         {
             aiAssistantImage = new PictureBox();
-            label1 = new Label();
+            introLabel = new Label();
             pleaseWait = new Label();
-            aiResponse = new RichTextBox();
+            chatWindow = new RichTextBox();
+            inputTextBox = new TextBox();
+            sendButton = new Button();
             ((System.ComponentModel.ISupportInitialize)aiAssistantImage).BeginInit();
             SuspendLayout();
             // 
@@ -45,16 +47,16 @@
             aiAssistantImage.TabIndex = 0;
             aiAssistantImage.TabStop = false;
             // 
-            // label1
+            // introLabel
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(522, 22);
-            label1.Name = "label1";
-            label1.Size = new Size(457, 21);
-            label1.TabIndex = 1;
-            label1.Text = "Hello, I am your AI assistant. I'll help you mitigate this risk.";
+            introLabel.AutoSize = true;
+            introLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            introLabel.ForeColor = Color.White;
+            introLabel.Location = new Point(522, 22);
+            introLabel.Name = "introLabel";
+            introLabel.Size = new Size(457, 21);
+            introLabel.TabIndex = 1;
+            introLabel.Text = "Hello, I am your AI assistant. I'll help you mitigate this risk.";
             // 
             // pleaseWait
             // 
@@ -67,18 +69,40 @@
             pleaseWait.TabIndex = 2;
             pleaseWait.Text = "Please give me just a moment...";
             // 
-            // aiResponse
+            // chatWindow
             // 
-            aiResponse.BackColor = Color.FromArgb(64, 64, 64);
-            aiResponse.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            aiResponse.ForeColor = Color.White;
-            aiResponse.Location = new Point(531, 112);
-            aiResponse.Name = "aiResponse";
-            aiResponse.Size = new Size(459, 722);
-            aiResponse.TabIndex = 3;
-            aiResponse.Text = "";
-            aiResponse.Visible = false;
-            aiResponse.TextChanged += aiResponse_TextChanged;
+            chatWindow.BackColor = Color.FromArgb(64, 64, 64);
+            chatWindow.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            chatWindow.ForeColor = Color.White;
+            chatWindow.Location = new Point(531, 112);
+            chatWindow.Name = "chatWindow";
+            chatWindow.ReadOnly = true;
+            chatWindow.Size = new Size(459, 647);
+            chatWindow.TabIndex = 3;
+            chatWindow.Text = "";
+            // 
+            // inputTextBox
+            // 
+            inputTextBox.Location = new Point(531, 776);
+            inputTextBox.Multiline = true;
+            inputTextBox.Name = "inputTextBox";
+            inputTextBox.PlaceholderText = "<Ask your questions here>";
+            inputTextBox.Size = new Size(389, 69);
+            inputTextBox.TabIndex = 4;
+            inputTextBox.KeyDown += OnInputTextBoxKeyDown;
+            // 
+            // sendButton
+            // 
+            sendButton.BackColor = Color.FromArgb(128, 128, 255);
+            sendButton.FlatStyle = FlatStyle.Flat;
+            sendButton.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            sendButton.Location = new Point(926, 776);
+            sendButton.Name = "sendButton";
+            sendButton.Size = new Size(64, 69);
+            sendButton.TabIndex = 5;
+            sendButton.Text = " ▶";
+            sendButton.UseVisualStyleBackColor = false;
+            sendButton.Click += OnSendButtonClick;
             // 
             // AiAssistant
             // 
@@ -86,14 +110,17 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Black;
             ClientSize = new Size(1008, 857);
-            Controls.Add(aiResponse);
+            Controls.Add(sendButton);
+            Controls.Add(inputTextBox);
+            Controls.Add(chatWindow);
             Controls.Add(pleaseWait);
-            Controls.Add(label1);
+            Controls.Add(introLabel);
             Controls.Add(aiAssistantImage);
             ForeColor = Color.Black;
             MaximumSize = new Size(1024, 896);
             MinimumSize = new Size(1024, 894);
             Name = "AiAssistant";
+            Shown += OnAiAssistantShown;
             ((System.ComponentModel.ISupportInitialize)aiAssistantImage).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -102,9 +129,11 @@
         #endregion
 
         private PictureBox aiAssistantImage;
-        private Label label1;
+        private Label introLabel;
         private Label label2;
-        private RichTextBox aiResponse;
+        private RichTextBox chatWindow;
         private Label pleaseWait;
+        private TextBox inputTextBox;
+        private Button sendButton;
     }
 }

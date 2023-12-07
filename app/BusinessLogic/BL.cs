@@ -18,9 +18,6 @@ namespace BusinessLogic
         private List<IChecker> checkers = new List<IChecker>();
         private ReportGenerator reportGenerator = new ReportGenerator();
         private int scanChecksCompleted = 0; // tracks number of completed checks in current scan
-        
-        // save off answers from gpt so if they pull up the solution again we dont pay for another api hit        
-        public Dictionary<string, string> GptAnswers { get; private set; } = new Dictionary<string, string>();
 
         private PostureGrader postureGrader = new PostureGrader();
         #region Constructor
