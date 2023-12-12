@@ -26,6 +26,7 @@ public class WindowsVersionChecker : IChecker
     public void Scan()
     {
         ScanResults.Clear();
+        SecurityResults.Clear();
 
         EventAggregator.Instance.FireEvent(BlEvents.CheckingWindowsVersion);
 

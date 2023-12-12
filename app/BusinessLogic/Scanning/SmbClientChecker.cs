@@ -25,6 +25,7 @@ namespace BusinessLogic.Scanning
         public void Scan()
         {
             ScanResults.Clear();
+            SecurityResults.Clear();
 
             EventAggregator.Instance.FireEvent(BlEvents.CheckingSmbServerEnabled);
             CheckSMBv1Client(@"SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters");

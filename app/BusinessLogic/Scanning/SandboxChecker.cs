@@ -27,6 +27,9 @@ namespace BusinessLogic.Scanning
 
         public void Scan()
         {
+            ScanResults.Clear();
+            SecurityResults.Clear();
+
             CheckSandbox();
 
             if (SecurityCheck.Outcome != SecurityCheck.OutcomeTypes.Error)

@@ -26,6 +26,9 @@ namespace BusinessLogic.Scanning
 
         public void Scan()
         {
+            ScanResults.Clear();
+            SecurityResults.Clear();
+
             EventAggregator.Instance.FireEvent(BlEvents.CheckingAutoRunEnabled);
 
             CheckAutoRun(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer");

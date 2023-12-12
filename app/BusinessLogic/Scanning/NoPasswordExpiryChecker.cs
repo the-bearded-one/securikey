@@ -22,6 +22,9 @@ namespace BusinessLogic.Scanning
 
         public void Scan()
         {
+            ScanResults.Clear();
+            SecurityResults.Clear();
+
             EventAggregator.Instance.FireEvent(BlEvents.CheckingPasswordExpiry);
 
             IsPasswordVulnerable = CheckPasswordExpiry();

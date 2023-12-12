@@ -27,6 +27,9 @@ namespace BusinessLogic.Scanning
 
         public void Scan()
         {
+            ScanResults.Clear();
+            SecurityResults.Clear();
+
             EventAggregator.Instance.FireEvent(BlEvents.CheckingNtlmV1Enabled);
 
             IsNtmlV1InUse = CheckNTLMv1Settings(@"SYSTEM\CurrentControlSet\Control\Lsa\MSV1_0");
