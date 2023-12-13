@@ -215,6 +215,8 @@ namespace BusinessLogic
                                        .ToList();
 
             // finally, sort the scan results by severity
+            SecurityChecks.Sort(new SeverityComparer());
+
             ScanResults.Sort((a, b) =>
             {
                 return b.Severity.CompareTo(a.Severity);
