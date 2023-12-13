@@ -16,6 +16,23 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+        <script>
+function copyToClipboard(elementId) {
+  // Get the text field
+  var copyText = document.getElementById(elementId);
+
+  // Select the text
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); // For mobile devices
+
+  // Copy the text inside the text field
+  document.execCommand("copy");
+
+  // Optional: Alert the copied text
+  alert("Copied to clipboard!");
+}            
+        </script>
     </head>
     <body class="d-flex flex-column h-100 bg-light">
         <main class="flex-shrink-0">
@@ -64,13 +81,18 @@
                                             
                                             Your participation and feedback in this beta phase are invaluable to us and we appreciate your support in enhancing SecuriKey.<br /><br />
 
-                                            We are aware that some anti-malware software flags SecuriKey as malware. This is due to behavior heuristics employed by anti-malware software. Because SecuriKey can behave like malware (scan your registry, read local/group policy settings, scan windows directories for files, etc), it is getting flagged. We are aware of the issue and are working on attempts to prevent this incorrect flagging.<br /><br />
+                                            We are aware that some anti-malware software flags SecuriKey as malware (VirusTotal reports 2 of 70 checkers report positive for Trojan). This is due to behavior heuristics employed by anti-malware software. Because SecuriKey can behave like malware (scan your registry, read local/group policy settings, scan windows directories for files, etc), it is getting flagged. We are aware of the issue and are working on attempts to prevent this incorrect false positive.<br /><br />
 
                                             
                                             <div style="color: red;">Please Note: This beta runs on Windows 10, and Windows 11 PCs only.</div>
 
                                             <br /><br />
-                                            <div><a href="https://securikey.s3.us-east-2.amazonaws.com/SecuriKey.exe" download>Download Beta</a> (90.2 MB)</div>
+                                            <a class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder" href="https://securikey.s3.us-east-2.amazonaws.com/SecuriKey.exe">Download Beta (90.3 MB)</a>
+                                            <br /><br />
+                                            <div>Verify the integrity of your download by <a href="https://codesigningstore.com/how-to-check-file-checksum" target="_blank">checking</a> its SHA-256 hash. <br /><br />
+                                            The current build of SecuriKey has a SHA-256 Hash of <b>537630018a4e49f2514b5cb5294d97b00319adf7d5f3b1981399177054a29ba1</b>
+                                            <i title="Copy to Clipboard" class="fas fa-copy" style="cursor: pointer;" onclick="copyToClipboard('valueToCopy')" id="copyIcon"></i> </div>
+                                            <input type="text" value="537630018a4e49f2514b5cb5294d97b00319adf7d5f3b1981399177054a29ba1" id="valueToCopy" style="position: absolute; left: -9999px;" />
                                         </div>
                                     </div>
                                 </div>
