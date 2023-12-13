@@ -77,92 +77,51 @@
 
                         <!-- Education Section-->
                         <section>
-                            <h2 class="text-primary fw-bolder mb-4">What SecuriKey Analyzes</h2>
+                            <h2 class="text-primary fw-bolder mb-4">Attack Vectors Analyzed</h2>
                             <!-- Education Card 1-->
                             <div class="card shadow border-0 rounded-4 mb-5">
                                 <div class="card-body p-5">
                                     <div class="row align-items-center gx-5">
                                         <div class="col text-center text-lg-start mb-4 mb-lg-0">
 
+                                          SecuriKey looks at various attack vectors and insecure defaults.
 
-                                          <table class="table table-sm">
-                                            <thead>
-                                              <tr>
-                                                <th scope="col">Item</th>
-                                                <th scope="col">Status</th>
-                                              </tr>
-                                            </thead>
-                                            <tbody>
-                                              <tr>
-                                                <th scope="row">PowerShell Execution Policy</th>
-                                                <td>Implemented</td>
-                                              </tr>
-                                              <tr>
-                                                <th scope="row">Windows User Access Control (UAC) Enabled</th>
-                                                <td>Implemented</td>
-                                              </tr>
-                                              <tr>
-                                                <th scope="row">Windows User Access Control (UAC) at Correct Level</th>
-                                                <td>Implemented</td>
-                                              </tr>
-                                              <tr>
-                                                <th scope="row">Windows Scripting Host (WSH) Status</th>
-                                                <td>Implemented</td>
-                                              </tr>
-                                              <tr>
-                                                <th scope="row">Windows Guest Account Available</th>
-                                                <td>Implemented</td>
-                                              </tr>
-                                              <tr>
-                                                <th scope="row">User Running with Elevated Privileges</th>
-                                                <td>Implemented</td>
-                                              </tr>
-                                              <tr>
-                                                <th scope="row">BitLocker Enabled</th>
-                                                <td>Implemented</td>
-                                              </tr>                                                                                      
-                                              <tr>
-                                                <th scope="row">Security Products Installed</th>
-                                                <td>Implemented</td>
-                                              </tr>                                                                                      
-                                              <tr>
-                                                <th scope="row">Firewall Enabled</th>
-                                                <td>Implemented</td>
-                                              </tr>                                                                                      
-                                              <tr>
-                                                <th scope="row">Remote Desktop Enabled (RDP)</th>
-                                                <td>Implemented</td>
-                                              </tr>                                                                                      
-                                              <tr>
-                                                <th scope="row">Remote Desktop Using Weak Security</th>
-                                                <td>Implemented</td>
-                                              </tr>                                                                                      
-                                              <tr>
-                                                <th scope="row">User is Missing Windows Updates</th>
-                                                <td>Implemented</td>
-                                              </tr>                                                                                      
-                                              <tr>
-                                                <th scope="row">Windows Updates Automatically Applied</th>
-                                                <td>Implemented</td>
-                                              </tr>                                                                                      
-                                              <tr>
-                                                <th scope="row">Applications with Vulnerabilties Installed</th>
-                                                <td>In Work</td>
-                                              </tr>                                                                                      
-                                              <tr>
-                                                <th scope="row">Non-Standard Ports in Use</th>
-                                                <td>Coming Soon!</td>
-                                              </tr>                                                                                      
-                                              <tr>
-                                                <th scope="row">AntiVirus Enabled</th>
-                                                <td>Coming Soon!</td>
-                                              </tr>                                                                                      
-                                              <tr>
-                                                <th scope="row">Insecure Wireless Network in Use</th>
-                                                <td>Coming Soon!</td>
-                                              </tr>                                                                                      
-                                            </tbody>
-                                          </table>
+                                          <ul>
+                                            <li>Powershell Execution Policy</li>
+                                            <li>Windows UAC Status</li>
+                                            <li>Windows Scripting Host (WSH) Status</li>
+                                            <li>Windows Guest Account Enabled</li>
+                                            <li>User Running with Elevated Privileges</li>
+                                            <li>BitLocker Enabled</li>
+                                            <li>Security Products Installed</li>
+                                            <li>Firewall Enabled</li>
+                                            <li>AntiVirus enabled</li>
+                                            <li>Remote Desktop Enabled (RDP)</li>
+                                            <li>Remote Desktop Using Weak Security</li>
+                                            <li>User is Missing Windows Updates</li>
+                                            <li>Windows Updates Automatically Applied</li>
+                                            <li>NTLMv1 enabled</li>
+                                            <li>SecureBoot enabled</li>
+                                            <li>SMB enabled</li>
+                                            <li>Vulnerable OpenSSL present (heartbleed)</li>
+                                            <li>PageFile encryption enabled</li>
+                                            <li>AutoRun enabled for removable media</li>
+                                            <li>Check for non-expiring passwords</li>
+                                            <li>Applications with Vulnerabilties Installed</li>                                            
+                                            <li>Check for iexplore.exe as default its no longer supported</li>
+                                            <li>Windows Subsystem for Linux enabled</li>
+                                            <li>Check Windows password complexity policy is enabled</li>
+                                            <li>Check for unsigned drivers</li>
+                                            <li>Check for auto-connect to open, public wifi networks</li>
+                                            <li>Check if Internet Explorer is default browser (no longer supported)</li>
+                                          </ul>
+
+                                          Other checks coming soon! 
+
+                                          <ul>
+                                            <li>Suspicious ports in use</li>
+                                            <li>WiFi using insecure protocol (WPA1, WEP)</li>
+                                          </ul>
 
                                         </div>
                                         
