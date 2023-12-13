@@ -21,6 +21,7 @@ namespace BusinessLogic.Scanning
         public void Scan()
         {
             ScanResults.Clear();
+            SecurityResults.Clear();
 
             EventAggregator.Instance.FireEvent(BlEvents.CveCheckStarted);
             // clear list of previous vulnerabilities in case there was a previous scan

@@ -203,9 +203,18 @@ namespace BusinessLogic
                 SecurityChecks.AddRange(checker.SecurityResults);
             }
 
-            // finally, sort the scan results by severity
-            SecurityChecks.Sort(new SeverityComparer());
+            // remove duplicate entries
+            // TODO: this is a kludge to deal with duplicates over multile scans. need to fix for realz in the future
+            // Remove duplicates based on CriteriaProperty
+            ScanResults = ScanResults.GroupBy(x => x.GetType())
+                           .Select(g => g.First())
+                           .ToList();
 
+            SecurityChecks = SecurityChecks.GroupBy(x => x.ID)
+                                       .Select(g => g.First())
+                                       .ToList();
+
+            // finally, sort the scan results by severity
             ScanResults.Sort((a, b) =>
             {
                 return b.Severity.CompareTo(a.Severity);

@@ -23,7 +23,8 @@ namespace BusinessLogic.Scanning
 
         public void Scan()
         {
-            
+            ScanResults.Clear();
+            SecurityResults.Clear();
 
             ProbeLlmrn();
 

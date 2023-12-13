@@ -34,7 +34,8 @@ namespace BusinessLogic.Scanning
         {
 
             ScanResults.Clear();
-            
+            SecurityResults.Clear();
+
             EventAggregator.Instance.FireEvent(BlEvents.CheckingWindowsGuestAccountEnabled);
 
             bool enabled = IsGuestAccountEnabled();

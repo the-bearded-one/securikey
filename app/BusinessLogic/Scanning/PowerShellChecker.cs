@@ -32,7 +32,8 @@ namespace BusinessLogic.Scanning
         {
 
             ScanResults.Clear();
-            
+            SecurityResults.Clear();
+
             EventAggregator.Instance.FireEvent(BlEvents.CheckingPowerShellExecutionPolicy);
             
             CheckExecutionPolicy(@"SOFTWARE\Policies\Microsoft\Windows\PowerShell", "Local Machine");
