@@ -17,8 +17,26 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+        <style>
+            .fixed-banner {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 60px;
+                background-color: red;
+                color: white;
+                text-align: center;
+                line-height: 60px; /* Center text vertically */
+                z-index: 1000; /* Ensure it stays on top of other elements */
+            }
+        </style>        
     </head>
     <body class="d-flex flex-column h-100">
+        <div class="fixed-banner">
+            The 2023 capstone project is now over. The SecuriKey downloadable demo has been removed to save on bandwidth and API costs.
+        </div>
+        
         <main class="flex-shrink-0">
             <!-- Navigation-->
             <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
